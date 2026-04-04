@@ -174,4 +174,52 @@
     <string name="feed_time_4">9:30 AM</string>
     <string name="feed_time_5">9:12 AM</string>
     <string name="feed_time_6">8:48 AM</string>
+
+    <string name="content_desc_more_options">More options</string>
+    <string name="content_desc_refresh">Refresh</string>
+    <string name="content_desc_edit_business">Edit business</string>
+
+    <string name="profile_hero_subtitle">Restaurant / Café · Manila, PH</string>
+    <string name="profile_status_active_pro">Active • Pro Plan</string>
+    <string name="profile_stats_members">Members</string>
+    <string name="profile_stats_active_promos">Active Promos</string>
+    <string name="profile_section_business_settings">BUSINESS SETTINGS</string>
+    <string name="profile_section_loyalty_settings">LOYALTY SETTINGS</string>
+    <string name="profile_settings_business_name">Business Name</string>
+    <string name="profile_settings_business_type">Business Type</string>
+    <string name="profile_settings_email">Email Address</string>
+    <string name="profile_settings_location">Business Location</string>
+    <string name="profile_settings_business_type_value">Restaurant / Café</string>
+    <string name="profile_settings_location_value">Makati City, Metro Manila</string>
+    <string name="profile_loyalty_reward_threshold">Reward Threshold</string>
+    <string name="profile_loyalty_reward_sub">Points needed to unlock reward</string>
+    <string name="profile_loyalty_threshold_chip">1,000 pts</string>
+    <string name="profile_loyalty_points_mode">Points Mode</string>
+    <string name="profile_loyalty_points_sub">How points are calculated</string>
+    <string name="profile_loyalty_mode_chip">Per Visit</string>
+    <string name="profile_email_placeholder">owner@thecoffeespot.ph</string>
+
+    <string name="ai_advisor_screen_title">AI Engagement Advisor</string>
+    <string name="ai_advisor_updated">Updated just now</string>
+    <string name="ai_advisor_engagement_label">ENGAGEMENT SCORE</string>
+    <string name="ai_advisor_score_value">74</string>
+    <string name="ai_advisor_score_suffix">out of 100 • Above average</string>
+    <string name="ai_advisor_trend">+6 points from last week</string>
+    <string name="ai_advisor_score_ring_caption">score</string>
+    <string name="ai_advisor_metric_return">Return Rate</string>
+    <string name="ai_advisor_metric_rating">Avg. Rating</string>
+    <string name="ai_advisor_metric_at_risk">At-Risk</string>
+    <string name="ai_advisor_rating_value">4.8★</string>
+    <string name="ai_advisor_at_risk_value">42</string>
+    <string name="ai_insight_tag_peak">PEAK HOURS DETECTED</string>
+    <string name="ai_insight_title_long">Launch a morning reward push between 8–10 AM to convert 3× more visits into loyalty points.</string>
+    <string name="ai_insight_body_long">Your busiest window is 8–10 AM on weekdays — but only 31% of those customers are scanning for loyalty points. A targeted \'Morning Boost\' promo could recover up to ₱12,400/month in unbonded revenue.</string>
+    <string name="ai_insight_metric_recovery_label">Est. Monthly Recovery</string>
+    <string name="ai_insight_metric_recovery_value">₱12.4k</string>
+    <string name="ai_insight_metric_scan_label">Scan Rate Potential</string>
+    <string name="ai_insight_metric_scan_value">+31%</string>
+    <string name="ai_insight_metric_window_label">Target Window</string>
+    <string name="ai_insight_metric_window_value">8–10am</string>
+    <string name="ai_advisor_action_activate">Activate Promotion</string>
+    <string name="ai_advisor_action_view_data">View Data</string>
 </resources>
