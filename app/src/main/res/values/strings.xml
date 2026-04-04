@@ -1,28 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Renvest</string>
-
     <string name="tagline">Grow customer loyalty. Increase repeat visits.</string>
-    <string name="label_email">Email</string>
+
+    <string name="label_email">Email Address</string>
     <string name="label_password">Password</string>
-    <string name="label_business_name">Business name</string>
+    <string name="label_business_name">Business Name</string>
+    <string name="label_owner_name">Owner Name</string>
+    <string name="label_confirm_password">Confirm Password</string>
     <string name="hint_email">you@example.com</string>
-    <string name="hint_password">Password</string>
-    <string name="hint_business_name">Your business name</string>
+    <string name="hint_password">Enter password</string>
+    <string name="hint_business_name">e.g. The Coffee Spot</string>
+    <string name="hint_owner_name">Full name</string>
+    <string name="hint_confirm_password">Re-enter password</string>
     <string name="action_login">Login</string>
     <string name="action_register">Create account</string>
+    <string name="action_create_account">Create Account</string>
     <string name="link_register">Don\'t have an account? Register</string>
+    <string name="link_already_login">Already have an account? Login</string>
+    <string name="forgot_password">Forgot Password?</string>
     <string name="error_field_required">This field is required</string>
+    <string name="error_password_mismatch">Passwords do not match</string>
+    <string name="back">Back</string>
 
-    <string name="dashboard_title">Dashboard</string>
-    <string name="dashboard_manage_loyalty">Manage loyalty</string>
-    <string name="dashboard_open_profile">Profile</string>
-    <string name="dashboard_metric_customers">Total customers</string>
-    <string name="dashboard_metric_points">Loyalty points issued</string>
-    <string name="dashboard_metric_promos">Active promotions</string>
-    <string name="dashboard_mock_customers">128</string>
-    <string name="dashboard_mock_points">24,500</string>
-    <string name="dashboard_mock_promos">3</string>
+    <string name="register_headline">Let\'s get you set up!</string>
+    <string name="register_subtitle_long">Create your Renvest account in seconds. No credit card required.</string>
+    <string name="terms_footer">By creating an account you agree to our Terms of Service and Privacy Policy.</string>
+
+    <string name="greeting_morning">Good morning</string>
+    <string name="greeting_afternoon">Good afternoon</string>
+    <string name="greeting_evening">Good evening</string>
+
+    <string name="dashboard_revenue_label">TOTAL REVENUE · THIS MONTH</string>
+    <string name="dashboard_revenue_value">₱124,830</string>
+    <string name="dashboard_revenue_growth">↑ +12.4% vs last month</string>
+    <string name="dashboard_stat_visits_label">Total Visits</string>
+    <string name="dashboard_stat_visits_value">1,284</string>
+    <string name="dashboard_stat_members_label">Loyalty Members</string>
+    <string name="dashboard_stat_members_value">347</string>
+    <string name="dashboard_stat_return_label">Return Rate</string>
+    <string name="dashboard_stat_return_value">68%</string>
+
+    <string name="perf_section_title">Performance</string>
+    <string name="perf_view_report">View Report</string>
+    <string name="perf_members_value">347</string>
+    <string name="perf_members_label">Loyalty Members</string>
+    <string name="perf_members_trend">+24 this week</string>
+    <string name="perf_rating_value">4.8</string>
+    <string name="perf_rating_label">Avg. Rating</string>
+    <string name="perf_ticket_value">₱486</string>
+    <string name="perf_ticket_label">Avg. Ticket</string>
+    <string name="perf_ticket_trend">+3% alert</string>
+    <string name="perf_churn_value">14%</string>
+    <string name="perf_churn_label">Churn Risk</string>
+
+    <string name="ai_section_title">AI Insight</string>
+    <string name="ai_badge">RENVEST AI</string>
+    <string name="ai_headline">42 customers haven\'t visited in 21+ days</string>
+
+    <string name="nav_home">Home</string>
+    <string name="nav_customers">Customers</string>
+    <string name="nav_promos">Promos</string>
+    <string name="nav_activity">Activity</string>
+    <string name="nav_profile">Profile</string>
+
     <string name="default_business_display">The Coffee Spot</string>
+    <string name="avatar_initials">JC</string>
 
     <string name="profile_title">Profile</string>
     <string name="profile_business_label">Business</string>
@@ -30,11 +73,105 @@
     <string name="profile_not_set">Not set</string>
     <string name="action_logout">Logout</string>
 
-    <string name="register_title">Register</string>
-    <string name="register_subtitle">Create your account to get started.</string>
+    <string name="coming_soon">Coming soon</string>
+    <string name="content_desc_calendar">Open calendar</string>
+    <string name="content_desc_export">Export activity</string>
+    <string name="content_desc_filter">Filter customers</string>
 
     <string name="feature_loyalty_title">Loyalty programs</string>
     <string name="feature_promotions_title">Promotions</string>
     <string name="feature_customers_title">Customers</string>
+    <string name="feature_activity_title">Activity</string>
     <string name="feature_stub_body">This area is coming soon. You will manage loyalty, promotions, and customers here.</string>
+
+    <string name="loyalty_screen_title">Loyalty Management</string>
+    <string name="promo_screen_title">Promotion Management</string>
+    <string name="activity_feed_screen_title">Customer Activity</string>
+    <string name="action_add">Add</string>
+    <string name="action_new_promo">New Promo</string>
+    <string name="sort">Sort</string>
+    <string name="search_customer_hint">Search customer…</string>
+    <string name="search_promo_hint">Search promotions…</string>
+    <string name="search_activity_hint">Search by customer or action…</string>
+    <string name="loyalty_stat_members">Total Members</string>
+    <string name="loyalty_stat_return">Return Rate</string>
+    <string name="loyalty_stat_at_risk">At Risk</string>
+    <string name="chip_all_customers">All · 127</string>
+    <string name="chip_at_risk">At Risk</string>
+    <string name="chip_near_reward">Near Reward</string>
+    <string name="chip_gold_tier">Gold Tier</string>
+    <string name="chip_silver_tier">Silver</string>
+    <string name="chip_new_customer">New</string>
+    <string name="list_header_customers">Customers</string>
+    <string name="action_visit">+ Visit</string>
+    <string name="action_pts">+ Pts</string>
+    <string name="promo_stat_active">Active Promos</string>
+    <string name="promo_stat_enrolled">Total Enrolled</string>
+    <string name="promo_stat_redeemed">Redeemed</string>
+    <string name="promo_stat_active_value">6</string>
+    <string name="promo_stat_enrolled_value">218</string>
+    <string name="promo_stat_redeemed_value">84</string>
+    <string name="promo_tab_all">All 9</string>
+    <string name="promo_tab_active">Active 6</string>
+    <string name="promo_tab_paused">Paused 2</string>
+    <string name="promo_tab_expired">Expired 1</string>
+    <string name="promo_status_active">ACTIVE</string>
+    <string name="promo_status_paused">PAUSED</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_pause">Pause</string>
+    <string name="action_view_details">View Details →</string>
+    <string name="activity_stat_today_actions">Today\'s Actions</string>
+    <string name="activity_stat_pts_issued">Pts Issued Today</string>
+    <string name="activity_stat_rewards">Rewards Claimed</string>
+    <string name="activity_stat_today_value">38</string>
+    <string name="activity_stat_pts_value">+1,240</string>
+    <string name="activity_stat_rewards_value">7</string>
+    <string name="chip_feed_all">All</string>
+    <string name="chip_feed_points">Points Earned</string>
+    <string name="chip_feed_rewards">Rewards</string>
+    <string name="chip_feed_visits">Visits</string>
+    <string name="activity_section_today">TODAY</string>
+    <string name="activity_actions_count">14 actions</string>
+
+    <string name="promo_card_1_title">Free Coffee After 10 Visits</string>
+    <string name="promo_card_1_reward">Free medium coffee</string>
+    <string name="promo_card_1_expiry">Dec 30, 2025</string>
+    <string name="promo_card_1_enrolled">218 customers</string>
+    <string name="promo_card_1_usage">84 times</string>
+    <string name="promo_card_2_title">Birthday Bonus</string>
+    <string name="promo_card_2_reward">2× points on birthday week</string>
+    <string name="promo_card_2_expiry">Ongoing</string>
+    <string name="promo_card_2_enrolled">96 customers</string>
+    <string name="promo_card_2_usage">12 times</string>
+
+    <string name="customer_maria_santos">Maria Santos</string>
+    <string name="customer_john_cruz">John Cruz</string>
+    <string name="customer_ben_lim">Ben Lim</string>
+    <string name="customer_ramon_dela_cruz">Ramon Dela Cruz</string>
+    <string name="customer_sofia_camacho">Sofia Camacho</string>
+    <string name="customer_joy_reyes">Joy Reyes</string>
+    <string name="customer_row_maria_summary">Last visit: Today · 48 visits</string>
+    <string name="customer_row_john_summary">Last visit: 3 days ago · 22 visits</string>
+    <string name="customer_row_sofia_summary">Last visit: 24 days ago · 9 visits</string>
+    <string name="customer_row_maria_progress_label">820 / 1k</string>
+    <string name="customer_row_john_progress_label">6 / 10 stamps</string>
+    <string name="customer_row_sofia_progress_label">180 / 1k</string>
+    <string name="feed_maria_action">Points earned · Caramel Latte x2</string>
+    <string name="feed_john_action">Reward redeemed · Free pastry</string>
+    <string name="feed_ben_action">Visit recorded · In-store</string>
+    <string name="feed_ramon_action">Points earned · Americano</string>
+    <string name="feed_sofia_action">Sign-up bonus · Welcome</string>
+    <string name="feed_joy_action">Points earned · Cold brew</string>
+    <string name="feed_badge_plus_pts">+80 pts</string>
+    <string name="feed_badge_minus_pts">−150 pts</string>
+    <string name="feed_badge_stamp">+1 stamp</string>
+    <string name="feed_badge_plus_120">+120 pts</string>
+    <string name="feed_badge_plus_50">+50 pts</string>
+    <string name="feed_badge_plus_40">+40 pts</string>
+    <string name="feed_time_1">10:42 AM</string>
+    <string name="feed_time_2">10:18 AM</string>
+    <string name="feed_time_3">9:55 AM</string>
+    <string name="feed_time_4">9:30 AM</string>
+    <string name="feed_time_5">9:12 AM</string>
+    <string name="feed_time_6">8:48 AM</string>
 </resources>
