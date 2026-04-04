@@ -3,16 +3,60 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="primary">#2D6A4F</color>
-    <color name="primary_dark">#1B4332</color>
+    <color name="primary">#4A906D</color>
+    <color name="primary_dark">#3A7357</color>
     <color name="on_primary">#FFFFFFFF</color>
 
     <color name="background">#FFF8F9F8</color>
     <color name="surface">#FFFFFFFF</color>
+    <color name="text_primary">#FF1A1C1E</color>
+    <color name="text_secondary">#FF5C5F62</color>
     <color name="on_surface">#FF1A1C1E</color>
     <color name="on_surface_variant">#FF5C5F62</color>
     <color name="outline_soft">#FFE0E3E1</color>
 
     <color name="error">#FFB3261E</color>
     <color name="logout_text">#FFB3261E</color>
+    <color name="positive_soft">#FFD8EDE3</color>
+    <color name="warning_soft">#FFFFE5E5</color>
+    <color name="warning_text">#FFC62828</color>
+
+    <color name="dashboard_hero">#4A906D</color>
+    <color name="on_dashboard_hero">#FFFFFFFF</color>
+    <color name="dashboard_hero_subtle">#B3FFFFFF</color>
+    <color name="dashboard_hero_pill_bg">#33FFFFFF</color>
+    <color name="ai_card_bg">#1B4332</color>
+    <color name="ai_card_chip">#2D6A4F</color>
+
+    <color name="perf_icon_bg_people">#E8F5E9</color>
+    <color name="perf_icon_bg_star">#FFF9E6</color>
+    <color name="perf_icon_bg_money">#E3F2FD</color>
+    <color name="perf_icon_bg_chart">#FFEBEE</color>
+
+    <color name="search_background">#FFE8EDE9</color>
+    <color name="chip_outline">#FFE0E3E1</color>
+
+    <color name="avatar_blue">#2196F3</color>
+    <color name="avatar_red">#E53935</color>
+    <color name="avatar_purple">#7E57C2</color>
+    <color name="avatar_orange">#FB8C00</color>
+
+    <color name="badge_gold_bg">#FFF9E6</color>
+    <color name="badge_gold_text">#B8860B</color>
+    <color name="badge_silver_bg">#E3F2FD</color>
+    <color name="badge_silver_text">#1565C0</color>
+    <color name="badge_risk_bg">#FFEBEE</color>
+    <color name="badge_new_bg">#E0F2F1</color>
+    <color name="badge_new_text">#00695C</color>
+
+    <color name="promo_icon_heart_bg">#E8F5E9</color>
+    <color name="promo_icon_gift_bg">#FFF9E6</color>
+
+    <color name="feed_points_green">#2E7D32</color>
+    <color name="feed_points_yellow_bg">#FFF9E6</color>
+    <color name="feed_points_yellow_text">#B8860B</color>
+    <color name="feed_visit_blue">#1565C0</color>
+    <color name="feed_visit_bg">#E3F2FD</color>
+    <color name="feed_purple_bg">#EDE7F6</color>
+    <color name="feed_purple_text">#5E35B1</color>
 </resources>

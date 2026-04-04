@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Base.Theme.Renvest" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
@@ -14,26 +15,12 @@
 
     <style name="Theme.Renvest" parent="Base.Theme.Renvest" />
 
-    <style name="Widget.Renvest.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
-        <item name="boxCornerRadiusTopStart">@dimen/input_corner</item>
-        <item name="boxCornerRadiusTopEnd">@dimen/input_corner</item>
-        <item name="boxCornerRadiusBottomStart">@dimen/input_corner</item>
-        <item name="boxCornerRadiusBottomEnd">@dimen/input_corner</item>
+    <style name="Widget.Renvest.BottomNavigation" parent="Widget.Material3.BottomNavigationView">
+        <item name="backgroundTint">@color/surface</item>
+        <item name="itemActiveIndicatorStyle">@style/Widget.Renvest.BottomNav.ActiveIndicator</item>
     </style>
 
-    <style name="Widget.Renvest.Button.Primary" parent="Widget.Material3.Button">
-        <item name="android:textAllCaps">false</item>
-        <item name="cornerRadius">@dimen/input_corner</item>
-        <item name="android:minHeight">52dp</item>
-        <item name="android:textAppearance">@style/TextAppearance.Material3.TitleMedium</item>
-    </style>
-
-    <style name="Widget.Renvest.Button.Text" parent="Widget.Material3.Button.TextButton">
-        <item name="android:textAllCaps">false</item>
-    </style>
-
-    <style name="Widget.Renvest.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
-        <item name="android:textAllCaps">false</item>
-        <item name="cornerRadius">@dimen/input_corner</item>
+    <style name="Widget.Renvest.BottomNav.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/positive_soft</item>
     </style>
 </resources>

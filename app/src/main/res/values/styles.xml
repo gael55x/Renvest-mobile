@@ -1,23 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="TextAppearance.Renvest.ScreenTitle.Login" parent="TextAppearance.Material3.HeadlineMedium">
-        <item name="android:textColor">?attr/colorOnSurface</item>
+    <style name="TextAppearance.Renvest.Display" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:textColor">@color/text_primary</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TextAppearance.Renvest.ScreenSubtitle.Login" parent="TextAppearance.Material3.BodyMedium">
-        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    <style name="TextAppearance.Renvest.Title" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Renvest.SectionTitle" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Renvest.Label" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Renvest.Body" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <style name="TextAppearance.Renvest.Caption" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.Renvest.Link" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Renvest.ScreenTitle.Login" parent="TextAppearance.Renvest.Display">
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="TextAppearance.Renvest.ScreenSubtitle.Login" parent="TextAppearance.Renvest.Body">
+        <item name="android:gravity">center_horizontal</item>
     </style>
 
     <style name="TextAppearance.Renvest.ScreenTitle.Form" parent="TextAppearance.Material3.HeadlineSmall">
-        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textColor">@color/text_primary</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TextAppearance.Renvest.ScreenSubtitle.Form" parent="TextAppearance.Material3.BodyMedium">
-        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    <style name="TextAppearance.Renvest.ScreenSubtitle.Form" parent="TextAppearance.Renvest.Body" />
+
+    <style name="Widget.Renvest.TextInput.Outlined" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="hintEnabled">false</item>
+        <item name="boxCornerRadiusTopStart">@dimen/input_corner</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/input_corner</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/input_corner</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/input_corner</item>
     </style>
+
+    <!-- Back-compat alias -->
+    <style name="Widget.Renvest.TextInputLayout" parent="Widget.Renvest.TextInput.Outlined" />
 
     <style name="Widget.Renvest.DashboardMetricCard" parent="Widget.Material3.CardView.Outlined">
         <item name="cardBackgroundColor">?attr/colorSurface</item>
@@ -25,5 +67,58 @@
         <item name="cardElevation">0dp</item>
         <item name="strokeColor">@color/outline_soft</item>
         <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="Widget.Renvest.StatCard" parent="Widget.Material3.CardView.Outlined">
+        <item name="cardBackgroundColor">?attr/colorSurface</item>
+        <item name="cardCornerRadius">@dimen/card_corner</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/outline_soft</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="Widget.Renvest.Button.Primary" parent="Widget.Material3.Button">
+        <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">@dimen/input_corner</item>
+        <item name="android:minHeight">52dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.Material3.TitleMedium</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+
+    <style name="Widget.Renvest.Button.Text" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Widget.Renvest.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">@dimen/input_corner</item>
+    </style>
+
+    <style name="Widget.Renvest.Button.SmallOutlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:minHeight">36dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
+
+    <style name="Widget.Renvest.Button.SmallPrimaryOutlined" parent="Widget.Renvest.Button.SmallOutlined">
+        <item name="strokeColor">@color/primary</item>
+        <item name="android:textColor">@color/primary</item>
+    </style>
+
+    <style name="Widget.Renvest.Button.SmallGoldOutlined" parent="Widget.Renvest.Button.SmallOutlined">
+        <item name="strokeColor">@color/badge_gold_text</item>
+        <item name="android:textColor">@color/badge_gold_text</item>
+    </style>
+
+    <style name="Widget.Renvest.SearchInput" parent="Widget.Material3.TextInputLayout.FilledBox">
+        <item name="hintEnabled">false</item>
+        <item name="boxBackgroundColor">@color/search_background</item>
+        <item name="boxCornerRadiusTopStart">@dimen/input_corner</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/input_corner</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/input_corner</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/input_corner</item>
     </style>
 </resources>
