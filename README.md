@@ -2,7 +2,7 @@
 
 Renvest is a platform that helps small businesses manage digital loyalty programs and promotions to increase customer retention and repeat sales.
 
-This repository contains the native **Android** client (`:app`), Gradle project name `renvest-platform`, application id `com.business.renvest`.
+This repository contains the native **Android** client (`:app`), Gradle project name `renvest-platform`, application id `com.business.renvest`. The GitHub remote for this codebase is **renvest-mobile**.
 
 ## Requirements
 
@@ -58,15 +58,29 @@ Edge-to-edge: call `enableEdgeToEdge()` then `applyEdgeToEdgeInsets(R.id.root)` 
 
 ### Remote and push
 
-This clone may not have `origin` yet. After you create the **renvest-platform** repository on your host (GitHub, GitLab, etc.), add it and push `main`:
+`origin` should point at this GitHub repository:
 
 ```bash
-git remote add origin https://github.com/<owner>/renvest-platform.git
-# or: git remote add origin git@github.com:<owner>/renvest-platform.git
+git remote set-url origin https://github.com/gael55x/renvest-mobile.git
 git push -u origin main
 ```
 
-Day to day, commit with conventional messages, then push your branch:
+If you prefer a repo named **renvest-platform**, create that repository on GitHub first (empty or with a README), then:
+
+```bash
+git remote set-url origin https://github.com/<owner>/renvest-platform.git
+git push -u origin main
+```
+
+If the remote already has an initial commit, integrate it before pushing:
+
+```bash
+git pull origin main --no-rebase --allow-unrelated-histories
+# resolve any conflicts, then:
+git push -u origin main
+```
+
+Day to day:
 
 ```bash
 git checkout -b feature/your-change
