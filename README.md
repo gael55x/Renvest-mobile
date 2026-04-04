@@ -2,7 +2,7 @@
 
 Renvest is a platform that helps small businesses manage digital loyalty programs and promotions to increase customer retention and repeat sales.
 
-This repository contains the native **Android** client (`:app`), Gradle project name `renvest-platform`, application id `com.business.renvest`. The GitHub remote for this codebase is **renvest-mobile**.
+This repository contains the native **Android** client (`:app`), Gradle project name `renvest-platform`, application id `com.business.renvest`. The GitHub remote for this codebase is [**Renvest-mobile**](https://github.com/gael55x/Renvest-mobile) (`gael55x/Renvest-mobile`).
 
 ## Requirements
 
@@ -61,7 +61,7 @@ Edge-to-edge: call `enableEdgeToEdge()` then `applyEdgeToEdgeInsets(R.id.root)` 
 `origin` should point at this GitHub repository:
 
 ```bash
-git remote set-url origin https://github.com/gael55x/renvest-mobile.git
+git remote set-url origin https://github.com/gael55x/Renvest-mobile.git
 git push -u origin main
 ```
 
