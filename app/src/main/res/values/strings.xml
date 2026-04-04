@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Renvest</string>
+
+    <string name="tagline">Grow customer loyalty. Increase repeat visits.</string>
+    <string name="label_email">Email</string>
+    <string name="label_password">Password</string>
+    <string name="label_business_name">Business name</string>
+    <string name="hint_email">you@example.com</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_business_name">Your business name</string>
+    <string name="action_login">Login</string>
+    <string name="action_register">Create account</string>
+    <string name="link_register">Don\'t have an account? Register</string>
+    <string name="error_field_required">This field is required</string>
+
+    <string name="dashboard_title">Dashboard</string>
+    <string name="dashboard_manage_loyalty">Manage loyalty</string>
+    <string name="dashboard_open_profile">Profile</string>
+    <string name="dashboard_metric_customers">Total customers</string>
+    <string name="dashboard_metric_points">Loyalty points issued</string>
+    <string name="dashboard_metric_promos">Active promotions</string>
+    <string name="dashboard_mock_customers">128</string>
+    <string name="dashboard_mock_points">24,500</string>
+    <string name="dashboard_mock_promos">3</string>
+    <string name="default_business_display">The Coffee Spot</string>
+
+    <string name="profile_title">Profile</string>
+    <string name="profile_business_label">Business</string>
+    <string name="profile_email_label">Email</string>
+    <string name="profile_not_set">Not set</string>
+    <string name="action_logout">Logout</string>
+
+    <string name="register_title">Register</string>
+    <string name="register_subtitle">Create your account to get started.</string>
+
+    <string name="feature_loyalty_title">Loyalty programs</string>
+    <string name="feature_promotions_title">Promotions</string>
+    <string name="feature_customers_title">Customers</string>
+    <string name="feature_stub_body">This area is coming soon. You will manage loyalty, promotions, and customers here.</string>
+</resources>

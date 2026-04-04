@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_screen_horizontal">24dp</dimen>
+    <dimen name="padding_screen_vertical">24dp</dimen>
+    <dimen name="spacing_section">28dp</dimen>
+    <dimen name="spacing_field">16dp</dimen>
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="input_corner">12dp</dimen>
+    <dimen name="card_corner">12dp</dimen>
+    <dimen name="metric_row_padding">16dp</dimen>
+</resources>
