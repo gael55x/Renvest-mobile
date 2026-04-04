@@ -59,4 +59,8 @@
     <color name="feed_visit_bg">#E3F2FD</color>
     <color name="feed_purple_bg">#EDE7F6</color>
     <color name="feed_purple_text">#5E35B1</color>
+
+    <color name="settings_icon_muted_bg">#FFE8EDE9</color>
+    <color name="ai_advisor_secondary_button">#424242</color>
+    <color name="ai_insight_body">#B3FFFFFF</color>
 </resources>

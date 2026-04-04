@@ -121,4 +121,13 @@
         <item name="boxCornerRadiusBottomStart">@dimen/input_corner</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/input_corner</item>
     </style>
+
+    <style name="Widget.Renvest.Button.AiSecondary" parent="Widget.Material3.Button">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="cornerRadius">@dimen/input_corner</item>
+        <item name="android:elevation">0dp</item>
+        <item name="backgroundTint">@color/ai_advisor_secondary_button</item>
+        <item name="android:textColor">@color/on_dashboard_hero</item>
+    </style>
 </resources>
