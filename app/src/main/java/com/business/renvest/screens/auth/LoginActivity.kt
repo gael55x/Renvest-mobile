@@ -13,6 +13,7 @@ import com.business.renvest.utils.startActivityClearTask
 import com.business.renvest.utils.toast
 import com.business.renvest.utils.validateRequired
 import com.business.renvest.utils.valueText
+import android.widget.TextView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 
@@ -22,6 +23,10 @@ class LoginActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_login)
         applyEdgeToEdgeInsets(R.id.root)
+
+        findViewById<TextView>(R.id.text_forgot_password).setOnClickListener {
+            toast(getString(R.string.coming_soon))
+        }
 
         val textInputLayoutEmail = findViewById<TextInputLayout>(R.id.input_email_layout)
         val textInputLayoutPassword = findViewById<TextInputLayout>(R.id.input_password_layout)
