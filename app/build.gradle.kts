@@ -7,6 +7,8 @@ android {
     namespace = "com.business.renvest"
     compileSdk = 36
 
+    sourceSets.getByName("main").res.srcDir("src/main/res-ui")
+
     defaultConfig {
         applicationId = "com.business.renvest"
         minSdk = 24
