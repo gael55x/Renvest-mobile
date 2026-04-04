@@ -43,6 +43,9 @@
         <activity
             android:name=".screens.customers.CustomersActivity"
             android:exported="false" />
+        <activity
+            android:name=".screens.activityfeed.ActivityFeedActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
