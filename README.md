@@ -53,8 +53,27 @@ Edge-to-edge: call `enableEdgeToEdge()` then `applyEdgeToEdgeInsets(R.id.root)` 
 
 - **Default branch:** `main` (create `staging` if you need a pre-production line).
 - **Branches:** `feature/*`, `refactor/*`, `fix/*` from the trunk branch.
-- **Commits:** [Conventional Commits](https://www.conventionalcommits.org/) — e.g. `feat: add loyalty stub screen`, `refactor: extract auth repository`, `fix: clear session on logout`.
+- **Commits:** [Conventional Commits](https://www.conventionalcommits.org/) — use a type prefix and imperative description, e.g. `feat: add loyalty stub screen`, `refactor: extract auth repository`, `fix: clear session on logout`, `docs: update README`, `chore: bump AGP`.
 - **Pull requests:** Keep them small and focused (one phase or slice per PR when possible).
+
+### Remote and push
+
+This clone may not have `origin` yet. After you create the **renvest-platform** repository on your host (GitHub, GitLab, etc.), add it and push `main`:
+
+```bash
+git remote add origin https://github.com/<owner>/renvest-platform.git
+# or: git remote add origin git@github.com:<owner>/renvest-platform.git
+git push -u origin main
+```
+
+Day to day, commit with conventional messages, then push your branch:
+
+```bash
+git checkout -b feature/your-change
+git add -A
+git commit -m "feat: describe the user-visible change"
+git push -u origin feature/your-change
+```
 
 ## License
 
