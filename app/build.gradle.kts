@@ -7,6 +7,7 @@ android {
     namespace = "com.business.renvest"
     compileSdk = 36
 
+    // Extra res root (sibling of res/). Do not use src/main/res/ui — AGP flags nested res dirs and will error in AGP 9.
     sourceSets.getByName("main").res.srcDir("src/main/res-ui")
 
     defaultConfig {
