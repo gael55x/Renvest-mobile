@@ -5,6 +5,7 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
+import com.business.renvest.screens.aiadvisor.AiEngagementAdvisorActivity
 import com.business.renvest.screens.customers.CustomersActivity
 import com.business.renvest.screens.loyalty.LoyaltyActivity
 import com.business.renvest.screens.profile.ProfileActivity
@@ -62,6 +63,10 @@ class DashboardActivity : AppCompatActivity() {
 
         findViewById<MaterialCardView>(R.id.perf_cell_churn).setOnClickListener {
             toast(getString(R.string.coming_soon))
+        }
+
+        findViewById<MaterialCardView>(R.id.card_ai_insight).setOnClickListener {
+            startActivity(AiEngagementAdvisorActivity::class.java)
         }
 
         setupMainBottomNavigation(R.id.nav_home)
