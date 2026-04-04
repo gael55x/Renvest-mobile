@@ -46,6 +46,9 @@
         <activity
             android:name=".screens.activityfeed.ActivityFeedActivity"
             android:exported="false" />
+        <activity
+            android:name=".screens.aiadvisor.AiEngagementAdvisorActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
