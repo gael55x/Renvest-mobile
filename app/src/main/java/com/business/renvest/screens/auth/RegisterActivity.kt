@@ -5,6 +5,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
+import com.business.renvest.data.notifyErrorIfNotOk
 import com.business.renvest.data.RenvestResult
 import com.business.renvest.screens.dashboard.DashboardActivity
 import com.business.renvest.utils.authRepository
@@ -67,9 +68,7 @@ class RegisterActivity : AppCompatActivity() {
                     startActivityClearTask(DashboardActivity::class.java)
                     finish()
                 }
-                is RenvestResult.Err.Storage -> toast(signUpResult.reason)
-                is RenvestResult.Err.Network -> toast(signUpResult.reason)
-                is RenvestResult.Err.Validation -> toast(signUpResult.reason)
+                else -> signUpResult.notifyErrorIfNotOk { toast(it) }
             }
         }
     }
