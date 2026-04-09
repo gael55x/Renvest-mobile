@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
+import com.business.renvest.data.notifyErrorIfNotOk
 import com.business.renvest.data.RenvestResult
 import com.business.renvest.screens.auth.LoginActivity
 import com.business.renvest.utils.authRepository
@@ -53,9 +54,7 @@ class ProfileActivity : AppCompatActivity() {
                     startActivityClearTask(LoginActivity::class.java)
                     finish()
                 }
-                is RenvestResult.Err.Storage -> toast(clearResult.reason)
-                is RenvestResult.Err.Network -> toast(clearResult.reason)
-                is RenvestResult.Err.Validation -> toast(clearResult.reason)
+                else -> clearResult.notifyErrorIfNotOk { toast(it) }
             }
         }
     }

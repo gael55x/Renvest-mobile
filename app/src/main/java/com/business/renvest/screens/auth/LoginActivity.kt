@@ -3,6 +3,7 @@ package com.business.renvest.screens.auth
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
+import com.business.renvest.data.notifyErrorIfNotOk
 import com.business.renvest.data.RenvestResult
 import com.business.renvest.screens.dashboard.DashboardActivity
 import com.business.renvest.utils.authRepository
@@ -43,9 +44,7 @@ class LoginActivity : AppCompatActivity() {
                     startActivityClearTask(DashboardActivity::class.java)
                     finish()
                 }
-                is RenvestResult.Err.Storage -> toast(signInResult.reason)
-                is RenvestResult.Err.Network -> toast(signInResult.reason)
-                is RenvestResult.Err.Validation -> toast(signInResult.reason)
+                else -> signInResult.notifyErrorIfNotOk { toast(it) }
             }
         }
 
