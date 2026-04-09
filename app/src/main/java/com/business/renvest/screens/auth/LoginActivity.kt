@@ -1,10 +1,9 @@
 package com.business.renvest.screens.auth
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
-import com.business.renvest.data.notifyErrorIfNotOk
-import com.business.renvest.data.RenvestResult
 import com.business.renvest.screens.dashboard.DashboardActivity
 import com.business.renvest.utils.authRepository
 import com.business.renvest.utils.setupRenvestContent
@@ -13,14 +12,18 @@ import com.business.renvest.utils.startActivityClearTask
 import com.business.renvest.utils.toast
 import com.business.renvest.utils.validateRequired
 import com.business.renvest.utils.valueText
-import android.widget.TextView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(), LoginContract.View {
+
+    private lateinit var presenter: LoginPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_login, R.id.root)
+
+        presenter = LoginPresenter(this, LoginModel(authRepository()))
 
         findViewById<TextView>(R.id.text_forgot_password).setOnClickListener {
             toast(getString(R.string.coming_soon))
@@ -36,20 +39,20 @@ class LoginActivity : AppCompatActivity() {
             val okEmail = textInputLayoutEmail.validateRequired(requiredMessage)
             val okPassword = textInputLayoutPassword.validateRequired(requiredMessage, trim = false)
             if (!okEmail || !okPassword) return@setOnClickListener
-            when (
-                val signInResult =
-                    authRepository().signInWithEmail(this, textInputLayoutEmail.valueText())
-            ) {
-                is RenvestResult.Ok -> {
-                    startActivityClearTask(DashboardActivity::class.java)
-                    finish()
-                }
-                else -> signInResult.notifyErrorIfNotOk { toast(it) }
-            }
+            presenter.onLoginSubmitted(this, textInputLayoutEmail.valueText())
         }
 
         materialButtonGoRegister.setOnClickListener {
             startActivity(RegisterActivity::class.java)
         }
+    }
+
+    override fun showToast(message: String) {
+        toast(message)
+    }
+
+    override fun navigateToDashboard() {
+        startActivityClearTask(DashboardActivity::class.java)
+        finish()
     }
 }
