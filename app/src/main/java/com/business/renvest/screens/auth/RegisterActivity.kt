@@ -3,13 +3,12 @@ package com.business.renvest.screens.auth
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
 import com.business.renvest.data.RenvestResult
 import com.business.renvest.screens.dashboard.DashboardActivity
-import com.business.renvest.utils.applyEdgeToEdgeInsets
 import com.business.renvest.utils.authRepository
+import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.startActivity
 import com.business.renvest.utils.startActivityClearTask
 import com.business.renvest.utils.toast
@@ -21,9 +20,7 @@ import com.google.android.material.textfield.TextInputLayout
 class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_register)
-        applyEdgeToEdgeInsets(R.id.root)
+        setupRenvestContent(R.layout.activity_register, R.id.root)
 
         val finishBack: () -> Unit = { finish() }
         findViewById<ImageButton>(R.id.button_back).setOnClickListener { finishBack() }

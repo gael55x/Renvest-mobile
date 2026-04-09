@@ -3,14 +3,14 @@ package com.business.renvest.screens.profile
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
 import com.business.renvest.data.RenvestResult
 import com.business.renvest.screens.auth.LoginActivity
-import com.business.renvest.utils.applyEdgeToEdgeInsets
 import com.business.renvest.utils.authRepository
+import com.business.renvest.utils.displayBusinessName
 import com.business.renvest.utils.setupMainBottomNavigation
+import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.startActivityClearTask
 import com.business.renvest.utils.toast
 import com.google.android.material.button.MaterialButton
@@ -18,19 +18,10 @@ import com.google.android.material.button.MaterialButton
 class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_profile)
-        applyEdgeToEdgeInsets(R.id.root)
+        setupRenvestContent(R.layout.activity_profile, R.id.root)
 
-        val stringBusinessStored = authRepository().getBusinessName(this).trim()
         val stringEmailStored = authRepository().getEmail(this).trim()
-
-        val displayBusiness =
-            if (stringBusinessStored.isNotEmpty()) {
-                stringBusinessStored
-            } else {
-                getString(R.string.default_business_display)
-            }
+        val displayBusiness = displayBusinessName()
 
         findViewById<TextView>(R.id.text_header_business).text = displayBusiness
         findViewById<TextView>(R.id.text_profile_hero_business_name).text = displayBusiness

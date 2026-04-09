@@ -1,13 +1,12 @@
 package com.business.renvest.screens.auth
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
 import com.business.renvest.data.RenvestResult
 import com.business.renvest.screens.dashboard.DashboardActivity
-import com.business.renvest.utils.applyEdgeToEdgeInsets
 import com.business.renvest.utils.authRepository
+import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.startActivity
 import com.business.renvest.utils.startActivityClearTask
 import com.business.renvest.utils.toast
@@ -20,9 +19,7 @@ import com.google.android.material.textfield.TextInputLayout
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_login)
-        applyEdgeToEdgeInsets(R.id.root)
+        setupRenvestContent(R.layout.activity_login, R.id.root)
 
         findViewById<TextView>(R.id.text_forgot_password).setOnClickListener {
             toast(getString(R.string.coming_soon))
