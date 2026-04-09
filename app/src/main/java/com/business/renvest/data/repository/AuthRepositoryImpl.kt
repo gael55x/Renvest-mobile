@@ -17,36 +17,27 @@ class AuthRepositoryImpl : AuthRepository {
     override fun getEmail(context: Context): String =
         prefs(context).getString(KEY_EMAIL, "").orEmpty()
 
-    override fun signInWithEmail(context: Context, email: String): RenvestResult<Unit> =
-        try {
-            prefs(context).edit()
-                .putBoolean(KEY_LOGGED_IN, true)
-                .putString(KEY_EMAIL, email.trim())
-                .apply()
-            RenvestResult.Ok(Unit)
-        } catch (e: Exception) {
-            RenvestResult.Err.Storage(e.message ?: "sign_in_failed")
-        }
+    override fun signInWithEmail(context: Context, email: String): RenvestResult<Unit> {
+        prefs(context).edit()
+            .putBoolean(KEY_LOGGED_IN, true)
+            .putString(KEY_EMAIL, email.trim())
+            .apply()
+        return RenvestResult.Ok(Unit)
+    }
 
-    override fun signUp(context: Context, businessName: String, email: String): RenvestResult<Unit> =
-        try {
-            prefs(context).edit()
-                .putBoolean(KEY_LOGGED_IN, true)
-                .putString(KEY_BUSINESS_NAME, businessName.trim())
-                .putString(KEY_EMAIL, email.trim())
-                .apply()
-            RenvestResult.Ok(Unit)
-        } catch (e: Exception) {
-            RenvestResult.Err.Storage(e.message ?: "sign_up_failed")
-        }
+    override fun signUp(context: Context, businessName: String, email: String): RenvestResult<Unit> {
+        prefs(context).edit()
+            .putBoolean(KEY_LOGGED_IN, true)
+            .putString(KEY_BUSINESS_NAME, businessName.trim())
+            .putString(KEY_EMAIL, email.trim())
+            .apply()
+        return RenvestResult.Ok(Unit)
+    }
 
-    override fun clearSession(context: Context): RenvestResult<Unit> =
-        try {
-            prefs(context).edit().clear().apply()
-            RenvestResult.Ok(Unit)
-        } catch (e: Exception) {
-            RenvestResult.Err.Storage(e.message ?: "clear_session_failed")
-        }
+    override fun clearSession(context: Context): RenvestResult<Unit> {
+        prefs(context).edit().clear().apply()
+        return RenvestResult.Ok(Unit)
+    }
 
     companion object {
         private const val PREFS_NAME = "renvest_session"

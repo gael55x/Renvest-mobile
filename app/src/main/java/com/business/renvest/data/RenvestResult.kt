@@ -10,16 +10,6 @@ sealed class RenvestResult<out T> {
     }
 }
 
-inline fun <T> RenvestResult<T>.onOk(block: (T) -> Unit): RenvestResult<T> {
-    if (this is RenvestResult.Ok) block(value)
-    return this
-}
-
-inline fun <T> RenvestResult<T>.onErr(block: (RenvestResult.Err) -> Unit): RenvestResult<T> {
-    if (this is RenvestResult.Err) block(this)
-    return this
-}
-
 fun RenvestResult<*>.notifyErrorIfNotOk(notify: (String) -> Unit) {
     when (this) {
         is RenvestResult.Ok -> Unit
