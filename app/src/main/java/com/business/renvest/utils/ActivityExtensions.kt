@@ -28,7 +28,7 @@ fun AppCompatActivity.startActivityClearTask(target: Class<*>) {
     )
 }
 
-fun AppCompatActivity.applyEdgeToEdgeInsets(@IdRes rootViewId: Int) {
+private fun AppCompatActivity.applyEdgeToEdgeInsets(@IdRes rootViewId: Int) {
     val root = findViewById<View>(rootViewId)
     ViewCompat.setOnApplyWindowInsetsListener(root) { view, windowInsets ->
         val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())

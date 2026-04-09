@@ -9,31 +9,23 @@ We mirrored the reference app’s **package shape** (`app`, `screens`, `data`, `
 ```mermaid
 flowchart LR
   Screens[Activities]
-  Repo[AuthRepository]
-  Local[SessionLocalDataSourceImpl]
+  Repo[AuthRepositoryImpl]
   Prefs[SharedPreferences]
   Screens --> Repo
-  Repo --> Local
-  Local --> Prefs
+  Repo --> Prefs
 ```
 
-- **`AuthRepository`** is the entry point for screens (`authRepository()` from `Context`).
-- **`SessionLocalDataSourceImpl`** owns preference keys and read/write semantics (formerly a single `SessionStore` object).
-- **`RenvestResult`** wraps outcomes for mutations (`signIn`, `signUp`, `clearSession`) so network or storage failures can be surfaced consistently later.
+- **`AuthRepository`** (interface) is the entry point for screens (`authRepository()` from `Context`).
+- **`AuthRepositoryImpl`** implements reads/writes directly against SharedPreferences (`renvest_session`); there is no separate “local data source” type for the MVP.
+- **`RenvestResult`** wraps outcomes for mutations (`signIn`, `signUp`, `clearSession`). Today mutations return `Ok` for normal prefs writes; `Err.Storage` remains in the type for parity if you add disk-heavy or transactional storage later. Use `notifyErrorIfNotOk` in the UI when handling errors consistently.
 
 ## Remote API
 
-`data.remote.ApiService` is an empty placeholder. When backend contracts exist, implement the interface with Retrofit/Ktor and have repositories call into it, mapping errors to `RenvestResult.Err.Network` or `Validation`.
+Not implemented yet. When backend contracts exist, add an HTTP client (e.g. Retrofit or Ktor), call it from `AuthRepositoryImpl` or a split `AuthRepository` implementation, and map transport or API errors to `RenvestResult.Err.Network` or `RenvestResult.Err.Validation`.
 
 ## Feature stubs
 
-`screens.loyalty`, `screens.promotions`, and `screens.customers` host placeholder activities using `activity_feature_stub.xml`. The dashboard wires:
-
-- **Manage loyalty** and the **loyalty points** metric card → `LoyaltyActivity`
-- **Customers** metric card → `CustomersActivity`
-- **Promotions** metric card → `PromotionsActivity`
-
-Replace stubs with real flows without renaming the package buckets if possible.
+Several flows are still static or “coming soon” UI. `LoyaltyActivity` uses `activity_feature_stub.xml`; dashboard and bottom navigation link customers, promotions, activity feed, and related screens with richer layouts. Replace placeholder behavior with real data without renaming package buckets when possible.
 
 ## Testing
 

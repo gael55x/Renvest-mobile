@@ -26,10 +26,10 @@ The app follows a small layered structure aligned with the reference **CustomApp
 |--------|---------|------|
 | Application | `com.business.renvest.app` | `RenvestApp`, shared `AuthRepository` wiring |
 | Screens | `com.business.renvest.screens.*` | Activities (launch, auth, dashboard, profile, feature stubs) |
-| Data | `com.business.renvest.data` | `RenvestResult`, repositories, local/remote contracts |
-| Utils | `com.business.renvest.utils` | Activity extensions (edge-to-edge, navigation, toasts), form helpers |
+| Data | `com.business.renvest.data` | `RenvestResult`, `AuthRepository` / `AuthRepositoryImpl` (SharedPreferences) |
+| Utils | `com.business.renvest.utils` | Activity extensions (`setupRenvestContent`, navigation, toasts), form helpers, `displayBusinessName` |
 
-Session state is persisted via `SessionLocalDataSource` / `AuthRepositoryImpl`. Remote APIs are not wired yet; see `data.remote.ApiService`.
+Session state is persisted inside [`AuthRepositoryImpl`](app/src/main/java/com/business/renvest/data/repository/AuthRepositoryImpl.kt) (same preference file and keys as before). There is no remote client yet; when you add HTTP, introduce something like Retrofit/Ktor under `data` and map failures to `RenvestResult.Err.Network` / `Validation`.
 
 More detail: [docs/architecture.md](docs/architecture.md).
 
@@ -47,7 +47,7 @@ More detail: [docs/architecture.md](docs/architecture.md).
 - **Spacing:** `padding_screen_*`, `spacing_section`, `spacing_field`, `spacing_small`, `spacing_xs` in `res/values/dimens.xml`.
 - **Dashboard metric cards:** `Widget.Renvest.DashboardMetricCard` for consistent outlined cards.
 
-Edge-to-edge: call `enableEdgeToEdge()` then `applyEdgeToEdgeInsets(R.id.root)` on screens that use a root `LinearLayout` with `@id/root`.
+Edge-to-edge: use `setupRenvestContent(R.layout.*, R.id.root)` from [`ActivityExtensions`](app/src/main/java/com/business/renvest/utils/ActivityExtensions.kt) so `enableEdgeToEdge()`, `setContentView`, and system-bar insets on `@id/root` stay consistent.
 
 ## Git workflow
 
