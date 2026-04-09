@@ -2,8 +2,11 @@ package com.business.renvest.utils
 
 import android.content.Intent
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.annotation.IdRes
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -32,4 +35,14 @@ fun AppCompatActivity.applyEdgeToEdgeInsets(@IdRes rootViewId: Int) {
         view.updatePadding(insets.left, insets.top, insets.right, insets.bottom)
         windowInsets
     }
+}
+
+fun AppCompatActivity.setupRenvestContent(@LayoutRes layoutRes: Int, @IdRes rootViewId: Int) {
+    enableEdgeToEdge()
+    setContentView(layoutRes)
+    applyEdgeToEdgeInsets(rootViewId)
+}
+
+fun AppCompatActivity.bindHeaderBusinessName(@IdRes textViewId: Int) {
+    findViewById<TextView>(textViewId).text = displayBusinessName()
 }

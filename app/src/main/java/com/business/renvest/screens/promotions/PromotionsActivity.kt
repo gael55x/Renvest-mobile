@@ -2,25 +2,18 @@ package com.business.renvest.screens.promotions
 
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
-import com.business.renvest.utils.applyEdgeToEdgeInsets
-import com.business.renvest.utils.authRepository
+import com.business.renvest.utils.bindHeaderBusinessName
 import com.business.renvest.utils.setupMainBottomNavigation
+import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.toast
 
 class PromotionsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_promotions)
-        applyEdgeToEdgeInsets(R.id.root)
-
-        val stored = authRepository().getBusinessName(this).trim()
-        findViewById<TextView>(R.id.text_header_business).text =
-            if (stored.isNotEmpty()) stored else getString(R.string.default_business_display)
+        setupRenvestContent(R.layout.activity_promotions, R.id.root)
+        bindHeaderBusinessName(R.id.text_header_business)
 
         setupMainBottomNavigation(R.id.nav_promos)
 
