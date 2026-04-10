@@ -50,6 +50,9 @@ The selected screens for this submission are `login`, `register`, and `dashboard
 - `AuthStore.kt`
   This is the shared data class for authentication and session values. It reads and writes the business name, email, and login state using `SharedPreferences`. I placed it in the shared data layer because both login and register need it, and other screens also read from it later.
 
+- Difference between `RenvestResult.kt` and `AuthStore.kt`
+  `RenvestResult.kt` does not store or fetch any data by itself. Its job is only to represent the result of an operation, whether it succeeded or failed. `AuthStore.kt`, on the other hand, is the file that actually does the work of reading and writing session data. In simple terms, `AuthStore` performs the action, while `RenvestResult` describes the outcome of that action.
+
 - `RenvestContext.kt`
   This file contains helper extensions for getting the `RenvestApp` instance and its `AuthStore`. I added it so the activities can access shared data with less repeated code.
 
@@ -147,6 +150,8 @@ This is the main registration for the three important screens plus the launcher 
 ## Shared Data Layer
 
 These files are shared by the three slices. This is the data side of MVP. I simplified it into one real data class plus `RenvestApp`, because that is enough to follow MVP without adding extra interface boilerplate.
+
+In this part, `AuthStore.kt` and `RenvestResult.kt` have different purposes. `AuthStore.kt` is responsible for the actual data handling, such as saving login state, saving business information, and clearing the session. `RenvestResult.kt` is not a storage file. It is only used to tell the presenter whether an operation finished successfully or returned an error. So even though both belong to the data side, `AuthStore` does the work, while `RenvestResult` reports the result.
 
 ### AuthStore.kt
 
