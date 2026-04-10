@@ -2,14 +2,16 @@ package com.business.renvest.screens.promotions
 
 import android.content.Context
 import com.business.renvest.R
+import com.business.renvest.data.repository.AuthRepository
+import com.business.renvest.data.repository.businessDisplayName
 
 class PromotionsPresenter(
     private val view: PromotionsContract.View,
-    private val model: PromotionsModel,
+    private val authRepository: AuthRepository,
 ) : PromotionsContract.Presenter {
 
     override fun onViewReady(context: Context) {
-        view.setHeaderBusinessName(model.headerBusinessName(context))
+        view.setHeaderBusinessName(authRepository.businessDisplayName(context))
         view.setupNav(R.id.nav_promos)
     }
 

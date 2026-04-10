@@ -2,14 +2,16 @@ package com.business.renvest.screens.aiadvisor
 
 import android.content.Context
 import com.business.renvest.R
+import com.business.renvest.data.repository.AuthRepository
+import com.business.renvest.data.repository.businessDisplayName
 
 class AiEngagementAdvisorPresenter(
     private val view: AiEngagementAdvisorContract.View,
-    private val model: AiEngagementAdvisorModel,
+    private val authRepository: AuthRepository,
 ) : AiEngagementAdvisorContract.Presenter {
 
     override fun onViewReady(context: Context) {
-        view.setHeaderBusinessName(model.headerBusinessName(context))
+        view.setHeaderBusinessName(authRepository.businessDisplayName(context))
         view.setupNav(R.id.nav_home)
         view.setEngagementProgress(74)
     }

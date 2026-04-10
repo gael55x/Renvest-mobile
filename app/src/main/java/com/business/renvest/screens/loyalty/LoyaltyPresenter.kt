@@ -1,11 +1,12 @@
 package com.business.renvest.screens.loyalty
 
+import com.business.renvest.R
+
 class LoyaltyPresenter(
     private val view: LoyaltyContract.View,
-    private val model: LoyaltyModel,
 ) : LoyaltyContract.Presenter {
 
     override fun onViewReady() {
-        view.setStubTitle(model.stubTitleRes())
+        view.setStubTitle(R.string.feature_loyalty_title)
     }
 }

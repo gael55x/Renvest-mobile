@@ -18,7 +18,7 @@ class PromotionsActivity : AppCompatActivity(), PromotionsContract.View {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_promotions, R.id.root)
 
-        presenter = PromotionsPresenter(this, PromotionsModel(authRepository()))
+        presenter = PromotionsPresenter(this, authRepository())
         presenter.onViewReady(this)
 
         val stub = View.OnClickListener { presenter.onStubInteraction() }
