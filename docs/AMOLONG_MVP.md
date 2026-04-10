@@ -37,6 +37,61 @@ utils/
 
 The selected screens for this submission are `login`, `register`, and `dashboard`. These were separated into distinct feature slices so that the structure of the application clearly matches the user-facing screens being implemented. This makes the vertical slicing architecture easier to explain and shows that each screen contains its own View and Presenter while still sharing a small and controlled data layer. The shared authentication and session logic is placed in `data/repository/AuthStore.kt`, the application-level setup is placed in `app/RenvestApp.kt`, and the reusable helper functions are placed in `utils/`. These shared files support multiple screens, especially `login`, `register`, `launch`, `profile`, and `dashboard`.
 
+## What Each File Does
+
+### Shared Files
+
+- `RenvestApp.kt`
+  This is the application-level class. It creates one shared `AuthStore` object that the screens can reuse. I kept this file because it avoids creating the same auth/session object again and again in different places.
+
+- `RenvestResult.kt`
+  This file wraps operation results into `Ok` or `Err`. I used this so the presenters can handle success and failure in a cleaner and more consistent way instead of just guessing whether an action worked.
+
+- `AuthStore.kt`
+  This is the shared data class for authentication and session values. It reads and writes the business name, email, and login state using `SharedPreferences`. I placed it in the shared data layer because both login and register need it, and other screens also read from it later.
+
+- `RenvestContext.kt`
+  This file contains helper extensions for getting the `RenvestApp` instance and its `AuthStore`. I added it so the activities can access shared data with less repeated code.
+
+- `ActivityExtensions.kt`
+  This file contains reusable activity helper functions such as `toast`, `startActivity`, `startActivityClearTask`, and `setupRenvestContent`. I used it to keep common UI setup and navigation code out of the screen classes.
+
+- `MainBottomNavigation.kt`
+  This file handles the bottom navigation behavior used by the main screens. I kept it separate because bottom navigation is shared logic and does not belong only to one feature slice.
+
+### Login Slice
+
+- `LoginActivity.kt`
+  This is the View for the login screen. It connects the XML views, reads user input, and sends the action to the presenter. I kept it focused on UI work so it stays aligned with MVP.
+
+- `LoginContract.kt`
+  This file defines what the login View and Presenter are allowed to do. I used it so the responsibilities between the two sides are clear and easier to explain.
+
+- `LoginPresenter.kt`
+  This is the Presenter for the login screen. It takes the entered email, calls `AuthStore`, and decides whether the app should go to the dashboard or show an error. I placed the logic here because the presenter is supposed to control screen behavior in MVP.
+
+### Register Slice
+
+- `RegisterActivity.kt`
+  This is the View for the register screen. It collects business and account input values, connects the buttons, and forwards the registration action to the presenter.
+
+- `RegisterContract.kt`
+  This file defines the responsibilities of the register View and Presenter. I included it so the screen flow stays organized and easier to understand during presentation.
+
+- `RegisterPresenter.kt`
+  This is the Presenter for the register screen. It checks the confirm-password rule, calls `AuthStore`, and decides whether the app should continue to the dashboard or show an error.
+
+### Dashboard Slice
+
+- `DashboardActivity.kt`
+  This is the View for the dashboard screen. It displays the greeting, business name, and card interactions. I kept it focused on binding views and handling screen-level UI events.
+
+- `DashboardContract.kt`
+  This file defines the communication between the dashboard View and Presenter. It helps keep the responsibilities of the screen organized.
+
+- `DashboardPresenter.kt`
+  This is the Presenter for the dashboard screen. It prepares the greeting, loads the business name from `AuthStore`, and handles navigation decisions for the dashboard cards.
+
 ## How MVP Is Applied
 
 - `Activity` = View
