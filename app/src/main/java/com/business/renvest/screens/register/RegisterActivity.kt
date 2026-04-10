@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
 import com.business.renvest.screens.dashboard.DashboardActivity
 import com.business.renvest.screens.login.LoginActivity
-import com.business.renvest.utils.authRepository
+import com.business.renvest.utils.authStore
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.startActivity
 import com.business.renvest.utils.startActivityClearTask
@@ -26,7 +26,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_register, R.id.root)
 
-        presenter = RegisterPresenter(this, authRepository())
+        presenter = RegisterPresenter(this, authStore())
 
         val finishBack: () -> Unit = { finish() }
         findViewById<ImageButton>(R.id.button_back).setOnClickListener { finishBack() }

@@ -24,12 +24,12 @@ The app follows a small layered structure aligned with the reference **CustomApp
 
 | Layer | Package | Role |
 |--------|---------|------|
-| Application | `com.business.renvest.app` | `RenvestApp`, shared `AuthRepository` wiring |
-| Screens | `com.business.renvest.screens.*` | Activities (launch, auth, dashboard, profile, feature stubs) |
-| Data | `com.business.renvest.data` | `RenvestResult`, `AuthRepository` / `AuthRepositoryImpl` (SharedPreferences) |
+| Application | `com.business.renvest.app` | `RenvestApp`, shared `AuthStore` wiring |
+| Screens | `com.business.renvest.screens.*` | Activities (launch, login, register, dashboard, profile, feature stubs) |
+| Data | `com.business.renvest.data` | `RenvestResult`, `AuthStore` (SharedPreferences) |
 | Utils | `com.business.renvest.utils` | Activity extensions (`setupRenvestContent`, navigation, toasts), form helpers, `displayBusinessName` |
 
-Session state is persisted inside [`AuthRepositoryImpl`](app/src/main/java/com/business/renvest/data/repository/AuthRepositoryImpl.kt) (same preference file and keys as before). There is no remote client yet; when you add HTTP, introduce something like Retrofit/Ktor under `data` and map failures to `RenvestResult.Err.Network` / `Validation`.
+Session state is persisted inside [`AuthStore`](app/src/main/java/com/business/renvest/data/repository/AuthStore.kt) (same preference file and keys as before). There is no remote client yet; when you add HTTP, introduce something like Retrofit/Ktor under `data` and map failures to `RenvestResult.Err.Network` / `Validation`.
 
 More detail: [docs/architecture.md](docs/architecture.md).
 

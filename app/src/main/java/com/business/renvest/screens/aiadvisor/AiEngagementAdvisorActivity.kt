@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
-import com.business.renvest.utils.authRepository
+import com.business.renvest.utils.authStore
 import com.business.renvest.utils.setupMainBottomNavigation
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.toast
@@ -19,7 +19,7 @@ class AiEngagementAdvisorActivity : AppCompatActivity(), AiEngagementAdvisorCont
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_ai_advisor, R.id.root)
 
-        presenter = AiEngagementAdvisorPresenter(this, authRepository())
+        presenter = AiEngagementAdvisorPresenter(this, authStore())
         presenter.onViewReady(this)
 
         val stub = View.OnClickListener { presenter.onStubInteraction() }

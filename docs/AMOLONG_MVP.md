@@ -28,7 +28,7 @@ I did this because `login` and `register` are honestly two different user flows 
 
 - `Activity` = View
 - `Presenter` = screen logic and user actions
-- `Data` = shared repository and app session storage
+- `Data` = shared store and app session storage
 - `Contract` = rules between View and Presenter
 
 So even if `login`, `register`, and `dashboard` are separate features, they still follow the same MVP setup.
@@ -78,9 +78,9 @@ This is the main registration for the three important screens plus the launcher 
 
 ## Shared Data Layer
 
-These files are shared by the three slices. This is the data side of MVP.
+These files are shared by the three slices. This is the data side of MVP. I simplified it into one real data class plus `RenvestApp`, because that is enough to follow MVP without adding extra interface boilerplate.
 
-### AuthRepository.kt
+### AuthStore.kt
 
 ```kotlin
 package com.business.renvest.data.repository
@@ -89,44 +89,21 @@ import android.content.Context
 import com.business.renvest.R
 import com.business.renvest.data.RenvestResult
 
-interface AuthRepository {
-    fun isLoggedIn(context: Context): Boolean
-    fun getBusinessName(context: Context): String
-    fun getEmail(context: Context): String
-    fun signInWithEmail(context: Context, email: String): RenvestResult<Unit>
-    fun signUp(context: Context, businessName: String, email: String): RenvestResult<Unit>
-    fun clearSession(context: Context): RenvestResult<Unit>
-}
-
-fun AuthRepository.businessDisplayName(context: Context): String {
-    val stored = getBusinessName(context).trim()
-    return if (stored.isNotEmpty()) stored else context.getString(R.string.default_business_display)
-}
-```
-
-### AuthRepositoryImpl.kt
-
-```kotlin
-package com.business.renvest.data.repository
-
-import android.content.Context
-import com.business.renvest.data.RenvestResult
-
-class AuthRepositoryImpl : AuthRepository {
+class AuthStore {
 
     private fun prefs(context: Context) =
         context.applicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
-    override fun isLoggedIn(context: Context): Boolean =
+    fun isLoggedIn(context: Context): Boolean =
         prefs(context).getBoolean(KEY_LOGGED_IN, false)
 
-    override fun getBusinessName(context: Context): String =
+    fun getBusinessName(context: Context): String =
         prefs(context).getString(KEY_BUSINESS_NAME, "").orEmpty()
 
-    override fun getEmail(context: Context): String =
+    fun getEmail(context: Context): String =
         prefs(context).getString(KEY_EMAIL, "").orEmpty()
 
-    override fun signInWithEmail(context: Context, email: String): RenvestResult<Unit> {
+    fun signInWithEmail(context: Context, email: String): RenvestResult<Unit> {
         prefs(context).edit()
             .putBoolean(KEY_LOGGED_IN, true)
             .putString(KEY_EMAIL, email.trim())
@@ -134,7 +111,7 @@ class AuthRepositoryImpl : AuthRepository {
         return RenvestResult.Ok(Unit)
     }
 
-    override fun signUp(context: Context, businessName: String, email: String): RenvestResult<Unit> {
+    fun signUp(context: Context, businessName: String, email: String): RenvestResult<Unit> {
         prefs(context).edit()
             .putBoolean(KEY_LOGGED_IN, true)
             .putString(KEY_BUSINESS_NAME, businessName.trim())
@@ -143,9 +120,14 @@ class AuthRepositoryImpl : AuthRepository {
         return RenvestResult.Ok(Unit)
     }
 
-    override fun clearSession(context: Context): RenvestResult<Unit> {
+    fun clearSession(context: Context): RenvestResult<Unit> {
         prefs(context).edit().clear().apply()
         return RenvestResult.Ok(Unit)
+    }
+
+    fun businessDisplayName(context: Context): String {
+        val stored = getBusinessName(context).trim()
+        return if (stored.isNotEmpty()) stored else context.getString(R.string.default_business_display)
     }
 
     companion object {
@@ -164,12 +146,11 @@ package com.business.renvest.app
 
 import android.app.Application
 import android.util.Log
-import com.business.renvest.data.repository.AuthRepository
-import com.business.renvest.data.repository.AuthRepositoryImpl
+import com.business.renvest.data.repository.AuthStore
 
 class RenvestApp : Application() {
 
-    val authRepository: AuthRepository by lazy { AuthRepositoryImpl() }
+    val authStore: AuthStore by lazy { AuthStore() }
 
     override fun onCreate() {
         super.onCreate()
@@ -201,7 +182,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
 import com.business.renvest.screens.dashboard.DashboardActivity
 import com.business.renvest.screens.register.RegisterActivity
-import com.business.renvest.utils.authRepository
+import com.business.renvest.utils.authStore
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.startActivity
 import com.business.renvest.utils.startActivityClearTask
@@ -219,7 +200,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_login, R.id.root)
 
-        presenter = LoginPresenter(this, authRepository())
+        presenter = LoginPresenter(this, authStore())
 
         findViewById<TextView>(R.id.text_forgot_password).setOnClickListener {
             toast(getString(R.string.coming_soon))
@@ -285,15 +266,15 @@ package com.business.renvest.screens.login
 import android.content.Context
 import com.business.renvest.data.RenvestResult
 import com.business.renvest.data.notifyErrorIfNotOk
-import com.business.renvest.data.repository.AuthRepository
+import com.business.renvest.data.repository.AuthStore
 
 class LoginPresenter(
     private val view: LoginContract.View,
-    private val authRepository: AuthRepository,
+    private val authStore: AuthStore,
 ) : LoginContract.Presenter {
 
     override fun onLoginSubmitted(context: Context, email: String) {
-        when (val result = authRepository.signInWithEmail(context, email)) {
+        when (val result = authStore.signInWithEmail(context, email)) {
             is RenvestResult.Ok -> view.navigateToDashboard()
             else -> result.notifyErrorIfNotOk { view.showToast(it) }
         }
@@ -325,7 +306,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
 import com.business.renvest.screens.dashboard.DashboardActivity
 import com.business.renvest.screens.login.LoginActivity
-import com.business.renvest.utils.authRepository
+import com.business.renvest.utils.authStore
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.startActivity
 import com.business.renvest.utils.startActivityClearTask
@@ -344,7 +325,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_register, R.id.root)
 
-        presenter = RegisterPresenter(this, authRepository())
+        presenter = RegisterPresenter(this, authStore())
 
         val finishBack: () -> Unit = { finish() }
         findViewById<ImageButton>(R.id.button_back).setOnClickListener { finishBack() }
@@ -438,11 +419,11 @@ package com.business.renvest.screens.register
 import android.content.Context
 import com.business.renvest.data.RenvestResult
 import com.business.renvest.data.notifyErrorIfNotOk
-import com.business.renvest.data.repository.AuthRepository
+import com.business.renvest.data.repository.AuthStore
 
 class RegisterPresenter(
     private val view: RegisterContract.View,
-    private val authRepository: AuthRepository,
+    private val authStore: AuthStore,
 ) : RegisterContract.Presenter {
 
     override fun onRegisterSubmitted(
@@ -458,7 +439,7 @@ class RegisterPresenter(
             return
         }
         view.clearConfirmPasswordError()
-        when (val result = authRepository.signUp(context, businessName, email)) {
+        when (val result = authStore.signUp(context, businessName, email)) {
             is RenvestResult.Ok -> view.navigateToDashboard()
             else -> result.notifyErrorIfNotOk { view.showToast(it) }
         }
@@ -491,7 +472,7 @@ import com.business.renvest.screens.aiadvisor.AiEngagementAdvisorActivity
 import com.business.renvest.screens.customers.CustomersActivity
 import com.business.renvest.screens.loyalty.LoyaltyActivity
 import com.business.renvest.screens.promotions.PromotionsActivity
-import com.business.renvest.utils.authRepository
+import com.business.renvest.utils.authStore
 import com.business.renvest.utils.setupMainBottomNavigation
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.startActivity
@@ -506,7 +487,7 @@ class DashboardActivity : AppCompatActivity(), DashboardContract.View {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_dashboard, R.id.root)
 
-        presenter = DashboardPresenter(this, authRepository())
+        presenter = DashboardPresenter(this, authStore())
         presenter.onViewReady(this)
 
         findViewById<android.view.View>(R.id.header_notification).setOnClickListener {
@@ -613,19 +594,18 @@ package com.business.renvest.screens.dashboard
 import android.content.Context
 import androidx.annotation.StringRes
 import com.business.renvest.R
-import com.business.renvest.data.repository.AuthRepository
-import com.business.renvest.data.repository.businessDisplayName
+import com.business.renvest.data.repository.AuthStore
 import java.util.Calendar
 
 class DashboardPresenter(
     private val view: DashboardContract.View,
-    private val authRepository: AuthRepository,
+    private val authStore: AuthStore,
 ) : DashboardContract.Presenter {
 
     override fun onViewReady(context: Context) {
         val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         view.setGreeting(context.getString(greetingResForHour(hour)))
-        view.setBusinessName(authRepository.businessDisplayName(context))
+        view.setBusinessName(authStore.businessDisplayName(context))
     }
 
     override fun onNotificationClicked() {
