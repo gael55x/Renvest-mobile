@@ -7,6 +7,14 @@ This file is the Markdown version of `AMOLONG_MVP.pdf`.
 For presentation, I separated the app into clearer feature slices:
 
 ```text
+app/
+└── RenvestApp.kt
+
+data/
+├── RenvestResult.kt
+└── repository/
+    └── AuthStore.kt
+
 screens/
 ├── login/
 │   ├── LoginActivity.kt
@@ -21,12 +29,13 @@ screens/
     ├── DashboardContract.kt
     └── DashboardPresenter.kt
 
-data/
-└── repository/
-    └── AuthStore.kt
+utils/
+├── RenvestContext.kt
+├── ActivityExtensions.kt
+└── MainBottomNavigation.kt
 ```
 
-The selected screens for this submission are `login`, `register`, and `dashboard`. These were separated into distinct feature slices so that the structure of the application clearly matches the user-facing screens being implemented. This makes the vertical slicing architecture easier to explain and shows that each screen contains its own View and Presenter while still sharing a small and controlled data layer. The shared authentication and session logic is placed in `data/repository/AuthStore.kt` because it is used by more than one screen, especially `login`, `register`, `launch`, `profile`, and `dashboard`.
+The selected screens for this submission are `login`, `register`, and `dashboard`. These were separated into distinct feature slices so that the structure of the application clearly matches the user-facing screens being implemented. This makes the vertical slicing architecture easier to explain and shows that each screen contains its own View and Presenter while still sharing a small and controlled data layer. The shared authentication and session logic is placed in `data/repository/AuthStore.kt`, the application-level setup is placed in `app/RenvestApp.kt`, and the reusable helper functions are placed in `utils/`. These shared files support multiple screens, especially `login`, `register`, `launch`, `profile`, and `dashboard`.
 
 ## How MVP Is Applied
 
