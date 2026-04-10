@@ -9,19 +9,19 @@ We mirrored the reference app’s **package shape** (`app`, `screens`, `data`, `
 ```mermaid
 flowchart LR
   Screens[Activities]
-  Repo[AuthRepositoryImpl]
+  Repo[AuthStore]
   Prefs[SharedPreferences]
   Screens --> Repo
   Repo --> Prefs
 ```
 
-- **`AuthRepository`** (interface) is the entry point for screens (`authRepository()` from `Context`).
-- **`AuthRepositoryImpl`** implements reads/writes directly against SharedPreferences (`renvest_session`); there is no separate “local data source” type for the MVP.
+- **`AuthStore`** is the shared data class used by screens (`authStore()` from `Context`).
+- **`AuthStore`** reads and writes directly against SharedPreferences (`renvest_session`); this keeps the MVP data layer simple for the current scope.
 - **`RenvestResult`** wraps outcomes for mutations (`signIn`, `signUp`, `clearSession`). Today mutations return `Ok` for normal prefs writes; `Err.Storage` remains in the type for parity if you add disk-heavy or transactional storage later. Use `notifyErrorIfNotOk` in the UI when handling errors consistently.
 
 ## Remote API
 
-Not implemented yet. When backend contracts exist, add an HTTP client (e.g. Retrofit or Ktor), call it from `AuthRepositoryImpl` or a split `AuthRepository` implementation, and map transport or API errors to `RenvestResult.Err.Network` or `RenvestResult.Err.Validation`.
+Not implemented yet. When backend contracts exist, add an HTTP client (e.g. Retrofit or Ktor), call it from `AuthStore` or split the data layer again if the app actually needs local and remote implementations, then map transport or API errors to `RenvestResult.Err.Network` or `RenvestResult.Err.Validation`.
 
 ## Feature stubs
 

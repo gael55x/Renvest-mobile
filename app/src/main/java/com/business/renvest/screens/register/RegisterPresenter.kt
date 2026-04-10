@@ -3,11 +3,11 @@ package com.business.renvest.screens.register
 import android.content.Context
 import com.business.renvest.data.RenvestResult
 import com.business.renvest.data.notifyErrorIfNotOk
-import com.business.renvest.data.repository.AuthRepository
+import com.business.renvest.data.repository.AuthStore
 
 class RegisterPresenter(
     private val view: RegisterContract.View,
-    private val authRepository: AuthRepository,
+    private val authStore: AuthStore,
 ) : RegisterContract.Presenter {
 
     override fun onRegisterSubmitted(
@@ -23,7 +23,7 @@ class RegisterPresenter(
             return
         }
         view.clearConfirmPasswordError()
-        when (val result = authRepository.signUp(context, businessName, email)) {
+        when (val result = authStore.signUp(context, businessName, email)) {
             is RenvestResult.Ok -> view.navigateToDashboard()
             else -> result.notifyErrorIfNotOk { view.showToast(it) }
         }

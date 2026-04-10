@@ -8,7 +8,7 @@ import com.business.renvest.screens.aiadvisor.AiEngagementAdvisorActivity
 import com.business.renvest.screens.customers.CustomersActivity
 import com.business.renvest.screens.loyalty.LoyaltyActivity
 import com.business.renvest.screens.promotions.PromotionsActivity
-import com.business.renvest.utils.authRepository
+import com.business.renvest.utils.authStore
 import com.business.renvest.utils.setupMainBottomNavigation
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.startActivity
@@ -23,7 +23,7 @@ class DashboardActivity : AppCompatActivity(), DashboardContract.View {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_dashboard, R.id.root)
 
-        presenter = DashboardPresenter(this, authRepository())
+        presenter = DashboardPresenter(this, authStore())
         presenter.onViewReady(this)
 
         findViewById<android.view.View>(R.id.header_notification).setOnClickListener {

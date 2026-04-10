@@ -2,16 +2,15 @@ package com.business.renvest.screens.activityfeed
 
 import android.content.Context
 import com.business.renvest.R
-import com.business.renvest.data.repository.AuthRepository
-import com.business.renvest.data.repository.businessDisplayName
+import com.business.renvest.data.repository.AuthStore
 
 class ActivityFeedPresenter(
     private val view: ActivityFeedContract.View,
-    private val authRepository: AuthRepository,
+    private val authStore: AuthStore,
 ) : ActivityFeedContract.Presenter {
 
     override fun onViewReady(context: Context) {
-        view.setHeaderBusinessName(authRepository.businessDisplayName(context))
+        view.setHeaderBusinessName(authStore.businessDisplayName(context))
         view.setupNav(R.id.nav_activity)
     }
 

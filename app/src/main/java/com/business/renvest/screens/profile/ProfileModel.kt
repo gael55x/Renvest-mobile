@@ -2,16 +2,15 @@ package com.business.renvest.screens.profile
 
 import android.content.Context
 import com.business.renvest.data.RenvestResult
-import com.business.renvest.data.repository.AuthRepository
-import com.business.renvest.data.repository.businessDisplayName
+import com.business.renvest.data.repository.AuthStore
 
-class ProfileModel(private val authRepository: AuthRepository) {
+class ProfileModel(private val authStore: AuthStore) {
 
-    fun getEmail(context: Context): String = authRepository.getEmail(context)
+    fun getEmail(context: Context): String = authStore.getEmail(context)
 
-    fun businessDisplayName(context: Context): String = authRepository.businessDisplayName(context)
+    fun businessDisplayName(context: Context): String = authStore.businessDisplayName(context)
 
-    fun clearSession(context: Context): RenvestResult<Unit> = authRepository.clearSession(context)
+    fun clearSession(context: Context): RenvestResult<Unit> = authStore.clearSession(context)
 
     fun initialsFromName(name: String): String {
         val parts = name.trim().split(Regex("\\s+")).filter { it.isNotEmpty() }
