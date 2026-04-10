@@ -2,14 +2,16 @@ package com.business.renvest.screens.customers
 
 import android.content.Context
 import com.business.renvest.R
+import com.business.renvest.data.repository.AuthRepository
+import com.business.renvest.data.repository.businessDisplayName
 
 class CustomersPresenter(
     private val view: CustomersContract.View,
-    private val model: CustomersModel,
+    private val authRepository: AuthRepository,
 ) : CustomersContract.Presenter {
 
     override fun onViewReady(context: Context) {
-        view.setHeaderBusinessName(model.headerBusinessName(context))
+        view.setHeaderBusinessName(authRepository.businessDisplayName(context))
         view.setupNav(R.id.nav_customers)
     }
 

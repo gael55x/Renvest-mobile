@@ -1,10 +1,11 @@
-package com.business.renvest.screens.auth
+package com.business.renvest.screens.login
 
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
 import com.business.renvest.screens.dashboard.DashboardActivity
+import com.business.renvest.screens.register.RegisterActivity
 import com.business.renvest.utils.authRepository
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.startActivity
@@ -23,7 +24,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_login, R.id.root)
 
-        presenter = LoginPresenter(this, LoginModel(authRepository()))
+        presenter = LoginPresenter(this, authRepository())
 
         findViewById<TextView>(R.id.text_forgot_password).setOnClickListener {
             toast(getString(R.string.coming_soon))

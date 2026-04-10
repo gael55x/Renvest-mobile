@@ -1,17 +1,21 @@
 package com.business.renvest.screens.dashboard
 
 import android.content.Context
+import androidx.annotation.StringRes
+import com.business.renvest.R
+import com.business.renvest.data.repository.AuthRepository
+import com.business.renvest.data.repository.businessDisplayName
 import java.util.Calendar
 
 class DashboardPresenter(
     private val view: DashboardContract.View,
-    private val model: DashboardModel,
+    private val authRepository: AuthRepository,
 ) : DashboardContract.Presenter {
 
     override fun onViewReady(context: Context) {
         val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-        view.setGreeting(context.getString(model.greetingResForHour(hour)))
-        view.setBusinessName(model.businessDisplayName(context))
+        view.setGreeting(context.getString(greetingResForHour(hour)))
+        view.setBusinessName(authRepository.businessDisplayName(context))
     }
 
     override fun onNotificationClicked() {
@@ -40,5 +44,12 @@ class DashboardPresenter(
 
     override fun onCardAiInsightClicked() {
         view.navigateToAiAdvisor()
+    }
+
+    @StringRes
+    private fun greetingResForHour(hour: Int): Int = when {
+        hour < 12 -> R.string.greeting_morning
+        hour < 17 -> R.string.greeting_afternoon
+        else -> R.string.greeting_evening
     }
 }

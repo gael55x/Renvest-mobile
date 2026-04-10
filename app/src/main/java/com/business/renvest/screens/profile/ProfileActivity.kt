@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
-import com.business.renvest.screens.auth.LoginActivity
+import com.business.renvest.screens.login.LoginActivity
 import com.business.renvest.utils.authRepository
 import com.business.renvest.utils.setupMainBottomNavigation
 import com.business.renvest.utils.setupRenvestContent

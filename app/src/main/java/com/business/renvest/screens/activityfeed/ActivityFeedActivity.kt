@@ -18,7 +18,7 @@ class ActivityFeedActivity : AppCompatActivity(), ActivityFeedContract.View {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_feed, R.id.root)
 
-        presenter = ActivityFeedPresenter(this, ActivityFeedModel(authRepository()))
+        presenter = ActivityFeedPresenter(this, authRepository())
         presenter.onViewReady(this)
 
         val stub = View.OnClickListener { presenter.onStubInteraction() }

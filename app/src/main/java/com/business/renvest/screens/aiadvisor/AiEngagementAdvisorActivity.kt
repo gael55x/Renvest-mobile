@@ -19,7 +19,7 @@ class AiEngagementAdvisorActivity : AppCompatActivity(), AiEngagementAdvisorCont
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_ai_advisor, R.id.root)
 
-        presenter = AiEngagementAdvisorPresenter(this, AiEngagementAdvisorModel(authRepository()))
+        presenter = AiEngagementAdvisorPresenter(this, authRepository())
         presenter.onViewReady(this)
 
         val stub = View.OnClickListener { presenter.onStubInteraction() }

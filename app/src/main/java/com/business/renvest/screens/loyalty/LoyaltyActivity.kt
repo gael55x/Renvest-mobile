@@ -13,7 +13,7 @@ class LoyaltyActivity : AppCompatActivity(), LoyaltyContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_feature_stub, R.id.root)
-        presenter = LoyaltyPresenter(this, LoyaltyModel())
+        presenter = LoyaltyPresenter(this)
         presenter.onViewReady()
     }
 

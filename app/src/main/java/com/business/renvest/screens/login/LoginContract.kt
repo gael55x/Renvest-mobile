@@ -1,4 +1,4 @@
-package com.business.renvest.screens.auth
+package com.business.renvest.screens.login
 
 import android.content.Context
 

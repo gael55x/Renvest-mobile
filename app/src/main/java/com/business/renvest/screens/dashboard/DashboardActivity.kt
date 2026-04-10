@@ -23,7 +23,7 @@ class DashboardActivity : AppCompatActivity(), DashboardContract.View {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_dashboard, R.id.root)
 
-        presenter = DashboardPresenter(this, DashboardModel(authRepository()))
+        presenter = DashboardPresenter(this, authRepository())
         presenter.onViewReady(this)
 
         findViewById<android.view.View>(R.id.header_notification).setOnClickListener {
