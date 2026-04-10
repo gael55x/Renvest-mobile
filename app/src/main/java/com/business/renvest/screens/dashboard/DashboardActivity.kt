@@ -7,33 +7,31 @@ import com.business.renvest.R
 import com.business.renvest.screens.aiadvisor.AiEngagementAdvisorActivity
 import com.business.renvest.screens.customers.CustomersActivity
 import com.business.renvest.screens.loyalty.LoyaltyActivity
-import com.business.renvest.screens.profile.ProfileActivity
 import com.business.renvest.screens.promotions.PromotionsActivity
-import com.business.renvest.utils.displayBusinessName
+import com.business.renvest.utils.authRepository
 import com.business.renvest.utils.setupMainBottomNavigation
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.startActivity
 import com.business.renvest.utils.toast
 import com.google.android.material.card.MaterialCardView
-import java.util.Calendar
 
-class DashboardActivity : AppCompatActivity() {
+class DashboardActivity : AppCompatActivity(), DashboardContract.View {
+
+    private lateinit var presenter: DashboardPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_dashboard, R.id.root)
 
-        val textGreeting = findViewById<TextView>(R.id.text_greeting)
-        textGreeting.text = greetingForNow()
-
-        val textViewBusinessName = findViewById<TextView>(R.id.text_business_name)
-        textViewBusinessName.text = displayBusinessName()
+        presenter = DashboardPresenter(this, DashboardModel(authRepository()))
+        presenter.onViewReady(this)
 
         findViewById<android.view.View>(R.id.header_notification).setOnClickListener {
-            toast(getString(R.string.coming_soon))
+            presenter.onNotificationClicked()
         }
 
         findViewById<TextView>(R.id.text_perf_view_report).setOnClickListener {
-            toast(getString(R.string.coming_soon))
+            presenter.onPerfViewReportClicked()
         }
 
         findViewById<MaterialCardView>(R.id.card_hero_revenue).setOnClickListener {
@@ -41,34 +39,53 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         findViewById<MaterialCardView>(R.id.perf_cell_members).setOnClickListener {
-            startActivity(CustomersActivity::class.java)
+            presenter.onPerfCellMembersClicked()
         }
 
         findViewById<MaterialCardView>(R.id.perf_cell_rating).setOnClickListener {
-            startActivity(LoyaltyActivity::class.java)
+            presenter.onPerfCellRatingClicked()
         }
 
         findViewById<MaterialCardView>(R.id.perf_cell_ticket).setOnClickListener {
-            startActivity(PromotionsActivity::class.java)
+            presenter.onPerfCellTicketClicked()
         }
 
         findViewById<MaterialCardView>(R.id.perf_cell_churn).setOnClickListener {
-            toast(getString(R.string.coming_soon))
+            presenter.onPerfCellChurnClicked()
         }
 
         findViewById<MaterialCardView>(R.id.card_ai_insight).setOnClickListener {
-            startActivity(AiEngagementAdvisorActivity::class.java)
+            presenter.onCardAiInsightClicked()
         }
 
         setupMainBottomNavigation(R.id.nav_home)
     }
 
-    private fun greetingForNow(): String {
-        val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-        return when {
-            hour < 12 -> getString(R.string.greeting_morning)
-            hour < 17 -> getString(R.string.greeting_afternoon)
-            else -> getString(R.string.greeting_evening)
-        }
+    override fun setGreeting(text: String) {
+        findViewById<TextView>(R.id.text_greeting).text = text
+    }
+
+    override fun setBusinessName(text: String) {
+        findViewById<TextView>(R.id.text_business_name).text = text
+    }
+
+    override fun showComingSoon() {
+        toast(getString(R.string.coming_soon))
+    }
+
+    override fun navigateToCustomers() {
+        startActivity(CustomersActivity::class.java)
+    }
+
+    override fun navigateToLoyalty() {
+        startActivity(LoyaltyActivity::class.java)
+    }
+
+    override fun navigateToPromotions() {
+        startActivity(PromotionsActivity::class.java)
+    }
+
+    override fun navigateToAiAdvisor() {
+        startActivity(AiEngagementAdvisorActivity::class.java)
     }
 }
