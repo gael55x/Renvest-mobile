@@ -11,14 +11,14 @@
     android:paddingBottom="@dimen/padding_screen_vertical">
 
     <TextView
-        android:id="@+id/text_stub_title"
+        android:id="@+id/textviewStubTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.Renvest.ScreenTitle.Form"
         tools:text="@string/feature_loyalty_title" />
 
     <TextView
-        android:id="@+id/text_stub_body"
+        android:id="@+id/textviewStubBody"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_section"

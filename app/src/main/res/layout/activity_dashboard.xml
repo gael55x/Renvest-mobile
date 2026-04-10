@@ -24,14 +24,14 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/text_greeting"
+                android:id="@+id/textviewGreeting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.Renvest.Body"
                 tools:text="@string/greeting_morning" />
 
             <TextView
-                android:id="@+id/text_business_name"
+                android:id="@+id/textviewBusinessName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_xs"
@@ -40,7 +40,7 @@
         </LinearLayout>
 
         <FrameLayout
-            android:id="@+id/header_notification"
+            android:id="@+id/framelayoutHeaderNotification"
             android:layout_width="@dimen/header_icon_size"
             android:layout_height="@dimen/header_icon_size"
             android:layout_marginEnd="@dimen/spacing_small"
@@ -50,7 +50,7 @@
                 android:layout_width="@dimen/grid_3"
                 android:layout_height="@dimen/grid_3"
                 android:layout_gravity="center"
-                android:contentDescription="@string/nav_activity"
+                android:contentDescription="@string/navActivity"
                 app:srcCompat="@drawable/ic_notifications_24" />
 
             <View
@@ -68,7 +68,7 @@
             android:background="@drawable/bg_circle_primary">
 
             <TextView
-                android:id="@+id/text_avatar_initials"
+                android:id="@+id/textviewAvatarInitials"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -95,7 +95,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_hero_revenue"
+                android:id="@+id/materialcardHeroRevenue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/dashboard_hero"
@@ -251,7 +251,7 @@
                     android:textAppearance="@style/TextAppearance.Renvest.SectionTitle" />
 
                 <TextView
-                    android:id="@+id/text_perf_view_report"
+                    android:id="@+id/textviewPerfViewReport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/perf_view_report"
@@ -265,7 +265,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/perf_cell_members"
+                    android:id="@+id/materialcardPerfCellMembers"
                     style="@style/Widget.Renvest.StatCard"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -320,7 +320,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/perf_cell_rating"
+                    android:id="@+id/materialcardPerfCellRating"
                     style="@style/Widget.Renvest.StatCard"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -370,7 +370,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/perf_cell_ticket"
+                    android:id="@+id/materialcardPerfCellTicket"
                     style="@style/Widget.Renvest.StatCard"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -425,7 +425,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/perf_cell_churn"
+                    android:id="@+id/materialcardPerfCellChurn"
                     style="@style/Widget.Renvest.StatCard"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -476,7 +476,7 @@
                 android:textAppearance="@style/TextAppearance.Renvest.SectionTitle" />
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_ai_insight"
+                android:id="@+id/materialcardAiInsight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_field"
@@ -515,7 +515,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+        android:id="@+id/bottomnavigationMain"
         style="@style/Widget.Renvest.BottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

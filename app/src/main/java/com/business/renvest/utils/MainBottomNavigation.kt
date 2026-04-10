@@ -12,19 +12,19 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 
 fun AppCompatActivity.setupMainBottomNavigation(@IdRes selectedItemId: Int) {
-    val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-    bottomNav.selectedItemId = selectedItemId
-    bottomNav.getOrCreateBadge(R.id.nav_activity).apply {
+    val bottomnavigationMain = findViewById<BottomNavigationView>(R.id.bottomnavigationMain)
+    bottomnavigationMain.selectedItemId = selectedItemId
+    bottomnavigationMain.getOrCreateBadge(R.id.navActivity).apply {
         isVisible = true
         number = 3
     }
-    bottomNav.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
+    bottomnavigationMain.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.nav_home -> navigateMainTab(DashboardActivity::class.java, selectedItemId == R.id.nav_home)
-            R.id.nav_customers -> navigateMainTab(CustomersActivity::class.java, selectedItemId == R.id.nav_customers)
-            R.id.nav_promos -> navigateMainTab(PromotionsActivity::class.java, selectedItemId == R.id.nav_promos)
-            R.id.nav_activity -> navigateMainTab(ActivityFeedActivity::class.java, selectedItemId == R.id.nav_activity)
-            R.id.nav_profile -> navigateMainTab(ProfileActivity::class.java, selectedItemId == R.id.nav_profile)
+            R.id.navHome -> navigateMainTab(DashboardActivity::class.java, selectedItemId == R.id.navHome)
+            R.id.navCustomers -> navigateMainTab(CustomersActivity::class.java, selectedItemId == R.id.navCustomers)
+            R.id.navPromos -> navigateMainTab(PromotionsActivity::class.java, selectedItemId == R.id.navPromos)
+            R.id.navActivity -> navigateMainTab(ActivityFeedActivity::class.java, selectedItemId == R.id.navActivity)
+            R.id.navProfile -> navigateMainTab(ProfileActivity::class.java, selectedItemId == R.id.navProfile)
             else -> false
         }
     })

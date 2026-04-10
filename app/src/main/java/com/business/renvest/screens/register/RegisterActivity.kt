@@ -20,7 +20,7 @@ import com.google.android.material.textfield.TextInputLayout
 class RegisterActivity : AppCompatActivity(), RegisterContract.View {
 
     private lateinit var presenter: RegisterPresenter
-    private lateinit var textInputLayoutConfirm: TextInputLayout
+    private lateinit var textinputConfirmPasswordLayout: TextInputLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,37 +29,37 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
         presenter = RegisterPresenter(this, authStore())
 
         val finishBack: () -> Unit = { finish() }
-        findViewById<ImageButton>(R.id.button_back).setOnClickListener { finishBack() }
-        findViewById<TextView>(R.id.text_back_nav).setOnClickListener { finishBack() }
+        findViewById<ImageButton>(R.id.buttonBack).setOnClickListener { finishBack() }
+        findViewById<TextView>(R.id.textviewBackNav).setOnClickListener { finishBack() }
 
-        val textInputLayoutBusiness = findViewById<TextInputLayout>(R.id.input_business_layout)
-        val textInputLayoutOwner = findViewById<TextInputLayout>(R.id.input_owner_layout)
-        val textInputLayoutEmail = findViewById<TextInputLayout>(R.id.input_email_layout)
-        val textInputLayoutPassword = findViewById<TextInputLayout>(R.id.input_password_layout)
-        textInputLayoutConfirm = findViewById(R.id.input_confirm_password_layout)
-        val materialButtonRegister = findViewById<MaterialButton>(R.id.button_register)
-        val materialButtonGoLogin = findViewById<MaterialButton>(R.id.button_go_login)
+        val textinputBusinessLayout = findViewById<TextInputLayout>(R.id.textinputBusinessLayout)
+        val textinputOwnerLayout = findViewById<TextInputLayout>(R.id.textinputOwnerLayout)
+        val textinputEmailLayout = findViewById<TextInputLayout>(R.id.textinputEmailLayout)
+        val textinputPasswordLayout = findViewById<TextInputLayout>(R.id.textinputPasswordLayout)
+        textinputConfirmPasswordLayout = findViewById(R.id.textinputConfirmPasswordLayout)
+        val materialbuttonRegister = findViewById<MaterialButton>(R.id.buttonRegister)
+        val materialbuttonGoLogin = findViewById<MaterialButton>(R.id.buttonGoLogin)
 
-        materialButtonGoLogin.setOnClickListener {
+        materialbuttonGoLogin.setOnClickListener {
             startActivity(LoginActivity::class.java)
             finish()
         }
 
-        materialButtonRegister.setOnClickListener {
+        materialbuttonRegister.setOnClickListener {
             val requiredMessage = getString(R.string.error_field_required)
-            val okBusiness = textInputLayoutBusiness.validateRequired(requiredMessage)
-            val okOwner = textInputLayoutOwner.validateRequired(requiredMessage)
-            val okEmail = textInputLayoutEmail.validateRequired(requiredMessage)
-            val okPassword = textInputLayoutPassword.validateRequired(requiredMessage, trim = false)
-            val okConfirm = textInputLayoutConfirm.validateRequired(requiredMessage, trim = false)
+            val okBusiness = textinputBusinessLayout.validateRequired(requiredMessage)
+            val okOwner = textinputOwnerLayout.validateRequired(requiredMessage)
+            val okEmail = textinputEmailLayout.validateRequired(requiredMessage)
+            val okPassword = textinputPasswordLayout.validateRequired(requiredMessage, trim = false)
+            val okConfirm = textinputConfirmPasswordLayout.validateRequired(requiredMessage, trim = false)
             if (!okBusiness || !okOwner || !okEmail || !okPassword || !okConfirm) return@setOnClickListener
 
             presenter.onRegisterSubmitted(
                 this,
-                textInputLayoutBusiness.valueText(),
-                textInputLayoutEmail.valueText(),
-                textInputLayoutPassword.valueText(trim = false),
-                textInputLayoutConfirm.valueText(trim = false),
+                textinputBusinessLayout.valueText(),
+                textinputEmailLayout.valueText(),
+                textinputPasswordLayout.valueText(trim = false),
+                textinputConfirmPasswordLayout.valueText(trim = false),
                 getString(R.string.error_password_mismatch),
             )
         }
@@ -75,10 +75,10 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     }
 
     override fun setConfirmPasswordError(message: String) {
-        textInputLayoutConfirm.error = message
+        textinputConfirmPasswordLayout.error = message
     }
 
     override fun clearConfirmPasswordError() {
-        textInputLayoutConfirm.error = null
+        textinputConfirmPasswordLayout.error = null
     }
 }

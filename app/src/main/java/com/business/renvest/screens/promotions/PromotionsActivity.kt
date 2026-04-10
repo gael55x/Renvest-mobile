@@ -22,17 +22,17 @@ class PromotionsActivity : AppCompatActivity(), PromotionsContract.View {
         presenter.onViewReady(this)
 
         val stub = View.OnClickListener { presenter.onStubInteraction() }
-        findViewById<View>(R.id.button_new_promo).setOnClickListener(stub)
-        findViewById<View>(R.id.button_promo1_edit).setOnClickListener(stub)
-        findViewById<View>(R.id.button_promo1_pause).setOnClickListener(stub)
-        findViewById<View>(R.id.text_promo1_details).setOnClickListener(stub)
-        findViewById<View>(R.id.button_promo2_edit).setOnClickListener(stub)
-        findViewById<View>(R.id.button_promo2_pause).setOnClickListener(stub)
-        findViewById<View>(R.id.text_promo2_details).setOnClickListener(stub)
+        findViewById<View>(R.id.buttonNewPromo).setOnClickListener(stub)
+        findViewById<View>(R.id.buttonPromo1Edit).setOnClickListener(stub)
+        findViewById<View>(R.id.buttonPromo1Pause).setOnClickListener(stub)
+        findViewById<View>(R.id.textviewPromo1Details).setOnClickListener(stub)
+        findViewById<View>(R.id.buttonPromo2Edit).setOnClickListener(stub)
+        findViewById<View>(R.id.buttonPromo2Pause).setOnClickListener(stub)
+        findViewById<View>(R.id.textviewPromo2Details).setOnClickListener(stub)
     }
 
     override fun setHeaderBusinessName(text: String) {
-        findViewById<TextView>(R.id.text_header_business).text = text
+        findViewById<TextView>(R.id.textviewHeaderBusiness).text = text
     }
 
     override fun setupNav(selectedItemId: Int) {

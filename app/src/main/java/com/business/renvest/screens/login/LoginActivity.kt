@@ -26,24 +26,24 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
         presenter = LoginPresenter(this, authStore())
 
-        findViewById<TextView>(R.id.text_forgot_password).setOnClickListener {
+        findViewById<TextView>(R.id.textviewForgotPassword).setOnClickListener {
             toast(getString(R.string.coming_soon))
         }
 
-        val textInputLayoutEmail = findViewById<TextInputLayout>(R.id.input_email_layout)
-        val textInputLayoutPassword = findViewById<TextInputLayout>(R.id.input_password_layout)
-        val materialButtonLogin = findViewById<MaterialButton>(R.id.button_login)
-        val materialButtonGoRegister = findViewById<MaterialButton>(R.id.button_go_register)
+        val textinputEmailLayout = findViewById<TextInputLayout>(R.id.textinputEmailLayout)
+        val textinputPasswordLayout = findViewById<TextInputLayout>(R.id.textinputPasswordLayout)
+        val materialbuttonLogin = findViewById<MaterialButton>(R.id.buttonLogin)
+        val materialbuttonGoRegister = findViewById<MaterialButton>(R.id.buttonGoRegister)
 
-        materialButtonLogin.setOnClickListener {
+        materialbuttonLogin.setOnClickListener {
             val requiredMessage = getString(R.string.error_field_required)
-            val okEmail = textInputLayoutEmail.validateRequired(requiredMessage)
-            val okPassword = textInputLayoutPassword.validateRequired(requiredMessage, trim = false)
+            val okEmail = textinputEmailLayout.validateRequired(requiredMessage)
+            val okPassword = textinputPasswordLayout.validateRequired(requiredMessage, trim = false)
             if (!okEmail || !okPassword) return@setOnClickListener
-            presenter.onLoginSubmitted(this, textInputLayoutEmail.valueText())
+            presenter.onLoginSubmitted(this, textinputEmailLayout.valueText())
         }
 
-        materialButtonGoRegister.setOnClickListener {
+        materialbuttonGoRegister.setOnClickListener {
             startActivity(RegisterActivity::class.java)
         }
     }

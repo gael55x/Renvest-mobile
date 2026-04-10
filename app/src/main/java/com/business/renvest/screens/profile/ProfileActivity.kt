@@ -24,29 +24,29 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View {
         presenter = ProfilePresenter(this, ProfileModel(authStore()))
         presenter.onViewReady(this)
 
-        setupMainBottomNavigation(R.id.nav_profile)
+        setupMainBottomNavigation(R.id.navProfile)
 
         val stub = View.OnClickListener { presenter.onSettingsStubClicked() }
-        findViewById<View>(R.id.button_profile_overflow).setOnClickListener(stub)
-        findViewById<View>(R.id.button_profile_hero_edit).setOnClickListener(stub)
-        findViewById<View>(R.id.row_settings_business_name).setOnClickListener(stub)
-        findViewById<View>(R.id.row_settings_business_type).setOnClickListener(stub)
-        findViewById<View>(R.id.row_settings_email).setOnClickListener(stub)
-        findViewById<View>(R.id.row_settings_location).setOnClickListener(stub)
-        findViewById<View>(R.id.row_loyalty_threshold).setOnClickListener(stub)
-        findViewById<View>(R.id.row_loyalty_points_mode).setOnClickListener(stub)
+        findViewById<View>(R.id.buttonProfileOverflow).setOnClickListener(stub)
+        findViewById<View>(R.id.buttonProfileHeroEdit).setOnClickListener(stub)
+        findViewById<View>(R.id.rowSettingsBusinessName).setOnClickListener(stub)
+        findViewById<View>(R.id.rowSettingsBusinessType).setOnClickListener(stub)
+        findViewById<View>(R.id.rowSettingsEmail).setOnClickListener(stub)
+        findViewById<View>(R.id.rowSettingsLocation).setOnClickListener(stub)
+        findViewById<View>(R.id.rowLoyaltyThreshold).setOnClickListener(stub)
+        findViewById<View>(R.id.rowLoyaltyPointsMode).setOnClickListener(stub)
 
-        findViewById<MaterialButton>(R.id.button_logout).setOnClickListener {
+        findViewById<MaterialButton>(R.id.buttonLogout).setOnClickListener {
             presenter.onLogoutClicked(this)
         }
     }
 
     override fun bindProfile(businessName: String, initials: String, emailDisplay: String) {
-        findViewById<TextView>(R.id.text_header_business).text = businessName
-        findViewById<TextView>(R.id.text_profile_hero_business_name).text = businessName
-        findViewById<TextView>(R.id.text_profile_hero_initials).text = initials
-        findViewById<TextView>(R.id.text_profile_row_business_value).text = businessName
-        findViewById<TextView>(R.id.text_profile_row_email_value).text = emailDisplay
+        findViewById<TextView>(R.id.textviewHeaderBusiness).text = businessName
+        findViewById<TextView>(R.id.textviewProfileHeroBusinessName).text = businessName
+        findViewById<TextView>(R.id.textviewProfileHeroInitials).text = initials
+        findViewById<TextView>(R.id.textviewProfileRowBusinessValue).text = businessName
+        findViewById<TextView>(R.id.textviewProfileRowEmailValue).text = emailDisplay
     }
 
     override fun showComingSoon() {

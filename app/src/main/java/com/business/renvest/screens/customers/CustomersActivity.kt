@@ -22,19 +22,19 @@ class CustomersActivity : AppCompatActivity(), CustomersContract.View {
         presenter.onViewReady(this)
 
         val stub = View.OnClickListener { presenter.onStubInteraction() }
-        findViewById<View>(R.id.button_filter).setOnClickListener(stub)
-        findViewById<View>(R.id.button_add_customer).setOnClickListener(stub)
-        findViewById<View>(R.id.text_sort).setOnClickListener(stub)
-        findViewById<View>(R.id.button_visit_maria).setOnClickListener(stub)
-        findViewById<View>(R.id.button_pts_maria).setOnClickListener(stub)
-        findViewById<View>(R.id.button_visit_john).setOnClickListener(stub)
-        findViewById<View>(R.id.button_pts_john).setOnClickListener(stub)
-        findViewById<View>(R.id.button_visit_sofia).setOnClickListener(stub)
-        findViewById<View>(R.id.button_pts_sofia).setOnClickListener(stub)
+        findViewById<View>(R.id.buttonFilter).setOnClickListener(stub)
+        findViewById<View>(R.id.buttonAddCustomer).setOnClickListener(stub)
+        findViewById<View>(R.id.textviewSort).setOnClickListener(stub)
+        findViewById<View>(R.id.buttonVisitMaria).setOnClickListener(stub)
+        findViewById<View>(R.id.buttonPtsMaria).setOnClickListener(stub)
+        findViewById<View>(R.id.buttonVisitJohn).setOnClickListener(stub)
+        findViewById<View>(R.id.buttonPtsJohn).setOnClickListener(stub)
+        findViewById<View>(R.id.buttonVisitSofia).setOnClickListener(stub)
+        findViewById<View>(R.id.buttonPtsSofia).setOnClickListener(stub)
     }
 
     override fun setHeaderBusinessName(text: String) {
-        findViewById<TextView>(R.id.text_header_business).text = text
+        findViewById<TextView>(R.id.textviewHeaderBusiness).text = text
     }
 
     override fun setupNav(selectedItemId: Int) {

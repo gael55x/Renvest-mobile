@@ -279,19 +279,19 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 
 fun AppCompatActivity.setupMainBottomNavigation(@IdRes selectedItemId: Int) {
-    val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-    bottomNav.selectedItemId = selectedItemId
-    bottomNav.getOrCreateBadge(R.id.nav_activity).apply {
+    val bottomnavigationMain = findViewById<BottomNavigationView>(R.id.bottomnavigationMain)
+    bottomnavigationMain.selectedItemId = selectedItemId
+    bottomnavigationMain.getOrCreateBadge(R.id.navActivity).apply {
         isVisible = true
         number = 3
     }
-    bottomNav.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
+    bottomnavigationMain.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.nav_home -> navigateMainTab(DashboardActivity::class.java, selectedItemId == R.id.nav_home)
-            R.id.nav_customers -> navigateMainTab(CustomersActivity::class.java, selectedItemId == R.id.nav_customers)
-            R.id.nav_promos -> navigateMainTab(PromotionsActivity::class.java, selectedItemId == R.id.nav_promos)
-            R.id.nav_activity -> navigateMainTab(ActivityFeedActivity::class.java, selectedItemId == R.id.nav_activity)
-            R.id.nav_profile -> navigateMainTab(ProfileActivity::class.java, selectedItemId == R.id.nav_profile)
+            R.id.navHome -> navigateMainTab(DashboardActivity::class.java, selectedItemId == R.id.navHome)
+            R.id.navCustomers -> navigateMainTab(CustomersActivity::class.java, selectedItemId == R.id.navCustomers)
+            R.id.navPromos -> navigateMainTab(PromotionsActivity::class.java, selectedItemId == R.id.navPromos)
+            R.id.navActivity -> navigateMainTab(ActivityFeedActivity::class.java, selectedItemId == R.id.navActivity)
+            R.id.navProfile -> navigateMainTab(ProfileActivity::class.java, selectedItemId == R.id.navProfile)
             else -> false
         }
     })
@@ -343,24 +343,24 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
         presenter = LoginPresenter(this, authStore())
 
-        findViewById<TextView>(R.id.text_forgot_password).setOnClickListener {
+        findViewById<TextView>(R.id.textviewForgotPassword).setOnClickListener {
             toast(getString(R.string.coming_soon))
         }
 
-        val textInputLayoutEmail = findViewById<TextInputLayout>(R.id.input_email_layout)
-        val textInputLayoutPassword = findViewById<TextInputLayout>(R.id.input_password_layout)
-        val materialButtonLogin = findViewById<MaterialButton>(R.id.button_login)
-        val materialButtonGoRegister = findViewById<MaterialButton>(R.id.button_go_register)
+        val textinputEmailLayout = findViewById<TextInputLayout>(R.id.textinputEmailLayout)
+        val textinputPasswordLayout = findViewById<TextInputLayout>(R.id.textinputPasswordLayout)
+        val materialbuttonLogin = findViewById<MaterialButton>(R.id.buttonLogin)
+        val materialbuttonGoRegister = findViewById<MaterialButton>(R.id.buttonGoRegister)
 
-        materialButtonLogin.setOnClickListener {
+        materialbuttonLogin.setOnClickListener {
             val requiredMessage = getString(R.string.error_field_required)
-            val okEmail = textInputLayoutEmail.validateRequired(requiredMessage)
-            val okPassword = textInputLayoutPassword.validateRequired(requiredMessage, trim = false)
+            val okEmail = textinputEmailLayout.validateRequired(requiredMessage)
+            val okPassword = textinputPasswordLayout.validateRequired(requiredMessage, trim = false)
             if (!okEmail || !okPassword) return@setOnClickListener
-            presenter.onLoginSubmitted(this, textInputLayoutEmail.valueText())
+            presenter.onLoginSubmitted(this, textinputEmailLayout.valueText())
         }
 
-        materialButtonGoRegister.setOnClickListener {
+        materialbuttonGoRegister.setOnClickListener {
             startActivity(RegisterActivity::class.java)
         }
     }
@@ -481,12 +481,12 @@ class LoginPresenter(
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_section"
-            android:labelFor="@id/input_email"
+            android:labelFor="@id/edittextEmail"
             android:text="@string/label_email"
             android:textAppearance="@style/TextAppearance.Renvest.Label" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_email_layout"
+            android:id="@+id/textinputEmailLayout"
             style="@style/Widget.Renvest.TextInput.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -495,7 +495,7 @@ class LoginPresenter(
             app:startIconDrawable="@drawable/ic_mail_24">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_email"
+                android:id="@+id/edittextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
@@ -507,12 +507,12 @@ class LoginPresenter(
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_field"
-            android:labelFor="@id/input_password"
+            android:labelFor="@id/edittextPassword"
             android:text="@string/label_password"
             android:textAppearance="@style/TextAppearance.Renvest.Label" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_password_layout"
+            android:id="@+id/textinputPasswordLayout"
             style="@style/Widget.Renvest.TextInput.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -522,7 +522,7 @@ class LoginPresenter(
             app:startIconDrawable="@drawable/ic_lock_24">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_password"
+                android:id="@+id/edittextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -530,7 +530,7 @@ class LoginPresenter(
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/text_forgot_password"
+            android:id="@+id/textviewForgotPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_small"
@@ -539,7 +539,7 @@ class LoginPresenter(
             android:textAppearance="@style/TextAppearance.Renvest.Link" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_login"
+            android:id="@+id/buttonLogin"
             style="@style/Widget.Renvest.Button.Primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -547,7 +547,7 @@ class LoginPresenter(
             android:text="@string/action_login" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_go_register"
+            android:id="@+id/buttonGoRegister"
             style="@style/Widget.Renvest.Button.Text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -589,7 +589,7 @@ import com.google.android.material.textfield.TextInputLayout
 class RegisterActivity : AppCompatActivity(), RegisterContract.View {
 
     private lateinit var presenter: RegisterPresenter
-    private lateinit var textInputLayoutConfirm: TextInputLayout
+    private lateinit var textinputConfirmPasswordLayout: TextInputLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -598,37 +598,37 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
         presenter = RegisterPresenter(this, authStore())
 
         val finishBack: () -> Unit = { finish() }
-        findViewById<ImageButton>(R.id.button_back).setOnClickListener { finishBack() }
-        findViewById<TextView>(R.id.text_back_nav).setOnClickListener { finishBack() }
+        findViewById<ImageButton>(R.id.buttonBack).setOnClickListener { finishBack() }
+        findViewById<TextView>(R.id.textviewBackNav).setOnClickListener { finishBack() }
 
-        val textInputLayoutBusiness = findViewById<TextInputLayout>(R.id.input_business_layout)
-        val textInputLayoutOwner = findViewById<TextInputLayout>(R.id.input_owner_layout)
-        val textInputLayoutEmail = findViewById<TextInputLayout>(R.id.input_email_layout)
-        val textInputLayoutPassword = findViewById<TextInputLayout>(R.id.input_password_layout)
-        textInputLayoutConfirm = findViewById(R.id.input_confirm_password_layout)
-        val materialButtonRegister = findViewById<MaterialButton>(R.id.button_register)
-        val materialButtonGoLogin = findViewById<MaterialButton>(R.id.button_go_login)
+        val textinputBusinessLayout = findViewById<TextInputLayout>(R.id.textinputBusinessLayout)
+        val textinputOwnerLayout = findViewById<TextInputLayout>(R.id.textinputOwnerLayout)
+        val textinputEmailLayout = findViewById<TextInputLayout>(R.id.textinputEmailLayout)
+        val textinputPasswordLayout = findViewById<TextInputLayout>(R.id.textinputPasswordLayout)
+        textinputConfirmPasswordLayout = findViewById(R.id.textinputConfirmPasswordLayout)
+        val materialbuttonRegister = findViewById<MaterialButton>(R.id.buttonRegister)
+        val materialbuttonGoLogin = findViewById<MaterialButton>(R.id.buttonGoLogin)
 
-        materialButtonGoLogin.setOnClickListener {
+        materialbuttonGoLogin.setOnClickListener {
             startActivity(LoginActivity::class.java)
             finish()
         }
 
-        materialButtonRegister.setOnClickListener {
+        materialbuttonRegister.setOnClickListener {
             val requiredMessage = getString(R.string.error_field_required)
-            val okBusiness = textInputLayoutBusiness.validateRequired(requiredMessage)
-            val okOwner = textInputLayoutOwner.validateRequired(requiredMessage)
-            val okEmail = textInputLayoutEmail.validateRequired(requiredMessage)
-            val okPassword = textInputLayoutPassword.validateRequired(requiredMessage, trim = false)
-            val okConfirm = textInputLayoutConfirm.validateRequired(requiredMessage, trim = false)
+            val okBusiness = textinputBusinessLayout.validateRequired(requiredMessage)
+            val okOwner = textinputOwnerLayout.validateRequired(requiredMessage)
+            val okEmail = textinputEmailLayout.validateRequired(requiredMessage)
+            val okPassword = textinputPasswordLayout.validateRequired(requiredMessage, trim = false)
+            val okConfirm = textinputConfirmPasswordLayout.validateRequired(requiredMessage, trim = false)
             if (!okBusiness || !okOwner || !okEmail || !okPassword || !okConfirm) return@setOnClickListener
 
             presenter.onRegisterSubmitted(
                 this,
-                textInputLayoutBusiness.valueText(),
-                textInputLayoutEmail.valueText(),
-                textInputLayoutPassword.valueText(trim = false),
-                textInputLayoutConfirm.valueText(trim = false),
+                textinputBusinessLayout.valueText(),
+                textinputEmailLayout.valueText(),
+                textinputPasswordLayout.valueText(trim = false),
+                textinputConfirmPasswordLayout.valueText(trim = false),
                 getString(R.string.error_password_mismatch),
             )
         }
@@ -644,11 +644,11 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     }
 
     override fun setConfirmPasswordError(message: String) {
-        textInputLayoutConfirm.error = message
+        textinputConfirmPasswordLayout.error = message
     }
 
     override fun clearConfirmPasswordError() {
-        textInputLayoutConfirm.error = null
+        textinputConfirmPasswordLayout.error = null
     }
 }
 ```
@@ -748,7 +748,7 @@ class RegisterPresenter(
             android:paddingVertical="@dimen/spacing_small">
 
             <ImageButton
-                android:id="@+id/button_back"
+                android:id="@+id/buttonBack"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -756,7 +756,7 @@ class RegisterPresenter(
                 app:srcCompat="@drawable/ic_arrow_back_24" />
 
             <TextView
-                android:id="@+id/text_back_nav"
+                android:id="@+id/textviewBackNav"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -784,12 +784,12 @@ class RegisterPresenter(
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_section"
-            android:labelFor="@id/input_business"
+            android:labelFor="@id/edittextBusiness"
             android:text="@string/label_business_name"
             android:textAppearance="@style/TextAppearance.Renvest.Label" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_business_layout"
+            android:id="@+id/textinputBusinessLayout"
             style="@style/Widget.Renvest.TextInput.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -798,7 +798,7 @@ class RegisterPresenter(
             app:startIconDrawable="@drawable/ic_store_24">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_business"
+                android:id="@+id/edittextBusiness"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text|textCapWords"
@@ -809,12 +809,12 @@ class RegisterPresenter(
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_field"
-            android:labelFor="@id/input_owner"
+            android:labelFor="@id/edittextOwner"
             android:text="@string/label_owner_name"
             android:textAppearance="@style/TextAppearance.Renvest.Label" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_owner_layout"
+            android:id="@+id/textinputOwnerLayout"
             style="@style/Widget.Renvest.TextInput.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -823,7 +823,7 @@ class RegisterPresenter(
             app:startIconDrawable="@drawable/ic_person_24">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_owner"
+                android:id="@+id/edittextOwner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName|textCapWords"
@@ -834,12 +834,12 @@ class RegisterPresenter(
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_field"
-            android:labelFor="@id/input_email"
+            android:labelFor="@id/edittextEmail"
             android:text="@string/label_email"
             android:textAppearance="@style/TextAppearance.Renvest.Label" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_email_layout"
+            android:id="@+id/textinputEmailLayout"
             style="@style/Widget.Renvest.TextInput.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -848,7 +848,7 @@ class RegisterPresenter(
             app:startIconDrawable="@drawable/ic_mail_24">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_email"
+                android:id="@+id/edittextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
@@ -860,12 +860,12 @@ class RegisterPresenter(
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_field"
-            android:labelFor="@id/input_password"
+            android:labelFor="@id/edittextPassword"
             android:text="@string/label_password"
             android:textAppearance="@style/TextAppearance.Renvest.Label" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_password_layout"
+            android:id="@+id/textinputPasswordLayout"
             style="@style/Widget.Renvest.TextInput.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -875,7 +875,7 @@ class RegisterPresenter(
             app:startIconDrawable="@drawable/ic_lock_24">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_password"
+                android:id="@+id/edittextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -886,12 +886,12 @@ class RegisterPresenter(
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_field"
-            android:labelFor="@id/input_confirm_password"
+            android:labelFor="@id/edittextConfirmPassword"
             android:text="@string/label_confirm_password"
             android:textAppearance="@style/TextAppearance.Renvest.Label" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_confirm_password_layout"
+            android:id="@+id/textinputConfirmPasswordLayout"
             style="@style/Widget.Renvest.TextInput.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -901,7 +901,7 @@ class RegisterPresenter(
             app:startIconDrawable="@drawable/ic_shield_24">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_confirm_password"
+                android:id="@+id/edittextConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -909,7 +909,7 @@ class RegisterPresenter(
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_register"
+            android:id="@+id/buttonRegister"
             style="@style/Widget.Renvest.Button.Primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -917,7 +917,7 @@ class RegisterPresenter(
             android:text="@string/action_create_account" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_go_login"
+            android:id="@+id/buttonGoLogin"
             style="@style/Widget.Renvest.Button.Text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -973,47 +973,47 @@ class DashboardActivity : AppCompatActivity(), DashboardContract.View {
         presenter = DashboardPresenter(this, authStore())
         presenter.onViewReady(this)
 
-        findViewById<android.view.View>(R.id.header_notification).setOnClickListener {
+        findViewById<android.view.View>(R.id.framelayoutHeaderNotification).setOnClickListener {
             presenter.onNotificationClicked()
         }
 
-        findViewById<TextView>(R.id.text_perf_view_report).setOnClickListener {
+        findViewById<TextView>(R.id.textviewPerfViewReport).setOnClickListener {
             presenter.onPerfViewReportClicked()
         }
 
-        findViewById<MaterialCardView>(R.id.card_hero_revenue).setOnClickListener {
+        findViewById<MaterialCardView>(R.id.materialcardHeroRevenue).setOnClickListener {
             /* static hero; no navigation */
         }
 
-        findViewById<MaterialCardView>(R.id.perf_cell_members).setOnClickListener {
+        findViewById<MaterialCardView>(R.id.materialcardPerfCellMembers).setOnClickListener {
             presenter.onPerfCellMembersClicked()
         }
 
-        findViewById<MaterialCardView>(R.id.perf_cell_rating).setOnClickListener {
+        findViewById<MaterialCardView>(R.id.materialcardPerfCellRating).setOnClickListener {
             presenter.onPerfCellRatingClicked()
         }
 
-        findViewById<MaterialCardView>(R.id.perf_cell_ticket).setOnClickListener {
+        findViewById<MaterialCardView>(R.id.materialcardPerfCellTicket).setOnClickListener {
             presenter.onPerfCellTicketClicked()
         }
 
-        findViewById<MaterialCardView>(R.id.perf_cell_churn).setOnClickListener {
+        findViewById<MaterialCardView>(R.id.materialcardPerfCellChurn).setOnClickListener {
             presenter.onPerfCellChurnClicked()
         }
 
-        findViewById<MaterialCardView>(R.id.card_ai_insight).setOnClickListener {
+        findViewById<MaterialCardView>(R.id.materialcardAiInsight).setOnClickListener {
             presenter.onCardAiInsightClicked()
         }
 
-        setupMainBottomNavigation(R.id.nav_home)
+        setupMainBottomNavigation(R.id.navHome)
     }
 
     override fun setGreeting(text: String) {
-        findViewById<TextView>(R.id.text_greeting).text = text
+        findViewById<TextView>(R.id.textviewGreeting).text = text
     }
 
     override fun setBusinessName(text: String) {
-        findViewById<TextView>(R.id.text_business_name).text = text
+        findViewById<TextView>(R.id.textviewBusinessName).text = text
     }
 
     override fun showComingSoon() {
@@ -1159,14 +1159,14 @@ File: `app/src/main/res/layout/activity_dashboard.xml`
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/text_greeting"
+                android:id="@+id/textviewGreeting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.Renvest.Body"
                 tools:text="@string/greeting_morning" />
 
             <TextView
-                android:id="@+id/text_business_name"
+                android:id="@+id/textviewBusinessName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_xs"
@@ -1175,7 +1175,7 @@ File: `app/src/main/res/layout/activity_dashboard.xml`
         </LinearLayout>
 
         <FrameLayout
-            android:id="@+id/header_notification"
+            android:id="@+id/framelayoutHeaderNotification"
             android:layout_width="@dimen/header_icon_size"
             android:layout_height="@dimen/header_icon_size"
             android:layout_marginEnd="@dimen/spacing_small"
@@ -1185,7 +1185,7 @@ File: `app/src/main/res/layout/activity_dashboard.xml`
                 android:layout_width="@dimen/grid_3"
                 android:layout_height="@dimen/grid_3"
                 android:layout_gravity="center"
-                android:contentDescription="@string/nav_activity"
+                android:contentDescription="@string/navActivity"
                 app:srcCompat="@drawable/ic_notifications_24" />
 
             <View
@@ -1203,7 +1203,7 @@ File: `app/src/main/res/layout/activity_dashboard.xml`
             android:background="@drawable/bg_circle_primary">
 
             <TextView
-                android:id="@+id/text_avatar_initials"
+                android:id="@+id/textviewAvatarInitials"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -1230,7 +1230,7 @@ File: `app/src/main/res/layout/activity_dashboard.xml`
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_hero_revenue"
+                android:id="@+id/materialcardHeroRevenue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/dashboard_hero"
@@ -1386,7 +1386,7 @@ File: `app/src/main/res/layout/activity_dashboard.xml`
                     android:textAppearance="@style/TextAppearance.Renvest.SectionTitle" />
 
                 <TextView
-                    android:id="@+id/text_perf_view_report"
+                    android:id="@+id/textviewPerfViewReport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/perf_view_report"
@@ -1400,7 +1400,7 @@ File: `app/src/main/res/layout/activity_dashboard.xml`
                 android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/perf_cell_members"
+                    android:id="@+id/materialcardPerfCellMembers"
                     style="@style/Widget.Renvest.StatCard"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -1455,7 +1455,7 @@ File: `app/src/main/res/layout/activity_dashboard.xml`
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/perf_cell_rating"
+                    android:id="@+id/materialcardPerfCellRating"
                     style="@style/Widget.Renvest.StatCard"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -1505,7 +1505,7 @@ File: `app/src/main/res/layout/activity_dashboard.xml`
                 android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/perf_cell_ticket"
+                    android:id="@+id/materialcardPerfCellTicket"
                     style="@style/Widget.Renvest.StatCard"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -1560,7 +1560,7 @@ File: `app/src/main/res/layout/activity_dashboard.xml`
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/perf_cell_churn"
+                    android:id="@+id/materialcardPerfCellChurn"
                     style="@style/Widget.Renvest.StatCard"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -1611,7 +1611,7 @@ File: `app/src/main/res/layout/activity_dashboard.xml`
                 android:textAppearance="@style/TextAppearance.Renvest.SectionTitle" />
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_ai_insight"
+                android:id="@+id/materialcardAiInsight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_field"
@@ -1650,7 +1650,7 @@ File: `app/src/main/res/layout/activity_dashboard.xml`
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+        android:id="@+id/bottomnavigationMain"
         style="@style/Widget.Renvest.BottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -11,7 +11,7 @@ class PromotionsPresenter(
 
     override fun onViewReady(context: Context) {
         view.setHeaderBusinessName(authStore.businessDisplayName(context))
-        view.setupNav(R.id.nav_promos)
+        view.setupNav(R.id.navPromos)
     }
 
     override fun onStubInteraction() {
