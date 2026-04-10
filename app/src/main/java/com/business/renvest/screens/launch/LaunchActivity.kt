@@ -6,15 +6,24 @@ import com.business.renvest.screens.auth.LoginActivity
 import com.business.renvest.screens.dashboard.DashboardActivity
 import com.business.renvest.utils.authRepository
 import com.business.renvest.utils.startActivity
+import com.business.renvest.utils.startActivityClearTask
 
-class LaunchActivity : AppCompatActivity() {
+class LaunchActivity : AppCompatActivity(), LaunchContract.View {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (authRepository().isLoggedIn(this)) {
-            startActivity(DashboardActivity::class.java)
-        } else {
-            startActivity(LoginActivity::class.java)
-        }
+        LaunchPresenter(this, LaunchModel(authRepository()), this).start()
+    }
+
+    override fun navigateToDashboard() {
+        startActivity(DashboardActivity::class.java)
+    }
+
+    override fun navigateToLogin() {
+        startActivity(LoginActivity::class.java)
+    }
+
+    override fun close() {
         finish()
     }
 }
