@@ -20,9 +20,13 @@ screens/
     ├── DashboardActivity.kt
     ├── DashboardContract.kt
     └── DashboardPresenter.kt
+
+data/
+└── repository/
+    └── AuthStore.kt
 ```
 
-The selected screens for this submission are `login`, `register`, and `dashboard`. These were separated into distinct feature slices so that the structure of the application clearly matches the user-facing screens being implemented. This makes the vertical slicing architecture easier to explain and shows that each screen contains its own View and Presenter while still sharing a small and controlled data layer.
+The selected screens for this submission are `login`, `register`, and `dashboard`. These were separated into distinct feature slices so that the structure of the application clearly matches the user-facing screens being implemented. This makes the vertical slicing architecture easier to explain and shows that each screen contains its own View and Presenter while still sharing a small and controlled data layer. The shared authentication and session logic is placed in `data/repository/AuthStore.kt` because it is used by more than one screen, especially `login`, `register`, `launch`, `profile`, and `dashboard`.
 
 ## How MVP Is Applied
 
@@ -1125,6 +1129,8 @@ class DashboardPresenter(
 ```
 
 ### Dashboard XML
+
+File: `app/src/main/res/layout/activity_dashboard.xml`
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
