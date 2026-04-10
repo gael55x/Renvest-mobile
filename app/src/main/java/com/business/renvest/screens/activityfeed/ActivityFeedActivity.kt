@@ -22,12 +22,12 @@ class ActivityFeedActivity : AppCompatActivity(), ActivityFeedContract.View {
         presenter.onViewReady(this)
 
         val stub = View.OnClickListener { presenter.onStubInteraction() }
-        findViewById<View>(R.id.button_feed_calendar).setOnClickListener(stub)
-        findViewById<View>(R.id.button_feed_export).setOnClickListener(stub)
+        findViewById<View>(R.id.buttonFeedCalendar).setOnClickListener(stub)
+        findViewById<View>(R.id.buttonFeedExport).setOnClickListener(stub)
     }
 
     override fun setHeaderBusinessName(text: String) {
-        findViewById<TextView>(R.id.text_header_business).text = text
+        findViewById<TextView>(R.id.textviewHeaderBusiness).text = text
     }
 
     override fun setupNav(selectedItemId: Int) {

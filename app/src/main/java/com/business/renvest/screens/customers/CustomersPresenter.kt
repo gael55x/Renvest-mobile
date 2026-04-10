@@ -11,7 +11,7 @@ class CustomersPresenter(
 
     override fun onViewReady(context: Context) {
         view.setHeaderBusinessName(authStore.businessDisplayName(context))
-        view.setupNav(R.id.nav_customers)
+        view.setupNav(R.id.navCustomers)
     }
 
     override fun onStubInteraction() {

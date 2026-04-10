@@ -11,7 +11,7 @@ class ActivityFeedPresenter(
 
     override fun onViewReady(context: Context) {
         view.setHeaderBusinessName(authStore.businessDisplayName(context))
-        view.setupNav(R.id.nav_activity)
+        view.setupNav(R.id.navActivity)
     }
 
     override fun onStubInteraction() {

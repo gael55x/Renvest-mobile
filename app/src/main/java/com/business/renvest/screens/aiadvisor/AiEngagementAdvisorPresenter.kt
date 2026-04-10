@@ -11,7 +11,7 @@ class AiEngagementAdvisorPresenter(
 
     override fun onViewReady(context: Context) {
         view.setHeaderBusinessName(authStore.businessDisplayName(context))
-        view.setupNav(R.id.nav_home)
+        view.setupNav(R.id.navHome)
         view.setEngagementProgress(74)
     }
 

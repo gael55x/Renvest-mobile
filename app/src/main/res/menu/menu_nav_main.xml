@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/nav_home"
+        android:id="@+id/navHome"
         android:icon="@drawable/ic_home_24"
-        android:title="@string/nav_home" />
+        android:title="@string/navHome" />
     <item
-        android:id="@+id/nav_customers"
+        android:id="@+id/navCustomers"
         android:icon="@drawable/ic_person_24"
-        android:title="@string/nav_customers" />
+        android:title="@string/navCustomers" />
     <item
-        android:id="@+id/nav_promos"
+        android:id="@+id/navPromos"
         android:icon="@drawable/ic_promo_star_24"
-        android:title="@string/nav_promos" />
+        android:title="@string/navPromos" />
     <item
-        android:id="@+id/nav_activity"
+        android:id="@+id/navActivity"
         android:icon="@drawable/ic_notifications_24"
-        android:title="@string/nav_activity" />
+        android:title="@string/navActivity" />
     <item
-        android:id="@+id/nav_profile"
+        android:id="@+id/navProfile"
         android:icon="@drawable/ic_person_24"
-        android:title="@string/nav_profile" />
+        android:title="@string/navProfile" />
 </menu>

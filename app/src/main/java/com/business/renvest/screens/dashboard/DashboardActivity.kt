@@ -26,47 +26,47 @@ class DashboardActivity : AppCompatActivity(), DashboardContract.View {
         presenter = DashboardPresenter(this, authStore())
         presenter.onViewReady(this)
 
-        findViewById<android.view.View>(R.id.header_notification).setOnClickListener {
+        findViewById<android.view.View>(R.id.framelayoutHeaderNotification).setOnClickListener {
             presenter.onNotificationClicked()
         }
 
-        findViewById<TextView>(R.id.text_perf_view_report).setOnClickListener {
+        findViewById<TextView>(R.id.textviewPerfViewReport).setOnClickListener {
             presenter.onPerfViewReportClicked()
         }
 
-        findViewById<MaterialCardView>(R.id.card_hero_revenue).setOnClickListener {
+        findViewById<MaterialCardView>(R.id.materialcardHeroRevenue).setOnClickListener {
             /* static hero; no navigation */
         }
 
-        findViewById<MaterialCardView>(R.id.perf_cell_members).setOnClickListener {
+        findViewById<MaterialCardView>(R.id.materialcardPerfCellMembers).setOnClickListener {
             presenter.onPerfCellMembersClicked()
         }
 
-        findViewById<MaterialCardView>(R.id.perf_cell_rating).setOnClickListener {
+        findViewById<MaterialCardView>(R.id.materialcardPerfCellRating).setOnClickListener {
             presenter.onPerfCellRatingClicked()
         }
 
-        findViewById<MaterialCardView>(R.id.perf_cell_ticket).setOnClickListener {
+        findViewById<MaterialCardView>(R.id.materialcardPerfCellTicket).setOnClickListener {
             presenter.onPerfCellTicketClicked()
         }
 
-        findViewById<MaterialCardView>(R.id.perf_cell_churn).setOnClickListener {
+        findViewById<MaterialCardView>(R.id.materialcardPerfCellChurn).setOnClickListener {
             presenter.onPerfCellChurnClicked()
         }
 
-        findViewById<MaterialCardView>(R.id.card_ai_insight).setOnClickListener {
+        findViewById<MaterialCardView>(R.id.materialcardAiInsight).setOnClickListener {
             presenter.onCardAiInsightClicked()
         }
 
-        setupMainBottomNavigation(R.id.nav_home)
+        setupMainBottomNavigation(R.id.navHome)
     }
 
     override fun setGreeting(text: String) {
-        findViewById<TextView>(R.id.text_greeting).text = text
+        findViewById<TextView>(R.id.textviewGreeting).text = text
     }
 
     override fun setBusinessName(text: String) {
-        findViewById<TextView>(R.id.text_business_name).text = text
+        findViewById<TextView>(R.id.textviewBusinessName).text = text
     }
 
     override fun showComingSoon() {

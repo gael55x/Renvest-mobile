@@ -23,13 +23,13 @@ class AiEngagementAdvisorActivity : AppCompatActivity(), AiEngagementAdvisorCont
         presenter.onViewReady(this)
 
         val stub = View.OnClickListener { presenter.onStubInteraction() }
-        findViewById<View>(R.id.button_ai_refresh).setOnClickListener(stub)
-        findViewById<View>(R.id.button_ai_activate_promo).setOnClickListener(stub)
-        findViewById<View>(R.id.button_ai_view_data).setOnClickListener(stub)
+        findViewById<View>(R.id.buttonAiRefresh).setOnClickListener(stub)
+        findViewById<View>(R.id.buttonAiActivatePromo).setOnClickListener(stub)
+        findViewById<View>(R.id.buttonAiViewData).setOnClickListener(stub)
     }
 
     override fun setHeaderBusinessName(text: String) {
-        findViewById<TextView>(R.id.text_header_business).text = text
+        findViewById<TextView>(R.id.textviewHeaderBusiness).text = text
     }
 
     override fun setupNav(selectedItemId: Int) {
@@ -37,7 +37,7 @@ class AiEngagementAdvisorActivity : AppCompatActivity(), AiEngagementAdvisorCont
     }
 
     override fun setEngagementProgress(percent: Int) {
-        findViewById<CircularProgressIndicator>(R.id.indicator_engagement_score)
+        findViewById<CircularProgressIndicator>(R.id.circularprogressindicatorEngagementScore)
             .setProgressCompat(percent, false)
     }
 

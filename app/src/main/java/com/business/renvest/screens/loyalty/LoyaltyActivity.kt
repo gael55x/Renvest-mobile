@@ -18,6 +18,6 @@ class LoyaltyActivity : AppCompatActivity(), LoyaltyContract.View {
     }
 
     override fun setStubTitle(titleResId: Int) {
-        findViewById<TextView>(R.id.text_stub_title).setText(titleResId)
+        findViewById<TextView>(R.id.textviewStubTitle).setText(titleResId)
     }
 }
