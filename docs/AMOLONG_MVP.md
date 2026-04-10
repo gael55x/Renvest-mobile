@@ -1254,7 +1254,7 @@ File: `app/src/main/res/layout/activity_dashboard.xml`
                 android:layout_width="@dimen/grid_3"
                 android:layout_height="@dimen/grid_3"
                 android:layout_gravity="center"
-                android:contentDescription="@string/navActivity"
+                android:contentDescription="@string/nav_activity"
                 app:srcCompat="@drawable/ic_notifications_24" />
 
             <View
