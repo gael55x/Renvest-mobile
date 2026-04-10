@@ -131,7 +131,7 @@
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_promo1_edit"
+                android:id="@+id/buttonPromo1Edit"
                 style="@style/Widget.Renvest.Button.SmallOutlined"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -142,7 +142,7 @@
                 app:iconTint="@color/text_secondary" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_promo1_pause"
+                android:id="@+id/buttonPromo1Pause"
                 style="@style/Widget.Renvest.Button.SmallOutlined"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -154,7 +154,7 @@
                 app:iconTint="@color/text_secondary" />
 
             <TextView
-                android:id="@+id/text_promo1_details"
+                android:id="@+id/textviewPromo1Details"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

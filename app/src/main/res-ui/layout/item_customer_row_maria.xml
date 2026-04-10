@@ -87,7 +87,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_visit_maria"
+            android:id="@+id/buttonVisitMaria"
             style="@style/Widget.Renvest.Button.SmallPrimaryOutlined"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
             android:text="@string/action_visit" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_pts_maria"
+            android:id="@+id/buttonPtsMaria"
             style="@style/Widget.Renvest.Button.SmallGoldOutlined"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
