@@ -1,6 +1,8 @@
-# AMOLONG_MVP
+## Introduction
 
-This file is the Markdown version of `AMOLONG_MVP.pdf`.
+This document presents the Model-View-Presenter (MVP) implementation used in the selected Renvest screens for this project requirement. The focus of this submission is on three screens: `login`, `register`, and `dashboard`. These screens were chosen because they show the main user flow of the application, starting from account access up to the main dashboard experience.
+
+In this document, I explain how the code is organized using vertical slicing and how MVP is applied in each selected screen. I also include the supporting files that help the three screens work properly, such as the shared authentication store, application-level setup, and reusable activity helpers. The goal of this documentation is to clearly show how the project structure, file responsibilities, and screen flow follow the required architecture in a way that is organized and easy to present.
 
 ## Focus of This Submission
 
