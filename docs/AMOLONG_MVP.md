@@ -22,7 +22,7 @@ screens/
     └── DashboardPresenter.kt
 ```
 
-I did this because `login` and `register` are honestly two different user flows already, so putting both inside one `auth` bucket made the project harder to present. Splitting them into separate slices makes the vertical slicing structure easier to understand. Each slice now has a clear View, Presenter, and shared data connection.
+The selected screens for this submission are `login`, `register`, and `dashboard`. These were separated into distinct feature slices so that the structure of the application clearly matches the user-facing screens being implemented. This makes the vertical slicing architecture easier to explain and shows that each screen contains its own View and Presenter while still sharing a small and controlled data layer.
 
 ## How MVP Is Applied
 
@@ -163,6 +163,143 @@ class RenvestApp : Application() {
 }
 ```
 
+### RenvestResult.kt
+
+```kotlin
+package com.business.renvest.data
+
+sealed class RenvestResult<out T> {
+    data class Ok<T>(val value: T) : RenvestResult<T>()
+
+    sealed class Err : RenvestResult<Nothing>() {
+        data class Storage(val reason: String) : Err()
+        data class Network(val reason: String) : Err()
+        data class Validation(val reason: String) : Err()
+    }
+}
+
+fun RenvestResult<*>.notifyErrorIfNotOk(notify: (String) -> Unit) {
+    when (this) {
+        is RenvestResult.Ok -> Unit
+        is RenvestResult.Err.Storage -> notify(reason)
+        is RenvestResult.Err.Network -> notify(reason)
+        is RenvestResult.Err.Validation -> notify(reason)
+    }
+}
+```
+
+### RenvestContext.kt
+
+```kotlin
+package com.business.renvest.utils
+
+import android.content.Context
+import com.business.renvest.app.RenvestApp
+import com.business.renvest.data.repository.AuthStore
+
+fun Context.requireRenvestApp(): RenvestApp =
+    applicationContext as? RenvestApp ?: error("Application is not RenvestApp")
+
+fun Context.authStore(): AuthStore = requireRenvestApp().authStore
+
+fun Context.displayBusinessName(): String = authStore().businessDisplayName(this)
+```
+
+### ActivityExtensions.kt
+
+```kotlin
+package com.business.renvest.utils
+
+import android.content.Intent
+import android.view.View
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.annotation.IdRes
+import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
+
+fun AppCompatActivity.toast(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
+
+fun AppCompatActivity.startActivity(target: Class<*>) {
+    startActivity(Intent(this, target))
+}
+
+fun AppCompatActivity.startActivityClearTask(target: Class<*>) {
+    startActivity(
+        Intent(this, target).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        },
+    )
+}
+
+private fun AppCompatActivity.applyEdgeToEdgeInsets(@IdRes rootViewId: Int) {
+    val root = findViewById<View>(rootViewId)
+    ViewCompat.setOnApplyWindowInsetsListener(root) { view, windowInsets ->
+        val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+        view.updatePadding(insets.left, insets.top, insets.right, insets.bottom)
+        windowInsets
+    }
+}
+
+fun AppCompatActivity.setupRenvestContent(@LayoutRes layoutRes: Int, @IdRes rootViewId: Int) {
+    enableEdgeToEdge()
+    setContentView(layoutRes)
+    applyEdgeToEdgeInsets(rootViewId)
+}
+
+fun AppCompatActivity.bindHeaderBusinessName(@IdRes textViewId: Int) {
+    findViewById<TextView>(textViewId).text = displayBusinessName()
+}
+```
+
+### MainBottomNavigation.kt
+
+```kotlin
+package com.business.renvest.utils
+
+import androidx.annotation.IdRes
+import androidx.appcompat.app.AppCompatActivity
+import com.business.renvest.R
+import com.business.renvest.screens.activityfeed.ActivityFeedActivity
+import com.business.renvest.screens.customers.CustomersActivity
+import com.business.renvest.screens.dashboard.DashboardActivity
+import com.business.renvest.screens.profile.ProfileActivity
+import com.business.renvest.screens.promotions.PromotionsActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
+
+fun AppCompatActivity.setupMainBottomNavigation(@IdRes selectedItemId: Int) {
+    val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+    bottomNav.selectedItemId = selectedItemId
+    bottomNav.getOrCreateBadge(R.id.nav_activity).apply {
+        isVisible = true
+        number = 3
+    }
+    bottomNav.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.nav_home -> navigateMainTab(DashboardActivity::class.java, selectedItemId == R.id.nav_home)
+            R.id.nav_customers -> navigateMainTab(CustomersActivity::class.java, selectedItemId == R.id.nav_customers)
+            R.id.nav_promos -> navigateMainTab(PromotionsActivity::class.java, selectedItemId == R.id.nav_promos)
+            R.id.nav_activity -> navigateMainTab(ActivityFeedActivity::class.java, selectedItemId == R.id.nav_activity)
+            R.id.nav_profile -> navigateMainTab(ProfileActivity::class.java, selectedItemId == R.id.nav_profile)
+            else -> false
+        }
+    })
+}
+
+private fun AppCompatActivity.navigateMainTab(target: Class<*>, alreadySelected: Boolean): Boolean {
+    if (alreadySelected) return true
+    startActivity(target)
+    return true
+}
+```
+
 ## Feature Slice 1: Login
 
 ### Why this is its own slice
@@ -284,9 +421,138 @@ class LoginPresenter(
 
 ### Login XML
 
-- Layout file: `app/src/main/res/layout/activity_login.xml`
-- Purpose: email input, password input, login button, and register redirect
-- In MVP terms, this XML is part of the View layer because it defines the UI that `LoginActivity` controls
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
+    android:clipToPadding="false"
+    android:fillViewport="true"
+    android:overScrollMode="ifContentScrolls">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/padding_screen_horizontal"
+        android:paddingTop="@dimen/grid_4"
+        android:paddingBottom="@dimen/padding_screen_vertical">
+
+        <FrameLayout
+            android:layout_width="@dimen/logo_size"
+            android:layout_height="@dimen/logo_size"
+            android:background="@drawable/bg_logo_rounded">
+
+            <ImageView
+                android:layout_width="@dimen/grid_4"
+                android:layout_height="@dimen/grid_4"
+                android:layout_gravity="center"
+                android:contentDescription="@string/app_name"
+                app:srcCompat="@drawable/ic_renvest_mark"
+                tools:ignore="ImageContrastCheck" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_section"
+            android:gravity="center_horizontal"
+            android:text="@string/app_name"
+            android:textAppearance="@style/TextAppearance.Renvest.Display" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:gravity="center_horizontal"
+            android:text="@string/tagline"
+            android:textAppearance="@style/TextAppearance.Renvest.Body" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_section"
+            android:labelFor="@id/input_email"
+            android:text="@string/label_email"
+            android:textAppearance="@style/TextAppearance.Renvest.Label" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_email_layout"
+            style="@style/Widget.Renvest.TextInput.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xs"
+            app:placeholderText="@string/hint_email"
+            app:startIconDrawable="@drawable/ic_mail_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                tools:ignore="TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_field"
+            android:labelFor="@id/input_password"
+            android:text="@string/label_password"
+            android:textAppearance="@style/TextAppearance.Renvest.Label" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_password_layout"
+            style="@style/Widget.Renvest.TextInput.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xs"
+            app:endIconMode="password_toggle"
+            app:placeholderText="@string/hint_password"
+            app:startIconDrawable="@drawable/ic_lock_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/text_forgot_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:gravity="end"
+            android:text="@string/forgot_password"
+            android:textAppearance="@style/TextAppearance.Renvest.Link" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_login"
+            style="@style/Widget.Renvest.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_section"
+            android:text="@string/action_login" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_go_register"
+            style="@style/Widget.Renvest.Button.Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="@string/link_register"
+            app:rippleColor="?attr/colorPrimary" />
+    </LinearLayout>
+</ScrollView>
+```
 
 ## Feature Slice 2: Register
 
@@ -449,9 +715,222 @@ class RegisterPresenter(
 
 ### Register XML
 
-- Layout file: `app/src/main/res/layout/activity_register.xml`
-- Purpose: business sign-up form, password confirmation, and back/login navigation
-- This screen is a stronger example of MVP because the View only collects values while the Presenter handles the password mismatch rule
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
+    android:clipToPadding="false"
+    android:fillViewport="true"
+    android:overScrollMode="ifContentScrolls">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/padding_screen_horizontal"
+        android:paddingTop="@dimen/padding_screen_vertical"
+        android:paddingBottom="@dimen/padding_screen_vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingVertical="@dimen/spacing_small">
+
+            <ImageButton
+                android:id="@+id/button_back"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/back"
+                app:srcCompat="@drawable/ic_arrow_back_24" />
+
+            <TextView
+                android:id="@+id/text_back_nav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:paddingHorizontal="@dimen/spacing_small"
+                android:text="@string/back"
+                android:textAppearance="@style/TextAppearance.Renvest.Body"
+                android:textColor="@color/text_primary" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="@string/register_headline"
+            android:textAppearance="@style/TextAppearance.Renvest.ScreenTitle.Form" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="@string/register_subtitle_long"
+            android:textAppearance="@style/TextAppearance.Renvest.Body" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_section"
+            android:labelFor="@id/input_business"
+            android:text="@string/label_business_name"
+            android:textAppearance="@style/TextAppearance.Renvest.Label" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_business_layout"
+            style="@style/Widget.Renvest.TextInput.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xs"
+            app:placeholderText="@string/hint_business_name"
+            app:startIconDrawable="@drawable/ic_store_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_business"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text|textCapWords"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_field"
+            android:labelFor="@id/input_owner"
+            android:text="@string/label_owner_name"
+            android:textAppearance="@style/TextAppearance.Renvest.Label" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_owner_layout"
+            style="@style/Widget.Renvest.TextInput.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xs"
+            app:placeholderText="@string/hint_owner_name"
+            app:startIconDrawable="@drawable/ic_person_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_owner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName|textCapWords"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_field"
+            android:labelFor="@id/input_email"
+            android:text="@string/label_email"
+            android:textAppearance="@style/TextAppearance.Renvest.Label" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_email_layout"
+            style="@style/Widget.Renvest.TextInput.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xs"
+            app:placeholderText="@string/hint_email"
+            app:startIconDrawable="@drawable/ic_mail_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                tools:ignore="TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_field"
+            android:labelFor="@id/input_password"
+            android:text="@string/label_password"
+            android:textAppearance="@style/TextAppearance.Renvest.Label" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_password_layout"
+            style="@style/Widget.Renvest.TextInput.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xs"
+            app:endIconMode="password_toggle"
+            app:placeholderText="@string/hint_password"
+            app:startIconDrawable="@drawable/ic_lock_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_field"
+            android:labelFor="@id/input_confirm_password"
+            android:text="@string/label_confirm_password"
+            android:textAppearance="@style/TextAppearance.Renvest.Label" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_confirm_password_layout"
+            style="@style/Widget.Renvest.TextInput.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xs"
+            app:endIconMode="password_toggle"
+            app:placeholderText="@string/hint_confirm_password"
+            app:startIconDrawable="@drawable/ic_shield_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_register"
+            style="@style/Widget.Renvest.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_section"
+            android:text="@string/action_create_account" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_go_login"
+            style="@style/Widget.Renvest.Button.Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="@string/link_already_login"
+            app:rippleColor="?attr/colorPrimary" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_section"
+            android:gravity="center_horizontal"
+            android:text="@string/terms_footer"
+            android:textAppearance="@style/TextAppearance.Renvest.Caption" />
+    </LinearLayout>
+</ScrollView>
+```
 
 ## Feature Slice 3: Dashboard
 
@@ -647,9 +1126,534 @@ class DashboardPresenter(
 
 ### Dashboard XML
 
-- Layout file: `app/src/main/res/layout/activity_dashboard.xml`
-- Purpose: welcome header, business name display, metric cards, quick links, and bottom navigation
-- In MVP terms, the XML defines the dashboard visuals while the Presenter decides the greeting text, the displayed business name, and what happens when the user taps a card
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/padding_screen_horizontal"
+        android:paddingTop="@dimen/padding_screen_vertical"
+        android:paddingBottom="@dimen/spacing_field">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_greeting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Renvest.Body"
+                tools:text="@string/greeting_morning" />
+
+            <TextView
+                android:id="@+id/text_business_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xs"
+                android:textAppearance="@style/TextAppearance.Renvest.Title"
+                tools:text="@string/default_business_display" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/header_notification"
+            android:layout_width="@dimen/header_icon_size"
+            android:layout_height="@dimen/header_icon_size"
+            android:layout_marginEnd="@dimen/spacing_small"
+            android:background="@drawable/bg_circle_surface_stroke">
+
+            <ImageView
+                android:layout_width="@dimen/grid_3"
+                android:layout_height="@dimen/grid_3"
+                android:layout_gravity="center"
+                android:contentDescription="@string/nav_activity"
+                app:srcCompat="@drawable/ic_notifications_24" />
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/bg_dot_red" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="@dimen/avatar_size"
+            android:layout_height="@dimen/avatar_size"
+            android:background="@drawable/bg_circle_primary">
+
+            <TextView
+                android:id="@+id/text_avatar_initials"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/avatar_initials"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:textColor="@color/on_primary"
+                android:textStyle="bold" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:overScrollMode="ifContentScrolls"
+        android:paddingHorizontal="@dimen/padding_screen_horizontal"
+        android:paddingBottom="@dimen/spacing_field">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_hero_revenue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/dashboard_hero"
+                app:cardCornerRadius="@dimen/card_corner_large"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/grid_3">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0.05"
+                        android:text="@string/dashboard_revenue_label"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                        android:textColor="@color/dashboard_hero_subtle" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_small"
+                        android:text="@string/dashboard_revenue_value"
+                        android:textAppearance="@style/TextAppearance.Material3.DisplaySmall"
+                        android:textColor="@color/on_dashboard_hero"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_small"
+                        android:background="@drawable/bg_hero_pill"
+                        android:paddingHorizontal="@dimen/spacing_field"
+                        android:paddingVertical="@dimen/spacing_xs"
+                        android:text="@string/dashboard_revenue_growth"
+                        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                        android:textColor="@color/on_dashboard_hero" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_3"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_hero_stat_cell"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="@dimen/spacing_small">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/dashboard_stat_visits_value"
+                                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                                android:textColor="@color/on_dashboard_hero"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/spacing_xs"
+                                android:gravity="center"
+                                android:text="@string/dashboard_stat_visits_label"
+                                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                                android:textColor="@color/dashboard_hero_subtle" />
+                        </LinearLayout>
+
+                        <Space
+                            android:layout_width="@dimen/spacing_small"
+                            android:layout_height="1dp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_hero_stat_cell"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="@dimen/spacing_small">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/dashboard_stat_members_value"
+                                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                                android:textColor="@color/on_dashboard_hero"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/spacing_xs"
+                                android:gravity="center"
+                                android:text="@string/dashboard_stat_members_label"
+                                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                                android:textColor="@color/dashboard_hero_subtle" />
+                        </LinearLayout>
+
+                        <Space
+                            android:layout_width="@dimen/spacing_small"
+                            android:layout_height="1dp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_hero_stat_cell"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="@dimen/spacing_small">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/dashboard_stat_return_value"
+                                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                                android:textColor="@color/on_dashboard_hero"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/spacing_xs"
+                                android:gravity="center"
+                                android:text="@string/dashboard_stat_return_label"
+                                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                                android:textColor="@color/dashboard_hero_subtle" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_3"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/perf_section_title"
+                    android:textAppearance="@style/TextAppearance.Renvest.SectionTitle" />
+
+                <TextView
+                    android:id="@+id/text_perf_view_report"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/perf_view_report"
+                    android:textAppearance="@style/TextAppearance.Renvest.Link" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_field"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/perf_cell_members"
+                    style="@style/Widget.Renvest.StatCard"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_small"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/spacing_field">
+
+                        <FrameLayout
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:background="@color/perf_icon_bg_people">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                app:srcCompat="@drawable/ic_person_24" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_field"
+                            android:text="@string/perf_members_value"
+                            android:textAppearance="@style/TextAppearance.Renvest.Title" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_xs"
+                            android:text="@string/perf_members_label"
+                            android:textAppearance="@style/TextAppearance.Renvest.Caption" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_small"
+                            android:background="@drawable/bg_pill_positive"
+                            android:paddingHorizontal="@dimen/spacing_small"
+                            android:paddingVertical="@dimen/spacing_xs"
+                            android:text="@string/perf_members_trend"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                            android:textColor="@color/primary" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/perf_cell_rating"
+                    style="@style/Widget.Renvest.StatCard"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/spacing_field">
+
+                        <FrameLayout
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:background="@color/perf_icon_bg_star">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                app:srcCompat="@drawable/ic_star_24" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_field"
+                            android:text="@string/perf_rating_value"
+                            android:textAppearance="@style/TextAppearance.Renvest.Title" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_xs"
+                            android:text="@string/perf_rating_label"
+                            android:textAppearance="@style/TextAppearance.Renvest.Caption" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/perf_cell_ticket"
+                    style="@style/Widget.Renvest.StatCard"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_small"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/spacing_field">
+
+                        <FrameLayout
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:background="@color/perf_icon_bg_money">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                app:srcCompat="@drawable/ic_attach_money_24" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_field"
+                            android:text="@string/perf_ticket_value"
+                            android:textAppearance="@style/TextAppearance.Renvest.Title" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_xs"
+                            android:text="@string/perf_ticket_label"
+                            android:textAppearance="@style/TextAppearance.Renvest.Caption" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_small"
+                            android:background="@drawable/bg_pill_warning"
+                            android:paddingHorizontal="@dimen/spacing_small"
+                            android:paddingVertical="@dimen/spacing_xs"
+                            android:text="@string/perf_ticket_trend"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                            android:textColor="@color/warning_text" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/perf_cell_churn"
+                    style="@style/Widget.Renvest.StatCard"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/spacing_field">
+
+                        <FrameLayout
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:background="@color/perf_icon_bg_chart">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                app:srcCompat="@drawable/ic_trending_down_24" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_field"
+                            android:text="@string/perf_churn_value"
+                            android:textAppearance="@style/TextAppearance.Renvest.Title" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_xs"
+                            android:text="@string/perf_churn_label"
+                            android:textAppearance="@style/TextAppearance.Renvest.Caption" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_3"
+                android:text="@string/ai_section_title"
+                android:textAppearance="@style/TextAppearance.Renvest.SectionTitle" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_ai_insight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_field"
+                app:cardBackgroundColor="@color/ai_card_bg"
+                app:cardCornerRadius="@dimen/card_corner_large"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/grid_3">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_ai_chip"
+                        android:paddingHorizontal="@dimen/spacing_field"
+                        android:paddingVertical="@dimen/spacing_xs"
+                        android:text="@string/ai_badge"
+                        android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                        android:textColor="@color/on_primary" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_field"
+                        android:text="@string/ai_headline"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                        android:textColor="@color/on_dashboard_hero"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        style="@style/Widget.Renvest.BottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemIconTint="@color/bottom_nav_selector"
+        app:itemTextColor="@color/bottom_nav_selector"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/menu_nav_main" />
+</LinearLayout>
+```
 
 ## Why This Structure Is Better for Presentation
 
