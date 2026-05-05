@@ -18,7 +18,7 @@ class CustomersActivity : AppCompatActivity(), CustomersContract.View {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_customers, R.id.root)
 
-        presenter = CustomersPresenter(this, authStore())
+        presenter = CustomersPresenter(this, CustomersModel(authStore()))
         presenter.onViewReady(this)
 
         val stub = View.OnClickListener { presenter.onStubInteraction() }
