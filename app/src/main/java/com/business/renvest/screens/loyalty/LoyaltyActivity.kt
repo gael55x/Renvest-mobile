@@ -14,24 +14,30 @@ class LoyaltyActivity : AppCompatActivity(), LoyaltyContract.View {
 
     private lateinit var presenter: LoyaltyPresenter
     private lateinit var remindersAdapter: LoyaltyRemindersListAdapter
+    private lateinit var listviewLoyaltyReminders: ListView
+    private lateinit var textviewStubTitle: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_loyalty_list_demo, R.id.root)
 
+        listviewLoyaltyReminders = findViewById(R.id.listviewLoyaltyReminders)
+        textviewStubTitle = findViewById(R.id.textviewStubTitle)
+
         presenter = LoyaltyPresenter(this, LoyaltyModel())
         presenter.onViewReady()
 
-        val listView = findViewById<ListView>(R.id.listviewLoyaltyReminders)
-        listView.setOnItemClickListener { _, _, position, _ ->
+        listviewLoyaltyReminders.setOnItemClickListener { _, _, position, _ ->
             presenter.onReminderClicked(this, position)
         }
-        listView.setOnItemLongClickListener { _, _, position, _ ->
+        listviewLoyaltyReminders.setOnItemLongClickListener { _, _, position, _ ->
             presenter.onReminderLongClicked(this, position)
         }
 
-        findViewById<MaterialButton>(R.id.buttonAddReminder).setOnClickListener {
-            val edit = findViewById<TextInputLayout>(R.id.textinputReminderLayout).editText
+        val materialbuttonAddReminder = findViewById<MaterialButton>(R.id.buttonAddReminder)
+        val textinputReminderLayout = findViewById<TextInputLayout>(R.id.textinputReminderLayout)
+        materialbuttonAddReminder.setOnClickListener {
+            val edit = textinputReminderLayout.editText
                 ?: return@setOnClickListener
             presenter.onAddReminderClicked(this, edit.text?.toString().orEmpty())
             edit.text?.clear()
@@ -39,12 +45,12 @@ class LoyaltyActivity : AppCompatActivity(), LoyaltyContract.View {
     }
 
     override fun setStubTitle(titleResId: Int) {
-        findViewById<TextView>(R.id.textviewStubTitle).setText(titleResId)
+        textviewStubTitle.setText(titleResId)
     }
 
     override fun bindRemindersList(items: ArrayList<LoyaltyReminderRow>) {
         remindersAdapter = LoyaltyRemindersListAdapter(this, items)
-        findViewById<ListView>(R.id.listviewLoyaltyReminders).adapter = remindersAdapter
+        listviewLoyaltyReminders.adapter = remindersAdapter
     }
 
     override fun refreshRemindersList() {

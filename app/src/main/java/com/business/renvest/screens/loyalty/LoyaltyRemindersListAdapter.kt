@@ -26,8 +26,10 @@ class LoyaltyRemindersListAdapter(
         val row = convertView
             ?: LayoutInflater.from(context).inflate(R.layout.item_loyalty_reminder_row, parent, false)
         val item = items[position]
-        row.findViewById<TextView>(R.id.textviewReminderTitle).text = item.title
-        row.findViewById<TextView>(R.id.textviewReminderSubtitle).text = item.subtitle
+        val textviewReminderTitle = row.findViewById<TextView>(R.id.textviewReminderTitle)
+        val textviewReminderSubtitle = row.findViewById<TextView>(R.id.textviewReminderSubtitle)
+        textviewReminderTitle.text = item.title
+        textviewReminderSubtitle.text = item.subtitle
         return row
     }
 }

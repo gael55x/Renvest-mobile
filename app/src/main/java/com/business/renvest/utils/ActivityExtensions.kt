@@ -29,8 +29,8 @@ fun AppCompatActivity.startActivityClearTask(target: Class<*>) {
 }
 
 private fun AppCompatActivity.applyEdgeToEdgeInsets(@IdRes rootViewId: Int) {
-    val root = findViewById<View>(rootViewId)
-    ViewCompat.setOnApplyWindowInsetsListener(root) { view, windowInsets ->
+    val viewRoot = findViewById<View>(rootViewId)
+    ViewCompat.setOnApplyWindowInsetsListener(viewRoot) { view, windowInsets ->
         val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
         view.updatePadding(insets.left, insets.top, insets.right, insets.bottom)
         windowInsets
@@ -44,5 +44,6 @@ fun AppCompatActivity.setupRenvestContent(@LayoutRes layoutRes: Int, @IdRes root
 }
 
 fun AppCompatActivity.bindHeaderBusinessName(@IdRes textViewId: Int) {
-    findViewById<TextView>(textViewId).text = displayBusinessName()
+    val textviewHeader = findViewById<TextView>(textViewId)
+    textviewHeader.text = displayBusinessName()
 }

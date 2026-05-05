@@ -16,10 +16,21 @@ import com.google.android.material.button.MaterialButton
 class ProfileActivity : AppCompatActivity(), ProfileContract.View {
 
     private lateinit var presenter: ProfilePresenter
+    private lateinit var textviewHeaderBusiness: TextView
+    private lateinit var textviewProfileHeroBusinessName: TextView
+    private lateinit var textviewProfileHeroInitials: TextView
+    private lateinit var textviewProfileRowBusinessValue: TextView
+    private lateinit var textviewProfileRowEmailValue: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_profile, R.id.root)
+
+        textviewHeaderBusiness = findViewById(R.id.textviewHeaderBusiness)
+        textviewProfileHeroBusinessName = findViewById(R.id.textviewProfileHeroBusinessName)
+        textviewProfileHeroInitials = findViewById(R.id.textviewProfileHeroInitials)
+        textviewProfileRowBusinessValue = findViewById(R.id.textviewProfileRowBusinessValue)
+        textviewProfileRowEmailValue = findViewById(R.id.textviewProfileRowEmailValue)
 
         presenter = ProfilePresenter(this, ProfileModel(authStore()))
         presenter.onViewReady(this)
@@ -27,26 +38,36 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View {
         setupMainBottomNavigation(R.id.navProfile)
 
         val stub = View.OnClickListener { presenter.onSettingsStubClicked() }
-        findViewById<View>(R.id.buttonProfileOverflow).setOnClickListener(stub)
-        findViewById<View>(R.id.buttonProfileHeroEdit).setOnClickListener(stub)
-        findViewById<View>(R.id.rowSettingsBusinessName).setOnClickListener(stub)
-        findViewById<View>(R.id.rowSettingsBusinessType).setOnClickListener(stub)
-        findViewById<View>(R.id.rowSettingsEmail).setOnClickListener(stub)
-        findViewById<View>(R.id.rowSettingsLocation).setOnClickListener(stub)
-        findViewById<View>(R.id.rowLoyaltyThreshold).setOnClickListener(stub)
-        findViewById<View>(R.id.rowLoyaltyPointsMode).setOnClickListener(stub)
+        val buttonProfileOverflow = findViewById<View>(R.id.buttonProfileOverflow)
+        val buttonProfileHeroEdit = findViewById<View>(R.id.buttonProfileHeroEdit)
+        val rowSettingsBusinessName = findViewById<View>(R.id.rowSettingsBusinessName)
+        val rowSettingsBusinessType = findViewById<View>(R.id.rowSettingsBusinessType)
+        val rowSettingsEmail = findViewById<View>(R.id.rowSettingsEmail)
+        val rowSettingsLocation = findViewById<View>(R.id.rowSettingsLocation)
+        val rowLoyaltyThreshold = findViewById<View>(R.id.rowLoyaltyThreshold)
+        val rowLoyaltyPointsMode = findViewById<View>(R.id.rowLoyaltyPointsMode)
 
-        findViewById<MaterialButton>(R.id.buttonLogout).setOnClickListener {
+        buttonProfileOverflow.setOnClickListener(stub)
+        buttonProfileHeroEdit.setOnClickListener(stub)
+        rowSettingsBusinessName.setOnClickListener(stub)
+        rowSettingsBusinessType.setOnClickListener(stub)
+        rowSettingsEmail.setOnClickListener(stub)
+        rowSettingsLocation.setOnClickListener(stub)
+        rowLoyaltyThreshold.setOnClickListener(stub)
+        rowLoyaltyPointsMode.setOnClickListener(stub)
+
+        val materialbuttonLogout = findViewById<MaterialButton>(R.id.buttonLogout)
+        materialbuttonLogout.setOnClickListener {
             presenter.onLogoutClicked(this)
         }
     }
 
     override fun bindProfile(businessName: String, initials: String, emailDisplay: String) {
-        findViewById<TextView>(R.id.textviewHeaderBusiness).text = businessName
-        findViewById<TextView>(R.id.textviewProfileHeroBusinessName).text = businessName
-        findViewById<TextView>(R.id.textviewProfileHeroInitials).text = initials
-        findViewById<TextView>(R.id.textviewProfileRowBusinessValue).text = businessName
-        findViewById<TextView>(R.id.textviewProfileRowEmailValue).text = emailDisplay
+        textviewHeaderBusiness.text = businessName
+        textviewProfileHeroBusinessName.text = businessName
+        textviewProfileHeroInitials.text = initials
+        textviewProfileRowBusinessValue.text = businessName
+        textviewProfileRowEmailValue.text = emailDisplay
     }
 
     override fun showComingSoon() {

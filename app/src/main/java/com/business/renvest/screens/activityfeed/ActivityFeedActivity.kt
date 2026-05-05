@@ -13,21 +13,26 @@ import com.business.renvest.utils.toast
 class ActivityFeedActivity : AppCompatActivity(), ActivityFeedContract.View {
 
     private lateinit var presenter: ActivityFeedPresenter
+    private lateinit var textviewHeaderBusiness: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_feed, R.id.root)
 
+        textviewHeaderBusiness = findViewById(R.id.textviewHeaderBusiness)
+
         presenter = ActivityFeedPresenter(this, ActivityFeedModel(authStore()))
         presenter.onViewReady(this)
 
         val stub = View.OnClickListener { presenter.onStubInteraction() }
-        findViewById<View>(R.id.buttonFeedCalendar).setOnClickListener(stub)
-        findViewById<View>(R.id.buttonFeedExport).setOnClickListener(stub)
+        val buttonFeedCalendar = findViewById<View>(R.id.buttonFeedCalendar)
+        val buttonFeedExport = findViewById<View>(R.id.buttonFeedExport)
+        buttonFeedCalendar.setOnClickListener(stub)
+        buttonFeedExport.setOnClickListener(stub)
     }
 
     override fun setHeaderBusinessName(text: String) {
-        findViewById<TextView>(R.id.textviewHeaderBusiness).text = text
+        textviewHeaderBusiness.text = text
     }
 
     override fun setupNav(selectedItemId: Int) {
