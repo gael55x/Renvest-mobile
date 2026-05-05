@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_login, R.id.root)
 
-        presenter = LoginPresenter(this, authStore())
+        presenter = LoginPresenter(this, LoginModel(authStore()))
 
         findViewById<TextView>(R.id.textviewForgotPassword).setOnClickListener {
             toast(getString(R.string.coming_soon))

@@ -26,7 +26,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_register, R.id.root)
 
-        presenter = RegisterPresenter(this, authStore())
+        presenter = RegisterPresenter(this, RegisterModel(authStore()))
 
         val finishBack: () -> Unit = { finish() }
         findViewById<ImageButton>(R.id.buttonBack).setOnClickListener { finishBack() }

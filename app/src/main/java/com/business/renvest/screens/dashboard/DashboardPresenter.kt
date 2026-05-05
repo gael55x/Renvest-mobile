@@ -3,18 +3,17 @@ package com.business.renvest.screens.dashboard
 import android.content.Context
 import androidx.annotation.StringRes
 import com.business.renvest.R
-import com.business.renvest.data.repository.AuthStore
 import java.util.Calendar
 
 class DashboardPresenter(
     private val view: DashboardContract.View,
-    private val authStore: AuthStore,
+    private val model: DashboardModel,
 ) : DashboardContract.Presenter {
 
     override fun onViewReady(context: Context) {
         val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         view.setGreeting(context.getString(greetingResForHour(hour)))
-        view.setBusinessName(authStore.businessDisplayName(context))
+        view.setBusinessName(model.businessDisplayName(context))
     }
 
     override fun onNotificationClicked() {
