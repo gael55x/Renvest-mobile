@@ -79,6 +79,11 @@
     <string name="content_desc_filter">Filter customers</string>
 
     <string name="feature_loyalty_title">Loyalty programs</string>
+    <string name="loyalty_reminder_hint">New loyalty reminder</string>
+    <string name="loyalty_reminder_add">Add reminder</string>
+    <string name="loyalty_reminder_empty_error">Enter a reminder title.</string>
+    <string name="loyalty_reminder_item_click_format">%1$s\n%2$s</string>
+    <string name="loyalty_reminder_removed_format">Removed: %1$s</string>
     <string name="feature_promotions_title">Promotions</string>
     <string name="feature_customers_title">Customers</string>
     <string name="feature_activity_title">Activity</string>
