@@ -18,6 +18,7 @@ class PromotionsPresenter(
         view.showComingSoon()
     }
 
+    @Suppress("UnusedParameter")
     override fun onPromotionItemClicked(item: PromotionItem) {
         view.showComingSoon()
     }
