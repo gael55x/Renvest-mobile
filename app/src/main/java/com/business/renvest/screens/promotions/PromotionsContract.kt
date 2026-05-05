@@ -7,11 +7,13 @@ interface PromotionsContract {
     interface View {
         fun setHeaderBusinessName(text: String)
         fun setupNav(@IdRes selectedItemId: Int)
+        fun displayPromotions(items: List<PromotionItem>)
         fun showComingSoon()
     }
 
     interface Presenter {
         fun onViewReady(context: Context)
         fun onStubInteraction()
+        fun onPromotionItemClicked(item: PromotionItem)
     }
 }

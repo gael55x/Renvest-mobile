@@ -188,9 +188,12 @@
                     android:text="@string/promo_tab_expired" />
             </com.google.android.material.tabs.TabLayout>
 
-            <include layout="@layout/item_promo_card_active" />
-
-            <include layout="@layout/item_promo_card_paused" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerviewPromotions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="ifContentScrolls" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
