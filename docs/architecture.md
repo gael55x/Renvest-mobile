@@ -16,7 +16,7 @@ flowchart LR
 ```
 
 - **`AuthStore`** is the shared data class used by screens (`authStore()` from `Context`).
-- **Screen models** (`LoginModel`, `RegisterModel`, `DashboardModel`, `ProfileModel`, `PromotionsModel`) wrap **`AuthStore`** so presenters depend on a thin data-access type instead of the store directly (same idea as `ProfileModel`).
+- **Screen models** wrap **`AuthStore`** (and local demo data where there is no API yet) so **presenters** do not call the store directly. Examples: `LoginModel`, `RegisterModel`, `DashboardModel`, `ProfileModel`, `PromotionsModel`, **`LaunchModel`** (session check), **`CustomersModel`**, **`ActivityFeedModel`**, **`AiEngagementAdvisorModel`** (header + demo engagement progress).
 - **`AuthStore`** reads and writes directly against SharedPreferences (`renvest_session`); this keeps the MVP data layer simple for the current scope.
 - **`RenvestResult`** wraps outcomes for mutations (`signIn`, `signUp`, `clearSession`). Today mutations return `Ok` for normal prefs writes; `Err.Storage` remains in the type for parity if you add disk-heavy or transactional storage later. Use `notifyErrorIfNotOk` in the UI when handling errors consistently.
 
@@ -30,7 +30,7 @@ Several flows are still static or “coming soon” UI. `LoyaltyActivity` uses `
 
 ## Lists (RecyclerView)
 
-**Promotions** uses **`RecyclerView`** with in-memory demo rows from **`PromotionsModel.demoPromotions()`** (not persisted). Session and business identity remain in **`AuthStore`** only.
+**Promotions** uses **`RecyclerView`** with in-memory demo rows from **`PromotionsModel.demoPromotions()`** (not persisted). Session and business identity remain in **`AuthStore`** only. The presenter asks the model for the list and passes it to the view (`displayPromotions`).
 
 ## Testing
 
