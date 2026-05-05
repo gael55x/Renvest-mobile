@@ -12,7 +12,7 @@ class LaunchActivity : AppCompatActivity(), LaunchContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        LaunchPresenter(this, authStore(), this).start()
+        LaunchPresenter(this, LaunchModel(authStore()), this).start()
     }
 
     override fun navigateToDashboard() {
