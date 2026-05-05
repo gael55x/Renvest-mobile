@@ -16,6 +16,7 @@ flowchart LR
 ```
 
 - **`AuthStore`** is the shared data class used by screens (`authStore()` from `Context`).
+- **Screen models** (`LoginModel`, `RegisterModel`, `DashboardModel`, `ProfileModel`, `PromotionsModel`) wrap **`AuthStore`** so presenters depend on a thin data-access type instead of the store directly (same idea as `ProfileModel`).
 - **`AuthStore`** reads and writes directly against SharedPreferences (`renvest_session`); this keeps the MVP data layer simple for the current scope.
 - **`RenvestResult`** wraps outcomes for mutations (`signIn`, `signUp`, `clearSession`). Today mutations return `Ok` for normal prefs writes; `Err.Storage` remains in the type for parity if you add disk-heavy or transactional storage later. Use `notifyErrorIfNotOk` in the UI when handling errors consistently.
 
@@ -26,6 +27,10 @@ Not implemented yet. When backend contracts exist, add an HTTP client (e.g. Retr
 ## Feature stubs
 
 Several flows are still static or “coming soon” UI. `LoyaltyActivity` uses `activity_feature_stub.xml`; dashboard and bottom navigation link customers, promotions, activity feed, and related screens with richer layouts. Replace placeholder behavior with real data without renaming package buckets when possible.
+
+## Lists (RecyclerView)
+
+**Promotions** uses **`RecyclerView`** with in-memory demo rows from **`PromotionsModel.demoPromotions()`** (not persisted). Session and business identity remain in **`AuthStore`** only.
 
 ## Testing
 
