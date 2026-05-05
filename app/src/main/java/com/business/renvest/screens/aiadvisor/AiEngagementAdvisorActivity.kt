@@ -14,22 +14,30 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
 class AiEngagementAdvisorActivity : AppCompatActivity(), AiEngagementAdvisorContract.View {
 
     private lateinit var presenter: AiEngagementAdvisorPresenter
+    private lateinit var textviewHeaderBusiness: TextView
+    private lateinit var circularprogressindicatorEngagementScore: CircularProgressIndicator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_ai_advisor, R.id.root)
 
+        textviewHeaderBusiness = findViewById(R.id.textviewHeaderBusiness)
+        circularprogressindicatorEngagementScore = findViewById(R.id.circularprogressindicatorEngagementScore)
+
         presenter = AiEngagementAdvisorPresenter(this, AiEngagementAdvisorModel(authStore()))
         presenter.onViewReady(this)
 
         val stub = View.OnClickListener { presenter.onStubInteraction() }
-        findViewById<View>(R.id.buttonAiRefresh).setOnClickListener(stub)
-        findViewById<View>(R.id.buttonAiActivatePromo).setOnClickListener(stub)
-        findViewById<View>(R.id.buttonAiViewData).setOnClickListener(stub)
+        val buttonAiRefresh = findViewById<View>(R.id.buttonAiRefresh)
+        val buttonAiActivatePromo = findViewById<View>(R.id.buttonAiActivatePromo)
+        val buttonAiViewData = findViewById<View>(R.id.buttonAiViewData)
+        buttonAiRefresh.setOnClickListener(stub)
+        buttonAiActivatePromo.setOnClickListener(stub)
+        buttonAiViewData.setOnClickListener(stub)
     }
 
     override fun setHeaderBusinessName(text: String) {
-        findViewById<TextView>(R.id.textviewHeaderBusiness).text = text
+        textviewHeaderBusiness.text = text
     }
 
     override fun setupNav(selectedItemId: Int) {
@@ -37,8 +45,7 @@ class AiEngagementAdvisorActivity : AppCompatActivity(), AiEngagementAdvisorCont
     }
 
     override fun setEngagementProgress(percent: Int) {
-        findViewById<CircularProgressIndicator>(R.id.circularprogressindicatorEngagementScore)
-            .setProgressCompat(percent, false)
+        circularprogressindicatorEngagementScore.setProgressCompat(percent, false)
     }
 
     override fun showComingSoon() {

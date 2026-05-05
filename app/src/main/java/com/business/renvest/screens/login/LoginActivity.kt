@@ -26,7 +26,8 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
         presenter = LoginPresenter(this, LoginModel(authStore()))
 
-        findViewById<TextView>(R.id.textviewForgotPassword).setOnClickListener {
+        val textviewForgotPassword = findViewById<TextView>(R.id.textviewForgotPassword)
+        textviewForgotPassword.setOnClickListener {
             toast(getString(R.string.coming_soon))
         }
 

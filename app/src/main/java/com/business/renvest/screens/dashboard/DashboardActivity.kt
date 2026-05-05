@@ -1,6 +1,7 @@
 package com.business.renvest.screens.dashboard
 
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
@@ -18,43 +19,57 @@ import com.google.android.material.card.MaterialCardView
 class DashboardActivity : AppCompatActivity(), DashboardContract.View {
 
     private lateinit var presenter: DashboardPresenter
+    private lateinit var textviewGreeting: TextView
+    private lateinit var textviewBusinessName: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_dashboard, R.id.root)
 
+        textviewGreeting = findViewById(R.id.textviewGreeting)
+        textviewBusinessName = findViewById(R.id.textviewBusinessName)
+
         presenter = DashboardPresenter(this, DashboardModel(authStore()))
         presenter.onViewReady(this)
 
-        findViewById<android.view.View>(R.id.framelayoutHeaderNotification).setOnClickListener {
+        val framelayoutHeaderNotification = findViewById<View>(R.id.framelayoutHeaderNotification)
+        val textviewPerfViewReport = findViewById<TextView>(R.id.textviewPerfViewReport)
+        val materialcardHeroRevenue = findViewById<MaterialCardView>(R.id.materialcardHeroRevenue)
+        val materialcardPerfCellMembers = findViewById<MaterialCardView>(R.id.materialcardPerfCellMembers)
+        val materialcardPerfCellRating = findViewById<MaterialCardView>(R.id.materialcardPerfCellRating)
+        val materialcardPerfCellTicket = findViewById<MaterialCardView>(R.id.materialcardPerfCellTicket)
+        val materialcardPerfCellChurn = findViewById<MaterialCardView>(R.id.materialcardPerfCellChurn)
+        val materialcardAiInsight = findViewById<MaterialCardView>(R.id.materialcardAiInsight)
+
+        framelayoutHeaderNotification.setOnClickListener {
             presenter.onNotificationClicked()
         }
 
-        findViewById<TextView>(R.id.textviewPerfViewReport).setOnClickListener {
+        textviewPerfViewReport.setOnClickListener {
             presenter.onPerfViewReportClicked()
         }
 
-        findViewById<MaterialCardView>(R.id.materialcardHeroRevenue).setOnClickListener {
+        materialcardHeroRevenue.setOnClickListener {
             /* static hero; no navigation */
         }
 
-        findViewById<MaterialCardView>(R.id.materialcardPerfCellMembers).setOnClickListener {
+        materialcardPerfCellMembers.setOnClickListener {
             presenter.onPerfCellMembersClicked()
         }
 
-        findViewById<MaterialCardView>(R.id.materialcardPerfCellRating).setOnClickListener {
+        materialcardPerfCellRating.setOnClickListener {
             presenter.onPerfCellRatingClicked()
         }
 
-        findViewById<MaterialCardView>(R.id.materialcardPerfCellTicket).setOnClickListener {
+        materialcardPerfCellTicket.setOnClickListener {
             presenter.onPerfCellTicketClicked()
         }
 
-        findViewById<MaterialCardView>(R.id.materialcardPerfCellChurn).setOnClickListener {
+        materialcardPerfCellChurn.setOnClickListener {
             presenter.onPerfCellChurnClicked()
         }
 
-        findViewById<MaterialCardView>(R.id.materialcardAiInsight).setOnClickListener {
+        materialcardAiInsight.setOnClickListener {
             presenter.onCardAiInsightClicked()
         }
 
@@ -62,11 +77,11 @@ class DashboardActivity : AppCompatActivity(), DashboardContract.View {
     }
 
     override fun setGreeting(text: String) {
-        findViewById<TextView>(R.id.textviewGreeting).text = text
+        textviewGreeting.text = text
     }
 
     override fun setBusinessName(text: String) {
-        findViewById<TextView>(R.id.textviewBusinessName).text = text
+        textviewBusinessName.text = text
     }
 
     override fun showComingSoon() {

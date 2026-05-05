@@ -16,16 +16,20 @@ class PromotionsActivity : AppCompatActivity(), PromotionsContract.View {
 
     private lateinit var presenter: PromotionsPresenter
     private lateinit var promotionsAdapter: PromotionsAdapter
+    private lateinit var textviewHeaderBusiness: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_promotions, R.id.root)
 
+        textviewHeaderBusiness = findViewById(R.id.textviewHeaderBusiness)
+
         promotionsAdapter = PromotionsAdapter(
             onItemClick = { presenter.onPromotionItemClicked(it) },
             onSecondaryStub = { presenter.onStubInteraction() },
         )
-        findViewById<RecyclerView>(R.id.recyclerviewPromotions).apply {
+        val recyclerviewPromotions = findViewById<RecyclerView>(R.id.recyclerviewPromotions)
+        recyclerviewPromotions.apply {
             layoutManager = LinearLayoutManager(this@PromotionsActivity)
             adapter = promotionsAdapter
         }
@@ -33,13 +37,14 @@ class PromotionsActivity : AppCompatActivity(), PromotionsContract.View {
         presenter = PromotionsPresenter(this, PromotionsModel(authStore()))
         presenter.onViewReady(this)
 
-        findViewById<View>(R.id.buttonNewPromo).setOnClickListener {
+        val buttonNewPromo = findViewById<View>(R.id.buttonNewPromo)
+        buttonNewPromo.setOnClickListener {
             presenter.onStubInteraction()
         }
     }
 
     override fun setHeaderBusinessName(text: String) {
-        findViewById<TextView>(R.id.textviewHeaderBusiness).text = text
+        textviewHeaderBusiness.text = text
     }
 
     override fun setupNav(selectedItemId: Int) {

@@ -13,28 +13,41 @@ import com.business.renvest.utils.toast
 class CustomersActivity : AppCompatActivity(), CustomersContract.View {
 
     private lateinit var presenter: CustomersPresenter
+    private lateinit var textviewHeaderBusiness: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_customers, R.id.root)
 
+        textviewHeaderBusiness = findViewById(R.id.textviewHeaderBusiness)
+
         presenter = CustomersPresenter(this, CustomersModel(authStore()))
         presenter.onViewReady(this)
 
         val stub = View.OnClickListener { presenter.onStubInteraction() }
-        findViewById<View>(R.id.buttonFilter).setOnClickListener(stub)
-        findViewById<View>(R.id.buttonAddCustomer).setOnClickListener(stub)
-        findViewById<View>(R.id.textviewSort).setOnClickListener(stub)
-        findViewById<View>(R.id.buttonVisitMaria).setOnClickListener(stub)
-        findViewById<View>(R.id.buttonPtsMaria).setOnClickListener(stub)
-        findViewById<View>(R.id.buttonVisitJohn).setOnClickListener(stub)
-        findViewById<View>(R.id.buttonPtsJohn).setOnClickListener(stub)
-        findViewById<View>(R.id.buttonVisitSofia).setOnClickListener(stub)
-        findViewById<View>(R.id.buttonPtsSofia).setOnClickListener(stub)
+        val buttonFilter = findViewById<View>(R.id.buttonFilter)
+        val buttonAddCustomer = findViewById<View>(R.id.buttonAddCustomer)
+        val textviewSort = findViewById<TextView>(R.id.textviewSort)
+        val buttonVisitMaria = findViewById<View>(R.id.buttonVisitMaria)
+        val buttonPtsMaria = findViewById<View>(R.id.buttonPtsMaria)
+        val buttonVisitJohn = findViewById<View>(R.id.buttonVisitJohn)
+        val buttonPtsJohn = findViewById<View>(R.id.buttonPtsJohn)
+        val buttonVisitSofia = findViewById<View>(R.id.buttonVisitSofia)
+        val buttonPtsSofia = findViewById<View>(R.id.buttonPtsSofia)
+
+        buttonFilter.setOnClickListener(stub)
+        buttonAddCustomer.setOnClickListener(stub)
+        textviewSort.setOnClickListener(stub)
+        buttonVisitMaria.setOnClickListener(stub)
+        buttonPtsMaria.setOnClickListener(stub)
+        buttonVisitJohn.setOnClickListener(stub)
+        buttonPtsJohn.setOnClickListener(stub)
+        buttonVisitSofia.setOnClickListener(stub)
+        buttonPtsSofia.setOnClickListener(stub)
     }
 
     override fun setHeaderBusinessName(text: String) {
-        findViewById<TextView>(R.id.textviewHeaderBusiness).text = text
+        textviewHeaderBusiness.text = text
     }
 
     override fun setupNav(selectedItemId: Int) {

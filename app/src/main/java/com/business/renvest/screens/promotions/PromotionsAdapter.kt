@@ -39,58 +39,64 @@ class PromotionsAdapter(
 
     inner class PromotionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val card: MaterialCardView = itemView.findViewById(R.id.materialcardPromotionRow)
-        private val iconSlot: View = itemView.findViewById(R.id.framelayoutPromoIcon)
-        private val badge: TextView = itemView.findViewById(R.id.textviewPromoBadge)
-        private val title: TextView = itemView.findViewById(R.id.textviewPromoTitle)
-        private val reward: TextView = itemView.findViewById(R.id.textviewPromoReward)
-        private val expiry: TextView = itemView.findViewById(R.id.textviewPromoExpiry)
-        private val enrolled: TextView = itemView.findViewById(R.id.textviewPromoEnrolled)
-        private val usage: TextView = itemView.findViewById(R.id.textviewPromoUsage)
-        private val progress: ProgressBar = itemView.findViewById(R.id.progressPromo)
+        private val materialcardPromotionRow: MaterialCardView =
+            itemView.findViewById(R.id.materialcardPromotionRow)
+        private val framelayoutPromoIcon: View = itemView.findViewById(R.id.framelayoutPromoIcon)
+        private val textviewPromoBadge: TextView = itemView.findViewById(R.id.textviewPromoBadge)
+        private val textviewPromoTitle: TextView = itemView.findViewById(R.id.textviewPromoTitle)
+        private val textviewPromoReward: TextView = itemView.findViewById(R.id.textviewPromoReward)
+        private val textviewPromoExpiry: TextView = itemView.findViewById(R.id.textviewPromoExpiry)
+        private val textviewPromoEnrolled: TextView = itemView.findViewById(R.id.textviewPromoEnrolled)
+        private val textviewPromoUsage: TextView = itemView.findViewById(R.id.textviewPromoUsage)
+        private val progressbarPromo: ProgressBar = itemView.findViewById(R.id.progressPromo)
+        private val imageviewPromoIcon: ImageView = itemView.findViewById(R.id.imageviewPromoIcon)
+        private val materialbuttonPromoEdit: MaterialButton =
+            itemView.findViewById(R.id.buttonPromoEdit)
+        private val materialbuttonPromoPause: MaterialButton =
+            itemView.findViewById(R.id.buttonPromoPause)
+        private val textviewPromoDetails: TextView = itemView.findViewById(R.id.textviewPromoDetails)
 
         fun bind(item: PromotionItem) {
-            title.text = item.title
-            reward.text = item.reward
-            expiry.text = item.expiry
-            enrolled.text = item.enrolledSummary
-            usage.text = item.usageSummary
-            progress.progress = item.progressPercent
+            textviewPromoTitle.text = item.title
+            textviewPromoReward.text = item.reward
+            textviewPromoExpiry.text = item.expiry
+            textviewPromoEnrolled.text = item.enrolledSummary
+            textviewPromoUsage.text = item.usageSummary
+            progressbarPromo.progress = item.progressPercent
 
             val ctx = itemView.context
             when (item.status) {
                 PromotionStatus.Active -> {
-                    badge.setText(R.string.promo_status_active)
-                    badge.setBackgroundResource(R.drawable.bg_badge_promo_active)
-                    badge.setTextColor(ContextCompat.getColor(ctx, R.color.primary))
+                    textviewPromoBadge.setText(R.string.promo_status_active)
+                    textviewPromoBadge.setBackgroundResource(R.drawable.bg_badge_promo_active)
+                    textviewPromoBadge.setTextColor(ContextCompat.getColor(ctx, R.color.primary))
                 }
                 PromotionStatus.Paused -> {
-                    badge.setText(R.string.promo_status_paused)
-                    badge.setBackgroundResource(R.drawable.bg_badge_promo_paused)
-                    badge.setTextColor(ContextCompat.getColor(ctx, R.color.text_secondary))
+                    textviewPromoBadge.setText(R.string.promo_status_paused)
+                    textviewPromoBadge.setBackgroundResource(R.drawable.bg_badge_promo_paused)
+                    textviewPromoBadge.setTextColor(ContextCompat.getColor(ctx, R.color.text_secondary))
                 }
             }
 
-            val icon = itemView.findViewById<ImageView>(R.id.imageviewPromoIcon)
             if (item.useGiftIcon) {
-                iconSlot.setBackgroundResource(R.drawable.bg_promo_icon_gift_rounded)
-                icon.setImageDrawable(AppCompatResources.getDrawable(ctx, R.drawable.ic_card_gift_24))
-                icon.imageTintList = AppCompatResources.getColorStateList(ctx, R.color.badge_gold_text)
+                framelayoutPromoIcon.setBackgroundResource(R.drawable.bg_promo_icon_gift_rounded)
+                imageviewPromoIcon.setImageDrawable(AppCompatResources.getDrawable(ctx, R.drawable.ic_card_gift_24))
+                imageviewPromoIcon.imageTintList = AppCompatResources.getColorStateList(ctx, R.color.badge_gold_text)
             } else {
-                iconSlot.setBackgroundResource(R.drawable.bg_promo_icon_rounded)
-                icon.setImageDrawable(AppCompatResources.getDrawable(ctx, R.drawable.ic_heart_small_24))
-                icon.imageTintList = AppCompatResources.getColorStateList(ctx, R.color.primary)
+                framelayoutPromoIcon.setBackgroundResource(R.drawable.bg_promo_icon_rounded)
+                imageviewPromoIcon.setImageDrawable(AppCompatResources.getDrawable(ctx, R.drawable.ic_heart_small_24))
+                imageviewPromoIcon.imageTintList = AppCompatResources.getColorStateList(ctx, R.color.primary)
             }
 
-            card.setOnClickListener { onItemClick(item) }
+            materialcardPromotionRow.setOnClickListener { onItemClick(item) }
 
-            itemView.findViewById<MaterialButton>(R.id.buttonPromoEdit).setOnClickListener {
+            materialbuttonPromoEdit.setOnClickListener {
                 onSecondaryStub()
             }
-            itemView.findViewById<MaterialButton>(R.id.buttonPromoPause).setOnClickListener {
+            materialbuttonPromoPause.setOnClickListener {
                 onSecondaryStub()
             }
-            itemView.findViewById<TextView>(R.id.textviewPromoDetails).setOnClickListener {
+            textviewPromoDetails.setOnClickListener {
                 onSecondaryStub()
             }
         }

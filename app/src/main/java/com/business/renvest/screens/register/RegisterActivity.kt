@@ -29,8 +29,10 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
         presenter = RegisterPresenter(this, RegisterModel(authStore()))
 
         val finishBack: () -> Unit = { finish() }
-        findViewById<ImageButton>(R.id.buttonBack).setOnClickListener { finishBack() }
-        findViewById<TextView>(R.id.textviewBackNav).setOnClickListener { finishBack() }
+        val imagebuttonBack = findViewById<ImageButton>(R.id.buttonBack)
+        val textviewBackNav = findViewById<TextView>(R.id.textviewBackNav)
+        imagebuttonBack.setOnClickListener { finishBack() }
+        textviewBackNav.setOnClickListener { finishBack() }
 
         val textinputBusinessLayout = findViewById<TextInputLayout>(R.id.textinputBusinessLayout)
         val textinputOwnerLayout = findViewById<TextInputLayout>(R.id.textinputOwnerLayout)
