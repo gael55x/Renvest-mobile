@@ -2,7 +2,6 @@ package com.business.renvest.utils
 
 import android.content.Intent
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import com.business.renvest.R
 import androidx.activity.enableEdgeToEdge
@@ -46,9 +45,4 @@ fun AppCompatActivity.setupRenvestContent(@LayoutRes layoutRes: Int, @IdRes root
     enableEdgeToEdge()
     setContentView(layoutRes)
     applyEdgeToEdgeInsets(rootViewId)
-}
-
-fun AppCompatActivity.bindHeaderBusinessName(@IdRes textViewId: Int) {
-    val textviewHeader = findViewById<TextView>(textViewId)
-    textviewHeader.text = displayBusinessName()
 }

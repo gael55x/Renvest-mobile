@@ -287,8 +287,8 @@ package com.business.renvest.utils
 
 import android.content.Intent
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
+import com.business.renvest.R
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
@@ -299,6 +299,10 @@ import androidx.core.view.updatePadding
 
 fun AppCompatActivity.toast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
+
+fun AppCompatActivity.toastComingSoon() {
+    toast(getString(R.string.coming_soon))
 }
 
 fun AppCompatActivity.startActivity(target: Class<*>) {
@@ -327,10 +331,6 @@ fun AppCompatActivity.setupRenvestContent(@LayoutRes layoutRes: Int, @IdRes root
     setContentView(layoutRes)
     applyEdgeToEdgeInsets(rootViewId)
 }
-
-fun AppCompatActivity.bindHeaderBusinessName(@IdRes textViewId: Int) {
-    findViewById<TextView>(textViewId).text = displayBusinessName()
-}
 ```
 
 ### MainBottomNavigation.kt
@@ -347,7 +347,6 @@ import com.business.renvest.screens.dashboard.DashboardActivity
 import com.business.renvest.screens.profile.ProfileActivity
 import com.business.renvest.screens.promotions.PromotionsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationBarView
 
 fun AppCompatActivity.setupMainBottomNavigation(@IdRes selectedItemId: Int) {
     val bottomnavigationMain = findViewById<BottomNavigationView>(R.id.bottomnavigationMain)
@@ -356,7 +355,7 @@ fun AppCompatActivity.setupMainBottomNavigation(@IdRes selectedItemId: Int) {
         isVisible = true
         number = 3
     }
-    bottomnavigationMain.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
+    bottomnavigationMain.setOnItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navHome -> navigateMainTab(DashboardActivity::class.java, selectedItemId == R.id.navHome)
             R.id.navCustomers -> navigateMainTab(CustomersActivity::class.java, selectedItemId == R.id.navCustomers)
@@ -365,7 +364,7 @@ fun AppCompatActivity.setupMainBottomNavigation(@IdRes selectedItemId: Int) {
             R.id.navProfile -> navigateMainTab(ProfileActivity::class.java, selectedItemId == R.id.navProfile)
             else -> false
         }
-    })
+    }
 }
 
 private fun AppCompatActivity.navigateMainTab(target: Class<*>, alreadySelected: Boolean): Boolean {
@@ -399,6 +398,7 @@ import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.startActivity
 import com.business.renvest.utils.startActivityClearTask
 import com.business.renvest.utils.toast
+import com.business.renvest.utils.toastComingSoon
 import com.business.renvest.utils.validateRequired
 import com.business.renvest.utils.valueText
 import com.google.android.material.button.MaterialButton
@@ -415,7 +415,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         presenter = LoginPresenter(this, authStore())
 
         findViewById<TextView>(R.id.textviewForgotPassword).setOnClickListener {
-            toast(getString(R.string.coming_soon))
+            toastComingSoon()
         }
 
         val textinputEmailLayout = findViewById<TextInputLayout>(R.id.textinputEmailLayout)
@@ -1031,6 +1031,7 @@ import com.business.renvest.utils.setupMainBottomNavigation
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.startActivity
 import com.business.renvest.utils.toast
+import com.business.renvest.utils.toastComingSoon
 import com.google.android.material.card.MaterialCardView
 
 class DashboardActivity : AppCompatActivity(), DashboardContract.View {
@@ -1088,7 +1089,7 @@ class DashboardActivity : AppCompatActivity(), DashboardContract.View {
     }
 
     override fun showComingSoon() {
-        toast(getString(R.string.coming_soon))
+        toastComingSoon()
     }
 
     override fun navigateToCustomers() {
