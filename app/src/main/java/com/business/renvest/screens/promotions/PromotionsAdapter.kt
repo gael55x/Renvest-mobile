@@ -64,20 +64,9 @@ class PromotionsAdapter(
             textviewPromoUsage.text = item.usageSummary
             progressbarPromo.progress = item.progressPercent
 
-            val ctx = itemView.context
-            when (item.status) {
-                PromotionStatus.Active -> {
-                    textviewPromoBadge.setText(R.string.promo_status_active)
-                    textviewPromoBadge.setBackgroundResource(R.drawable.bg_badge_promo_active)
-                    textviewPromoBadge.setTextColor(ContextCompat.getColor(ctx, R.color.primary))
-                }
-                PromotionStatus.Paused -> {
-                    textviewPromoBadge.setText(R.string.promo_status_paused)
-                    textviewPromoBadge.setBackgroundResource(R.drawable.bg_badge_promo_paused)
-                    textviewPromoBadge.setTextColor(ContextCompat.getColor(ctx, R.color.text_secondary))
-                }
-            }
+            bindPromoBadge(item.status)
 
+            val ctx = itemView.context
             if (item.useGiftIcon) {
                 framelayoutPromoIcon.setBackgroundResource(R.drawable.bg_promo_icon_gift_rounded)
                 imageviewPromoIcon.setImageDrawable(AppCompatResources.getDrawable(ctx, R.drawable.ic_card_gift_24))
@@ -98,6 +87,22 @@ class PromotionsAdapter(
             }
             textviewPromoDetails.setOnClickListener {
                 onSecondaryStub()
+            }
+        }
+
+        private fun bindPromoBadge(status: PromotionStatus) {
+            val ctx = itemView.context
+            when (status) {
+                PromotionStatus.Active -> {
+                    textviewPromoBadge.setText(R.string.promo_status_active)
+                    textviewPromoBadge.setBackgroundResource(R.drawable.bg_badge_promo_active)
+                    textviewPromoBadge.setTextColor(ContextCompat.getColor(ctx, R.color.primary))
+                }
+                PromotionStatus.Paused -> {
+                    textviewPromoBadge.setText(R.string.promo_status_paused)
+                    textviewPromoBadge.setBackgroundResource(R.drawable.bg_badge_promo_paused)
+                    textviewPromoBadge.setTextColor(ContextCompat.getColor(ctx, R.color.text_secondary))
+                }
             }
         }
     }

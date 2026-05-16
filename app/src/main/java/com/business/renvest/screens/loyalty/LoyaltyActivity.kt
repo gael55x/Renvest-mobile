@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.toast
+import com.business.renvest.utils.valueText
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 
@@ -39,7 +40,7 @@ class LoyaltyActivity : AppCompatActivity(), LoyaltyContract.View {
         materialbuttonAddReminder.setOnClickListener {
             val edit = textinputReminderLayout.editText
                 ?: return@setOnClickListener
-            presenter.onAddReminderClicked(this, edit.text?.toString().orEmpty())
+            presenter.onAddReminderClicked(this, textinputReminderLayout.valueText(trim = false))
             edit.text?.clear()
         }
     }
