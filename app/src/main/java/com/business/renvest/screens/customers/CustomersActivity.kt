@@ -9,6 +9,7 @@ import com.business.renvest.utils.authStore
 import com.business.renvest.utils.setupMainBottomNavigation
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.toast
+import com.business.renvest.utils.toastComingSoon
 
 class CustomersActivity : AppCompatActivity(), CustomersContract.View {
 
@@ -55,6 +56,6 @@ class CustomersActivity : AppCompatActivity(), CustomersContract.View {
     }
 
     override fun showComingSoon() {
-        toast(getString(R.string.coming_soon))
+        toastComingSoon()
     }
 }

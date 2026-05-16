@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import com.business.renvest.R
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
@@ -14,6 +15,10 @@ import androidx.core.view.updatePadding
 
 fun AppCompatActivity.toast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
+
+fun AppCompatActivity.toastComingSoon() {
+    toast(getString(R.string.coming_soon))
 }
 
 fun AppCompatActivity.startActivity(target: Class<*>) {

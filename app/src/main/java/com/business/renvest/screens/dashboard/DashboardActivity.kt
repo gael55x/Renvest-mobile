@@ -14,6 +14,7 @@ import com.business.renvest.utils.setupMainBottomNavigation
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.startActivity
 import com.business.renvest.utils.toast
+import com.business.renvest.utils.toastComingSoon
 import com.google.android.material.card.MaterialCardView
 
 class DashboardActivity : AppCompatActivity(), DashboardContract.View {
@@ -85,7 +86,7 @@ class DashboardActivity : AppCompatActivity(), DashboardContract.View {
     }
 
     override fun showComingSoon() {
-        toast(getString(R.string.coming_soon))
+        toastComingSoon()
     }
 
     override fun navigateToCustomers() {

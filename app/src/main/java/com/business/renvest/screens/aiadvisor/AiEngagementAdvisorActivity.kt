@@ -9,6 +9,7 @@ import com.business.renvest.utils.authStore
 import com.business.renvest.utils.setupMainBottomNavigation
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.toast
+import com.business.renvest.utils.toastComingSoon
 import com.google.android.material.progressindicator.CircularProgressIndicator
 
 class AiEngagementAdvisorActivity : AppCompatActivity(), AiEngagementAdvisorContract.View {
@@ -49,6 +50,6 @@ class AiEngagementAdvisorActivity : AppCompatActivity(), AiEngagementAdvisorCont
     }
 
     override fun showComingSoon() {
-        toast(getString(R.string.coming_soon))
+        toastComingSoon()
     }
 }

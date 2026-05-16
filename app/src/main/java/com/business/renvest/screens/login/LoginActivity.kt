@@ -11,6 +11,7 @@ import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.startActivity
 import com.business.renvest.utils.startActivityClearTask
 import com.business.renvest.utils.toast
+import com.business.renvest.utils.toastComingSoon
 import com.business.renvest.utils.validateRequired
 import com.business.renvest.utils.valueText
 import com.google.android.material.button.MaterialButton
@@ -28,7 +29,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
         val textviewForgotPassword = findViewById<TextView>(R.id.textviewForgotPassword)
         textviewForgotPassword.setOnClickListener {
-            toast(getString(R.string.coming_soon))
+            toastComingSoon()
         }
 
         val textinputEmailLayout = findViewById<TextInputLayout>(R.id.textinputEmailLayout)
