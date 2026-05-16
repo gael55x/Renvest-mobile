@@ -24,12 +24,12 @@ The app follows a small layered structure aligned with the reference **CustomApp
 
 | Layer | Package | Role |
 |--------|---------|------|
-| Application | `com.business.renvest.app` | `RenvestApp`, shared `AuthStore` wiring |
-| Screens | `com.business.renvest.screens.*` | Activities (launch, login, register, dashboard, profile, feature stubs) |
-| Data | `com.business.renvest.data` | `RenvestResult`, `AuthStore` (SharedPreferences) |
-| Utils | `com.business.renvest.utils` | Activity extensions (`setupRenvestContent`, navigation, toasts), form helpers, `displayBusinessName` |
+| Application | `com.business.renvest.app` | `RenvestApp`, shared `AuthStore` + `RenvestDatabase` wiring |
+| Screens | `com.business.renvest.screens.*` | Activities (launch, login, register, dashboard, profile, loyalty, promotions, customers, activity, AI advisor) |
+| Data | `com.business.renvest.data` | `RenvestResult`, `AuthStore` (session prefs), **`data.local` Room/SQLite** (lists and counts) |
+| Utils | `com.business.renvest.utils` | Activity extensions (`setupRenvestContent`, navigation, toasts), form helpers, `displayBusinessName`, `renvestDb()` |
 
-Session state is persisted inside [`AuthStore`](app/src/main/java/com/business/renvest/data/repository/AuthStore.kt) (same preference file and keys as before). There is no remote client yet; when you add HTTP, introduce something like Retrofit/Ktor under `data` and map failures to `RenvestResult.Err.Network` / `Validation`.
+Session state lives in [`AuthStore`](app/src/main/java/com/business/renvest/data/repository/AuthStore.kt) (SharedPreferences). **Local business rows** (reminders, promotions, customers, activity events) live in **Room** via [`RenvestDatabase`](app/src/main/java/com/business/renvest/data/local/RenvestDatabase.kt). There is no remote backend in this MVP; when you add HTTP, introduce Retrofit/Ktor (or similar) under `data` and map failures to `RenvestResult.Err.Network` / `Validation`.
 
 More detail: [docs/architecture.md](docs/architecture.md).
 
