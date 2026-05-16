@@ -220,10 +220,10 @@
     <string name="profile_settings_location_value">Not set</string>
     <string name="profile_loyalty_reward_threshold">Reward Threshold</string>
     <string name="profile_loyalty_reward_sub">Points needed to unlock reward</string>
-    <string name="profile_loyalty_threshold_chip">1,000 pts</string>
+    <string name="profile_loyalty_threshold_chip">Not set</string>
     <string name="profile_loyalty_points_mode">Points Mode</string>
     <string name="profile_loyalty_points_sub">How points are calculated</string>
-    <string name="profile_loyalty_mode_chip">Per Visit</string>
+    <string name="profile_loyalty_mode_chip">Not set</string>
     <string name="profile_email_empty">No email on file</string>
 
     <string name="ai_advisor_screen_title">AI Engagement Advisor</string>
