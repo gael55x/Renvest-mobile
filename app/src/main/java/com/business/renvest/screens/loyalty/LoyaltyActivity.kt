@@ -5,6 +5,7 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
+import com.business.renvest.utils.renvestDb
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.toast
 import com.business.renvest.utils.valueText
@@ -20,12 +21,13 @@ class LoyaltyActivity : AppCompatActivity(), LoyaltyContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setupRenvestContent(R.layout.activity_loyalty_list_demo, R.id.root)
+        setupRenvestContent(R.layout.activity_loyalty, R.id.root)
 
         listviewLoyaltyReminders = findViewById(R.id.listviewLoyaltyReminders)
+        listviewLoyaltyReminders.emptyView = findViewById(R.id.textviewEmptyReminders)
         textviewStubTitle = findViewById(R.id.textviewStubTitle)
 
-        presenter = LoyaltyPresenter(this, LoyaltyModel())
+        presenter = LoyaltyPresenter(this, LoyaltyModel(renvestDb()))
         presenter.onViewReady()
 
         listviewLoyaltyReminders.setOnItemClickListener { _, _, position, _ ->
