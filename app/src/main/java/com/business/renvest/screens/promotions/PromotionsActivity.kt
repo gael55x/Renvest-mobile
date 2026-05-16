@@ -2,12 +2,13 @@ package com.business.renvest.screens.promotions
 
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.business.renvest.R
 import com.business.renvest.utils.authStore
+import com.business.renvest.utils.setClickListeners
+import com.business.renvest.utils.setTextViewText
 import com.business.renvest.utils.setupMainBottomNavigation
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.toast
@@ -17,13 +18,10 @@ class PromotionsActivity : AppCompatActivity(), PromotionsContract.View {
 
     private lateinit var presenter: PromotionsPresenter
     private lateinit var promotionsAdapter: PromotionsAdapter
-    private lateinit var textviewHeaderBusiness: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_promotions, R.id.root)
-
-        textviewHeaderBusiness = findViewById(R.id.textviewHeaderBusiness)
 
         promotionsAdapter = PromotionsAdapter(
             onItemClick = { presenter.onPromotionItemClicked(it) },
@@ -38,14 +36,14 @@ class PromotionsActivity : AppCompatActivity(), PromotionsContract.View {
         presenter = PromotionsPresenter(this, PromotionsModel(authStore()))
         presenter.onViewReady(this)
 
-        val buttonNewPromo = findViewById<View>(R.id.buttonNewPromo)
-        buttonNewPromo.setOnClickListener {
-            presenter.onStubInteraction()
-        }
+        setClickListeners(
+            View.OnClickListener { presenter.onStubInteraction() },
+            R.id.buttonNewPromo,
+        )
     }
 
     override fun setHeaderBusinessName(text: String) {
-        textviewHeaderBusiness.text = text
+        setTextViewText(R.id.textviewHeaderBusiness, text)
     }
 
     override fun setupNav(selectedItemId: Int) {

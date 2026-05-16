@@ -10,6 +10,7 @@ import com.business.renvest.screens.customers.CustomersActivity
 import com.business.renvest.screens.loyalty.LoyaltyActivity
 import com.business.renvest.screens.promotions.PromotionsActivity
 import com.business.renvest.utils.authStore
+import com.business.renvest.utils.setTextViewText
 import com.business.renvest.utils.setupMainBottomNavigation
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.startActivity
@@ -20,15 +21,10 @@ import com.google.android.material.card.MaterialCardView
 class DashboardActivity : AppCompatActivity(), DashboardContract.View {
 
     private lateinit var presenter: DashboardPresenter
-    private lateinit var textviewGreeting: TextView
-    private lateinit var textviewBusinessName: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_dashboard, R.id.root)
-
-        textviewGreeting = findViewById(R.id.textviewGreeting)
-        textviewBusinessName = findViewById(R.id.textviewBusinessName)
 
         presenter = DashboardPresenter(this, DashboardModel(authStore()))
         presenter.onViewReady(this)
@@ -78,11 +74,11 @@ class DashboardActivity : AppCompatActivity(), DashboardContract.View {
     }
 
     override fun setGreeting(text: String) {
-        textviewGreeting.text = text
+        setTextViewText(R.id.textviewGreeting, text)
     }
 
     override fun setBusinessName(text: String) {
-        textviewBusinessName.text = text
+        setTextViewText(R.id.textviewBusinessName, text)
     }
 
     override fun showComingSoon() {

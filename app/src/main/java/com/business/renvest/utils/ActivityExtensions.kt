@@ -2,6 +2,7 @@ package com.business.renvest.utils
 
 import android.content.Intent
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import com.business.renvest.R
 import androidx.activity.enableEdgeToEdge
@@ -18,6 +19,16 @@ fun AppCompatActivity.toast(message: String) {
 
 fun AppCompatActivity.toastComingSoon() {
     toast(getString(R.string.coming_soon))
+}
+
+fun AppCompatActivity.setTextViewText(@IdRes textViewId: Int, text: String) {
+    findViewById<TextView>(textViewId).text = text
+}
+
+fun AppCompatActivity.setClickListeners(listener: View.OnClickListener, @IdRes vararg viewIds: Int) {
+    for (viewId in viewIds) {
+        findViewById<View>(viewId).setOnClickListener(listener)
+    }
 }
 
 fun AppCompatActivity.startActivity(target: Class<*>) {
