@@ -6,7 +6,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.business.renvest.R
 
-class CustomersAdapter : RecyclerView.Adapter<CustomersAdapter.VH>() {
+class CustomersAdapter(
+    private val onLongClick: (CustomerRowUi) -> Unit,
+) : RecyclerView.Adapter<CustomersAdapter.VH>() {
 
     private var items: List<CustomerRowUi> = emptyList()
 
@@ -20,18 +22,25 @@ class CustomersAdapter : RecyclerView.Adapter<CustomersAdapter.VH>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_customer_list_row, parent, false)
-        return VH(v)
+        return VH(v, onLongClick)
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         holder.bind(items[position])
     }
 
-    class VH(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
+    class VH(
+        itemView: android.view.View,
+        private val onLongClick: (CustomerRowUi) -> Unit,
+    ) : RecyclerView.ViewHolder(itemView) {
         private val name: TextView = itemView.findViewById(R.id.textviewCustomerName)
 
         fun bind(row: CustomerRowUi) {
             name.text = row.displayName
+            itemView.setOnLongClickListener {
+                onLongClick(row)
+                true
+            }
         }
     }
 }

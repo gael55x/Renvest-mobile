@@ -14,6 +14,9 @@ interface PromotionDao {
     @Insert
     fun insert(entity: PromotionEntity)
 
+    @Query("UPDATE promotions SET status = :status, updatedAt = :updatedAt WHERE id = :id")
+    fun updateStatus(id: String, status: String, updatedAt: Long): Int
+
     @Query("SELECT COUNT(*) FROM promotions")
     fun count(): Int
 

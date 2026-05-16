@@ -6,7 +6,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.business.renvest.R
 
-class ActivityFeedAdapter : RecyclerView.Adapter<ActivityFeedAdapter.VH>() {
+class ActivityFeedAdapter(
+    private val onLongClick: (ActivityEventRowUi) -> Unit,
+) : RecyclerView.Adapter<ActivityFeedAdapter.VH>() {
 
     private var items: List<ActivityEventRowUi> = emptyList()
 
@@ -20,20 +22,27 @@ class ActivityFeedAdapter : RecyclerView.Adapter<ActivityFeedAdapter.VH>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_activity_event_row, parent, false)
-        return VH(v)
+        return VH(v, onLongClick)
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         holder.bind(items[position])
     }
 
-    class VH(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
+    class VH(
+        itemView: android.view.View,
+        private val onLongClick: (ActivityEventRowUi) -> Unit,
+    ) : RecyclerView.ViewHolder(itemView) {
         private val title: TextView = itemView.findViewById(R.id.textviewActivityTitle)
         private val subtitle: TextView = itemView.findViewById(R.id.textviewActivitySubtitle)
 
         fun bind(row: ActivityEventRowUi) {
             title.text = row.title
             subtitle.text = row.subtitle
+            itemView.setOnLongClickListener {
+                onLongClick(row)
+                true
+            }
         }
     }
 }

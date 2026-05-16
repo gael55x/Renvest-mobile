@@ -10,12 +10,17 @@ interface PromotionsContract {
         fun bindPromotionsHero(activePromotions: String, customerRecords: String, activityRecords: String)
         fun displayPromotions(items: List<PromotionItem>)
         fun setPromotionsEmptyVisible(visible: Boolean)
+        fun showToast(message: String)
+        fun showNewPromotionDialog(onSubmit: (String, String, String) -> Unit)
         fun showComingSoon()
     }
 
     interface Presenter {
         fun onViewReady(context: Context)
-        fun onStubInteraction()
+        fun onNewPromoClicked(context: Context)
+        fun onNewPromotionSubmitted(context: Context, title: String, reward: String, expiry: String)
+        fun onPromotionPauseClicked(context: Context, item: PromotionItem)
         fun onPromotionItemClicked(item: PromotionItem)
+        fun onStubInteraction()
     }
 }

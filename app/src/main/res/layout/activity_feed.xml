@@ -51,9 +51,18 @@
             android:id="@+id/buttonFeedExport"
             android:layout_width="@dimen/header_icon_size"
             android:layout_height="@dimen/header_icon_size"
+            android:layout_marginEnd="@dimen/spacing_small"
             android:background="@drawable/bg_circle_surface_stroke"
             android:contentDescription="@string/content_desc_export"
             app:srcCompat="@drawable/ic_download_24" />
+
+        <ImageButton
+            android:id="@+id/buttonFeedAddEvent"
+            android:layout_width="@dimen/header_icon_size"
+            android:layout_height="@dimen/header_icon_size"
+            android:background="@drawable/bg_circle_surface_stroke"
+            android:contentDescription="@string/content_desc_log_event"
+            app:srcCompat="@drawable/ic_add_24" />
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView

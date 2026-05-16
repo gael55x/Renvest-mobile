@@ -15,7 +15,9 @@ import com.google.android.material.card.MaterialCardView
 
 class PromotionsAdapter(
     private val onItemClick: (PromotionItem) -> Unit,
-    private val onSecondaryStub: () -> Unit,
+    private val onEditClick: (PromotionItem) -> Unit,
+    private val onPauseClick: (PromotionItem) -> Unit,
+    private val onDetailsClick: (PromotionItem) -> Unit,
 ) : RecyclerView.Adapter<PromotionsAdapter.PromotionViewHolder>() {
 
     private var items: List<PromotionItem> = emptyList()
@@ -80,13 +82,13 @@ class PromotionsAdapter(
             materialcardPromotionRow.setOnClickListener { onItemClick(item) }
 
             materialbuttonPromoEdit.setOnClickListener {
-                onSecondaryStub()
+                onEditClick(item)
             }
             materialbuttonPromoPause.setOnClickListener {
-                onSecondaryStub()
+                onPauseClick(item)
             }
             textviewPromoDetails.setOnClickListener {
-                onSecondaryStub()
+                onDetailsClick(item)
             }
         }
 

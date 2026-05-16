@@ -30,8 +30,14 @@ flowchart TB
 
 ### MVP tradeoffs (explicit)
 
-- **`allowMainThreadQueries()`** is enabled so existing synchronous presenters can query Room on the UI thread for small datasets. Remove this when you introduce background dispatching.
+- **`allowMainThreadQueries()`** is still enabled for small synchronous reads. **Room writes** (insert/delete/promotion status) run on **`Dispatchers.IO`** from the hosting `Activity`’s **`lifecycleScope`** (see customers, activity feed, promotions presenters). Remove `allowMainThreadQueries()` when reads move off the main thread too.
 - **`fallbackToDestructiveMigration()`** is enabled until the schema stabilizes; do not rely on it once real user data must survive upgrades.
+
+### P1 local create flows (MVP)
+
+- **Customers / activity feed / promotions**: Material dialogs collect minimal fields; presenters validate via models, then refresh the same bind path as `onViewReady`.
+- **Delete**: long-press a customer or activity row → confirm dialog → DAO `deleteById`.
+- **Promotion pause**: row **Pause** toggles status via `PromotionDao.updateStatus`.
 
 ## Remote API
 
@@ -40,7 +46,7 @@ Not implemented yet. When backend contracts exist, add an HTTP client (e.g. Retr
 ## Feature completeness
 
 - **Loyalty reminders**: persisted in Room; add/remove flows write SQLite.
-- **Promotions / customers / activity lists**: read from Room; **empty states** when there are zero rows. “New promo / add customer / log activity” actions may still toast **coming soon** until those write paths exist.
+- **Promotions / customers / activity lists**: read from Room; **empty states** when there are zero rows. **Add customer**, **log activity** (header +), and **new promotion** persist locally; edit/details and some header actions may still toast **coming soon**.
 - **Dashboard / profile / promos hero metrics**: numeric cells reflect **real row counts** or neutral placeholders (e.g. revenue and ratings are **not** invented—strings like “Not recorded in app yet”).
 - **AI Engagement Advisor**: **no remote model**. Copy is driven only by `AuthStore` identity plus **local row counts**; when there is no local data, the screen explains that honestly.
 

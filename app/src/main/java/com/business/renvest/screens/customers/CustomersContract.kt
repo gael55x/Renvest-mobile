@@ -2,6 +2,7 @@ package com.business.renvest.screens.customers
 
 import android.content.Context
 import androidx.annotation.IdRes
+import com.business.renvest.R
 
 interface CustomersContract {
     interface View {
@@ -10,11 +11,17 @@ interface CustomersContract {
         fun bindHeroMetrics(members: String, returnOrPlaceholder: String, atRisk: String)
         fun bindCustomerRows(items: List<CustomerRowUi>)
         fun setCustomersEmptyVisible(visible: Boolean)
+        fun showToast(message: String)
+        fun showAddCustomerDialog(onSubmit: (String) -> Unit)
+        fun showDeleteCustomerConfirm(displayName: String, onConfirm: () -> Unit)
         fun showComingSoon()
     }
 
     interface Presenter {
         fun onViewReady(context: Context)
+        fun onAddCustomerClicked(context: Context)
+        fun onAddCustomerSubmitted(context: Context, rawName: String)
+        fun onCustomerLongPressed(context: Context, row: CustomerRowUi)
         fun onStubInteraction()
     }
 }

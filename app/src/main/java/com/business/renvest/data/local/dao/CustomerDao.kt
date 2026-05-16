@@ -14,6 +14,9 @@ interface CustomerDao {
     @Insert
     fun insert(entity: CustomerEntity)
 
+    @Query("DELETE FROM customers WHERE id = :id")
+    fun deleteById(id: String): Int
+
     @Query("SELECT COUNT(*) FROM customers")
     fun count(): Int
 }

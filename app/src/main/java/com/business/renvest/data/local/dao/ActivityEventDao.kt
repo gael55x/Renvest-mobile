@@ -14,6 +14,9 @@ interface ActivityEventDao {
     @Insert
     fun insert(entity: ActivityEventEntity)
 
+    @Query("DELETE FROM activity_events WHERE id = :id")
+    fun deleteById(id: String): Int
+
     @Query("SELECT COUNT(*) FROM activity_events")
     fun count(): Int
 }

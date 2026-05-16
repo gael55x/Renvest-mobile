@@ -254,4 +254,27 @@
     <string name="ai_insight_metric_window_value">8–10am</string>
     <string name="ai_advisor_action_activate">Activate Promotion</string>
     <string name="ai_advisor_action_view_data">View Data</string>
+
+    <string name="content_desc_log_event">Log activity event</string>
+    <string name="dialog_add_customer_title">Add customer</string>
+    <string name="dialog_customer_name_hint">Customer name</string>
+    <string name="customer_added_confirmation">Customer saved on this device</string>
+    <string name="dialog_delete_customer_title">Remove customer?</string>
+    <string name="dialog_delete_customer_message">Remove %1$s from this device? This cannot be undone.</string>
+    <string name="action_delete">Remove</string>
+    <string name="action_save">Save</string>
+
+    <string name="dialog_add_activity_title">Log activity</string>
+    <string name="dialog_activity_title_hint">What happened?</string>
+    <string name="dialog_activity_subtitle_hint">Details (optional)</string>
+    <string name="activity_event_added_confirmation">Activity saved on this device</string>
+    <string name="dialog_delete_activity_title">Remove activity?</string>
+    <string name="dialog_delete_activity_message">Remove “%1$s”? This cannot be undone.</string>
+
+    <string name="dialog_add_promotion_title">New promotion</string>
+    <string name="dialog_promotion_title_hint">Promotion title</string>
+    <string name="dialog_promotion_reward_hint">Reward description</string>
+    <string name="dialog_promotion_expiry_hint">Expiry or schedule (text)</string>
+    <string name="promotion_added_confirmation">Promotion saved on this device</string>
+    <string name="promotion_status_updated">Promotion status updated</string>
 </resources>
