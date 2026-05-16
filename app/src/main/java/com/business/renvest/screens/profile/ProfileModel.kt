@@ -1,14 +1,22 @@
 package com.business.renvest.screens.profile
 
 import android.content.Context
+import com.business.renvest.data.local.LocalDataCounts
+import com.business.renvest.data.local.RenvestDatabase
+import com.business.renvest.data.local.localDataCounts
 import com.business.renvest.data.RenvestResult
 import com.business.renvest.data.repository.AuthStore
 
-class ProfileModel(private val authStore: AuthStore) {
+class ProfileModel(
+    private val authStore: AuthStore,
+    private val db: RenvestDatabase,
+) {
 
     fun getEmail(context: Context): String = authStore.getEmail(context)
 
     fun businessDisplayName(context: Context): String = authStore.businessDisplayName(context)
+
+    fun localDataCounts(): LocalDataCounts = db.localDataCounts()
 
     fun clearSession(context: Context): RenvestResult<Unit> = authStore.clearSession(context)
 

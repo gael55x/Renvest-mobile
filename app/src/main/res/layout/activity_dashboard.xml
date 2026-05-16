@@ -72,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/avatar_initials"
+                tools:text="@string/avatar_initials"
                 android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                 android:textColor="@color/on_primary"
                 android:textStyle="bold" />
@@ -119,22 +119,24 @@
                         android:textColor="@color/dashboard_hero_subtle" />
 
                     <TextView
+                        android:id="@+id/textviewDashboardRevenueValue"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_small"
-                        android:text="@string/dashboard_revenue_value"
+                        android:text="@string/metric_em_dash"
                         android:textAppearance="@style/TextAppearance.Material3.DisplaySmall"
                         android:textColor="@color/on_dashboard_hero"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/textviewDashboardRevenueGrowth"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_small"
                         android:background="@drawable/bg_hero_pill"
                         android:paddingHorizontal="@dimen/spacing_field"
                         android:paddingVertical="@dimen/spacing_xs"
-                        android:text="@string/dashboard_revenue_growth"
+                        android:text="@string/metric_not_recorded"
                         android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
                         android:textColor="@color/on_dashboard_hero" />
 
@@ -154,9 +156,10 @@
                             android:padding="@dimen/spacing_small">
 
                             <TextView
+                                android:id="@+id/textviewHeroVisitsValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/dashboard_stat_visits_value"
+                                android:text="@string/metric_em_dash"
                                 android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                                 android:textColor="@color/on_dashboard_hero"
                                 android:textStyle="bold" />
@@ -185,9 +188,10 @@
                             android:padding="@dimen/spacing_small">
 
                             <TextView
+                                android:id="@+id/textviewHeroMembersValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/dashboard_stat_members_value"
+                                android:text="@string/metric_em_dash"
                                 android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                                 android:textColor="@color/on_dashboard_hero"
                                 android:textStyle="bold" />
@@ -216,9 +220,10 @@
                             android:padding="@dimen/spacing_small">
 
                             <TextView
+                                android:id="@+id/textviewHeroReturnValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/dashboard_stat_return_value"
+                                android:text="@string/metric_em_dash"
                                 android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                                 android:textColor="@color/on_dashboard_hero"
                                 android:textStyle="bold" />
@@ -293,10 +298,11 @@
                         </FrameLayout>
 
                         <TextView
+                            android:id="@+id/textviewPerfMembersValue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/spacing_field"
-                            android:text="@string/perf_members_value"
+                            android:text="@string/metric_em_dash"
                             android:textAppearance="@style/TextAppearance.Renvest.Title" />
 
                         <TextView
@@ -307,13 +313,14 @@
                             android:textAppearance="@style/TextAppearance.Renvest.Caption" />
 
                         <TextView
+                            android:id="@+id/textviewPerfMembersTrend"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/spacing_small"
                             android:background="@drawable/bg_pill_positive"
                             android:paddingHorizontal="@dimen/spacing_small"
                             android:paddingVertical="@dimen/spacing_xs"
-                            android:text="@string/perf_members_trend"
+                            android:text="@string/metric_not_recorded"
                             android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                             android:textColor="@color/primary" />
                     </LinearLayout>
@@ -347,10 +354,11 @@
                         </FrameLayout>
 
                         <TextView
+                            android:id="@+id/textviewPerfRatingValue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/spacing_field"
-                            android:text="@string/perf_rating_value"
+                            android:text="@string/metric_em_dash"
                             android:textAppearance="@style/TextAppearance.Renvest.Title" />
 
                         <TextView
@@ -398,10 +406,11 @@
                         </FrameLayout>
 
                         <TextView
+                            android:id="@+id/textviewPerfTicketValue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/spacing_field"
-                            android:text="@string/perf_ticket_value"
+                            android:text="@string/metric_em_dash"
                             android:textAppearance="@style/TextAppearance.Renvest.Title" />
 
                         <TextView
@@ -412,13 +421,14 @@
                             android:textAppearance="@style/TextAppearance.Renvest.Caption" />
 
                         <TextView
+                            android:id="@+id/textviewPerfTicketTrend"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/spacing_small"
                             android:background="@drawable/bg_pill_warning"
                             android:paddingHorizontal="@dimen/spacing_small"
                             android:paddingVertical="@dimen/spacing_xs"
-                            android:text="@string/perf_ticket_trend"
+                            android:text="@string/metric_not_recorded"
                             android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                             android:textColor="@color/warning_text" />
                     </LinearLayout>
@@ -452,10 +462,11 @@
                         </FrameLayout>
 
                         <TextView
+                            android:id="@+id/textviewPerfChurnValue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/spacing_field"
-                            android:text="@string/perf_churn_value"
+                            android:text="@string/metric_em_dash"
                             android:textAppearance="@style/TextAppearance.Renvest.Title" />
 
                         <TextView
@@ -502,13 +513,24 @@
                         android:textColor="@color/on_primary" />
 
                     <TextView
+                        android:id="@+id/textviewDashboardAiHeadline"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_field"
-                        android:text="@string/ai_headline"
+                        android:text="@string/dashboard_ai_insight_placeholder_title"
                         android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                         android:textColor="@color/on_dashboard_hero"
                         android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textviewDashboardAiBody"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_field"
+                        android:text="@string/dashboard_ai_insight_placeholder_body"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                        android:textColor="@color/ai_insight_body"
+                        android:lineSpacingMultiplier="1.15" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>

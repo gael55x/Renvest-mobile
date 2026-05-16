@@ -192,7 +192,7 @@
                             android:id="@+id/textviewProfileStatMembers"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/dashboard_stat_members_value"
+                            android:text="@string/metric_em_dash"
                             android:textAppearance="@style/TextAppearance.Renvest.SectionTitle"
                             android:textSize="18sp" />
 
@@ -220,7 +220,7 @@
                             android:id="@+id/textviewProfileStatReturn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/dashboard_stat_return_value"
+                            android:text="@string/metric_em_dash"
                             android:textAppearance="@style/TextAppearance.Renvest.SectionTitle"
                             android:textSize="18sp" />
 
@@ -248,7 +248,7 @@
                             android:id="@+id/textviewProfileStatPromos"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/promo_stat_active_value"
+                            android:text="@string/metric_em_dash"
                             android:textAppearance="@style/TextAppearance.Renvest.SectionTitle"
                             android:textSize="18sp" />
 
@@ -448,7 +448,7 @@
                                 android:layout_marginTop="2dp"
                                 android:textAppearance="@style/TextAppearance.Renvest.SectionTitle"
                                 android:textSize="15sp"
-                                tools:text="@string/profile_email_placeholder" />
+                                tools:text="@string/profile_email_empty" />
                         </LinearLayout>
 
                         <ImageView

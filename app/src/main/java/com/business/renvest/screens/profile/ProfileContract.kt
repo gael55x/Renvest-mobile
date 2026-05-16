@@ -5,6 +5,7 @@ import android.content.Context
 interface ProfileContract {
     interface View {
         fun bindProfile(businessName: String, initials: String, emailDisplay: String)
+        fun bindProfileLiveStats(members: String, returnOrPlaceholder: String, activePromotions: String)
         fun showComingSoon()
         fun showToast(message: String)
         fun navigateToLoginClearTask()

@@ -27,6 +27,12 @@
     <string name="register_subtitle_long">Create your Renvest account in seconds. No credit card required.</string>
     <string name="terms_footer">By creating an account you agree to our Terms of Service and Privacy Policy.</string>
 
+    <string name="metric_not_recorded">Not recorded in app yet</string>
+    <string name="metric_em_dash">—</string>
+    <string name="dashboard_ai_insight_placeholder_title">Local data only</string>
+    <string name="dashboard_ai_insight_placeholder_body">Renvest is not connected to a remote backend yet. This card will summarize real local activity once you add customers, promotions, reminders, and events.</string>
+    <string name="dashboard_ai_insight_summary_format">Local records: %1$d customers, %2$d promotions, %3$d loyalty reminders, %4$d activity items.</string>
+
     <string name="greeting_morning">Good morning</string>
     <string name="greeting_afternoon">Good afternoon</string>
     <string name="greeting_evening">Good evening</string>
@@ -79,7 +85,21 @@
     <string name="content_desc_filter">Filter customers</string>
 
     <string name="feature_loyalty_title">Loyalty programs</string>
+    <string name="promo_hero_customers_label">Customers saved</string>
+    <string name="promo_hero_activity_label">Activity items</string>
+
+    <string name="customer_row_saved_locally">Saved on this device</string>
+
+    <string name="empty_state_customers">No customers yet.\nAn add-customer flow will come in a later update.</string>
+    <string name="empty_state_activity_feed">No activity events yet.\nLogging activity from the app will come in a later update.</string>
+    <string name="customers_hero_at_risk_label">At-risk (not tracked)</string>
+    <string name="activity_hero_events_label">Recorded events</string>
+    <string name="activity_hero_customers_label">Customers</string>
+    <string name="activity_hero_promotions_label">Promotions</string>
+
     <string name="empty_state_loyalty_reminders">No loyalty reminders yet.\nAdd one below to keep follow-ups in the app.</string>
+
+    <string name="empty_state_promotions">No promotions saved on this device yet.\nAn add-promotion flow will come in a later update.</string>
 
     <string name="loyalty_reminder_hint">New loyalty reminder</string>
     <string name="loyalty_reminder_add">Add reminder</string>
@@ -204,9 +224,14 @@
     <string name="profile_loyalty_points_mode">Points Mode</string>
     <string name="profile_loyalty_points_sub">How points are calculated</string>
     <string name="profile_loyalty_mode_chip">Per Visit</string>
-    <string name="profile_email_placeholder">owner@thecoffeespot.ph</string>
+    <string name="profile_email_empty">No email on file</string>
 
     <string name="ai_advisor_screen_title">AI Engagement Advisor</string>
+    <string name="ai_advisor_updated_local">Based on local data on this device</string>
+    <string name="ai_advisor_local_title_not_enough">Not enough local data yet</string>
+    <string name="ai_advisor_local_body_not_enough">This screen only reads data you save in Renvest on this device (customers, promotions, loyalty reminders, and activity events). Add a few records, then return here for a factual count summary. Revenue, ratings, retention, and other performance metrics are not tracked in this MVP build.</string>
+    <string name="ai_advisor_local_title_summary">Local snapshot</string>
+    <string name="ai_advisor_local_disclaimer">These numbers are row counts from your local database only. This is not remote AI analysis and does not include revenue or engagement rates.</string>
     <string name="ai_advisor_updated">Updated just now</string>
     <string name="ai_advisor_engagement_label">ENGAGEMENT SCORE</string>
     <string name="ai_advisor_score_value">74</string>

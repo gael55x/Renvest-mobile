@@ -87,9 +87,10 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/textviewPromoHeroActive"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/promo_stat_active_value"
+                            android:text="@string/metric_em_dash"
                             android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
                             android:textColor="@color/on_dashboard_hero"
                             android:textStyle="bold" />
@@ -112,9 +113,10 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/textviewPromoHeroCustomers"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/promo_stat_enrolled_value"
+                            android:text="@string/metric_em_dash"
                             android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
                             android:textColor="@color/on_dashboard_hero"
                             android:textStyle="bold" />
@@ -124,7 +126,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/spacing_xs"
                             android:gravity="center"
-                            android:text="@string/promo_stat_enrolled"
+                            android:text="@string/promo_hero_customers_label"
                             android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                             android:textColor="@color/dashboard_hero_subtle" />
                     </LinearLayout>
@@ -137,9 +139,10 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/textviewPromoHeroActivity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/promo_stat_redeemed_value"
+                            android:text="@string/metric_em_dash"
                             android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
                             android:textColor="@color/on_dashboard_hero"
                             android:textStyle="bold" />
@@ -149,7 +152,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/spacing_xs"
                             android:gravity="center"
-                            android:text="@string/promo_stat_redeemed"
+                            android:text="@string/promo_hero_activity_label"
                             android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                             android:textColor="@color/dashboard_hero_subtle" />
                     </LinearLayout>
@@ -187,6 +190,18 @@
                     android:layout_height="wrap_content"
                     android:text="@string/promo_tab_expired" />
             </com.google.android.material.tabs.TabLayout>
+
+            <TextView
+                android:id="@+id/textviewPromotionsEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_field"
+                android:gravity="center"
+                android:padding="@dimen/spacing_field"
+                android:text="@string/empty_state_promotions"
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerviewPromotions"

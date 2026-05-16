@@ -7,7 +7,7 @@ interface AiEngagementAdvisorContract {
     interface View {
         fun setHeaderBusinessName(text: String)
         fun setupNav(@IdRes selectedItemId: Int)
-        fun setEngagementProgress(percent: Int)
+        fun bindLocalAdvisor(title: String, body: String)
         fun showComingSoon()
     }
 

@@ -48,33 +48,15 @@
             app:tint="@color/text_primary" />
     </LinearLayout>
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/textviewAiUpdatedCaption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
+        android:gravity="end"
         android:paddingHorizontal="@dimen/padding_screen_horizontal"
-        android:paddingBottom="@dimen/spacing_field">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_ai_chip"
-            android:paddingHorizontal="@dimen/spacing_field"
-            android:paddingVertical="@dimen/spacing_xs"
-            android:text="@string/ai_badge"
-            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-            android:textColor="@color/on_primary" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_field"
-            android:layout_weight="1"
-            android:gravity="end"
-            android:text="@string/ai_advisor_updated"
-            android:textAppearance="@style/TextAppearance.Renvest.Caption" />
-    </LinearLayout>
+        android:paddingBottom="@dimen/spacing_field"
+        android:text="@string/ai_advisor_updated_local"
+        android:textAppearance="@style/TextAppearance.Renvest.Caption" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -94,230 +76,6 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/dashboard_hero"
-                app:cardCornerRadius="@dimen/card_corner_large"
-                app:cardElevation="0dp"
-                app:strokeWidth="0dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/grid_3">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="top"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:letterSpacing="0.06"
-                                android:text="@string/ai_advisor_engagement_label"
-                                android:textAllCaps="true"
-                                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                                android:textColor="@color/positive_soft" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/spacing_small"
-                                android:baselineAligned="false"
-                                android:gravity="bottom"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:includeFontPadding="false"
-                                    android:text="@string/ai_advisor_score_value"
-                                    android:textAppearance="@style/TextAppearance.Material3.DisplaySmall"
-                                    android:textColor="@color/on_dashboard_hero"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/spacing_small"
-                                    android:layout_weight="1"
-                                    android:text="@string/ai_advisor_score_suffix"
-                                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                                    android:textColor="@color/dashboard_hero_subtle" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/spacing_field"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal"
-                                android:paddingHorizontal="@dimen/spacing_small"
-                                android:paddingVertical="@dimen/spacing_xs"
-                                android:background="@drawable/bg_hero_pill">
-
-                                <ImageView
-                                    android:layout_width="16dp"
-                                    android:layout_height="16dp"
-                                    android:contentDescription="@null"
-                                    app:srcCompat="@drawable/ic_arrow_upward_24"
-                                    app:tint="@color/on_dashboard_hero" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/spacing_xs"
-                                    android:text="@string/ai_advisor_trend"
-                                    android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                                    android:textColor="@color/on_dashboard_hero" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <FrameLayout
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_marginStart="@dimen/spacing_small">
-
-                            <com.google.android.material.progressindicator.CircularProgressIndicator
-                                android:id="@+id/circularprogressindicatorEngagementScore"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:progress="74"
-                                app:indicatorColor="@color/on_dashboard_hero"
-                                app:indicatorSize="100dp"
-                                app:trackColor="#4DFFFFFF"
-                                app:trackCornerRadius="3dp"
-                                app:trackThickness="6dp" />
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/ai_advisor_score_value"
-                                    android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                                    android:textColor="@color/on_dashboard_hero"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/ai_advisor_score_ring_caption"
-                                    android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                                    android:textColor="@color/dashboard_hero_subtle" />
-                            </LinearLayout>
-                        </FrameLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_3"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/spacing_xs"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_hero_stat_cell"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="@dimen/spacing_small">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/dashboard_stat_return_value"
-                                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                                android:textColor="@color/on_dashboard_hero"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:gravity="center"
-                                android:text="@string/ai_advisor_metric_return"
-                                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                                android:textColor="@color/dashboard_hero_subtle" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="@dimen/spacing_xs"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_hero_stat_cell"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="@dimen/spacing_small">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/ai_advisor_rating_value"
-                                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                                android:textColor="@color/on_dashboard_hero"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:gravity="center"
-                                android:text="@string/ai_advisor_metric_rating"
-                                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                                android:textColor="@color/dashboard_hero_subtle" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/spacing_xs"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_hero_stat_cell"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="@dimen/spacing_small">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/ai_advisor_at_risk_value"
-                                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                                android:textColor="@color/on_dashboard_hero"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:gravity="center"
-                                android:text="@string/ai_advisor_metric_at_risk"
-                                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                                android:textColor="@color/dashboard_hero_subtle" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_field"
                 app:cardBackgroundColor="@color/ai_card_bg"
                 app:cardCornerRadius="@dimen/card_corner_large"
                 app:cardElevation="0dp"
@@ -335,147 +93,58 @@
                         android:background="@drawable/bg_ai_chip"
                         android:paddingHorizontal="@dimen/spacing_field"
                         android:paddingVertical="@dimen/spacing_xs"
-                        android:text="@string/ai_insight_tag_peak"
+                        android:text="@string/ai_badge"
                         android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                         android:textColor="@color/on_primary" />
 
                     <TextView
+                        android:id="@+id/textviewAiSummaryTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_field"
-                        android:text="@string/ai_insight_title_long"
                         android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                         android:textColor="@color/on_dashboard_hero"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="@string/ai_advisor_local_title_not_enough" />
 
                     <TextView
+                        android:id="@+id/textviewAiSummaryBody"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_field"
-                        android:text="@string/ai_insight_body_long"
-                        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                        android:lineSpacingMultiplier="1.15"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                         android:textColor="@color/ai_insight_body"
-                        android:lineSpacingMultiplier="1.15" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_3"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/spacing_xs"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_ai_chip"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="@dimen/spacing_small">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/ai_insight_metric_recovery_value"
-                                android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
-                                android:textColor="@color/on_dashboard_hero"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:gravity="center"
-                                android:text="@string/ai_insight_metric_recovery_label"
-                                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                                android:textColor="@color/dashboard_hero_subtle" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="@dimen/spacing_xs"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_ai_chip"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="@dimen/spacing_small">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/ai_insight_metric_scan_value"
-                                android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
-                                android:textColor="@color/on_dashboard_hero"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:gravity="center"
-                                android:text="@string/ai_insight_metric_scan_label"
-                                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                                android:textColor="@color/dashboard_hero_subtle" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/spacing_xs"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_ai_chip"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="@dimen/spacing_small">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/ai_insight_metric_window_value"
-                                android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
-                                android:textColor="@color/on_dashboard_hero"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:gravity="center"
-                                android:text="@string/ai_insight_metric_window_label"
-                                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                                android:textColor="@color/dashboard_hero_subtle" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_3"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/buttonAiActivatePromo"
-                            style="@style/Widget.Renvest.Button.Primary"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:minHeight="52dp"
-                            android:text="@string/ai_advisor_action_activate" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/buttonAiViewData"
-                            style="@style/Widget.Renvest.Button.AiSecondary"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/spacing_small"
-                            android:minHeight="52dp"
-                            android:paddingHorizontal="@dimen/spacing_field"
-                            android:text="@string/ai_advisor_action_view_data" />
-                    </LinearLayout>
+                        tools:text="@string/ai_advisor_local_body_not_enough" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_field"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonAiActivatePromo"
+                    style="@style/Widget.Renvest.Button.Primary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minHeight="52dp"
+                    android:text="@string/ai_advisor_action_activate" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonAiViewData"
+                    style="@style/Widget.Renvest.Button.AiSecondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_small"
+                    android:minHeight="52dp"
+                    android:paddingHorizontal="@dimen/spacing_field"
+                    android:text="@string/ai_advisor_action_view_data" />
+            </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
 import com.business.renvest.screens.login.LoginActivity
 import com.business.renvest.utils.authStore
+import com.business.renvest.utils.renvestDb
 import com.business.renvest.utils.setClickListeners
 import com.business.renvest.utils.setTextViewText
 import com.business.renvest.utils.setupMainBottomNavigation
@@ -23,7 +24,7 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_profile, R.id.root)
 
-        presenter = ProfilePresenter(this, ProfileModel(authStore()))
+        presenter = ProfilePresenter(this, ProfileModel(authStore(), renvestDb()))
         presenter.onViewReady(this)
 
         setupMainBottomNavigation(R.id.navProfile)
@@ -53,6 +54,12 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View {
         setTextViewText(R.id.textviewProfileHeroInitials, initials)
         setTextViewText(R.id.textviewProfileRowBusinessValue, businessName)
         setTextViewText(R.id.textviewProfileRowEmailValue, emailDisplay)
+    }
+
+    override fun bindProfileLiveStats(members: String, returnOrPlaceholder: String, activePromotions: String) {
+        setTextViewText(R.id.textviewProfileStatMembers, members)
+        setTextViewText(R.id.textviewProfileStatReturn, returnOrPlaceholder)
+        setTextViewText(R.id.textviewProfileStatPromos, activePromotions)
     }
 
     override fun showComingSoon() {

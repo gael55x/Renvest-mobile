@@ -96,9 +96,10 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/textviewCustomersHeroMembers"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/dashboard_stat_members_value"
+                            android:text="@string/metric_em_dash"
                             android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
                             android:textColor="@color/on_dashboard_hero"
                             android:textStyle="bold" />
@@ -121,9 +122,10 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/textviewCustomersHeroReturn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/dashboard_stat_return_value"
+                            android:text="@string/metric_em_dash"
                             android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
                             android:textColor="@color/on_dashboard_hero"
                             android:textStyle="bold" />
@@ -146,9 +148,10 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/textviewCustomersHeroAtRisk"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="42"
+                            android:text="@string/metric_em_dash"
                             android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
                             android:textColor="@color/on_dashboard_hero"
                             android:textStyle="bold" />
@@ -158,7 +161,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/spacing_xs"
                             android:gravity="center"
-                            android:text="@string/loyalty_stat_at_risk"
+                            android:text="@string/customers_hero_at_risk_label"
                             android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                             android:textColor="@color/warning_text" />
                     </LinearLayout>
@@ -261,11 +264,25 @@
                     android:textAppearance="@style/TextAppearance.Renvest.Link" />
             </LinearLayout>
 
-            <include layout="@layout/item_customer_row_maria" />
+            <TextView
+                android:id="@+id/textviewCustomersEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_field"
+                android:gravity="center"
+                android:padding="@dimen/spacing_field"
+                android:text="@string/empty_state_customers"
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:visibility="gone" />
 
-            <include layout="@layout/item_customer_row_john" />
-
-            <include layout="@layout/item_customer_row_sofia" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerviewCustomers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_field"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="ifContentScrolls" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

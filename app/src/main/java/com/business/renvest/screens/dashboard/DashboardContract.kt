@@ -6,6 +6,7 @@ interface DashboardContract {
     interface View {
         fun setGreeting(text: String)
         fun setBusinessName(text: String)
+        fun bindDashboardMetrics(model: DashboardBindModel)
         fun showComingSoon()
         fun navigateToCustomers()
         fun navigateToLoyalty()

@@ -11,7 +11,26 @@ class AiEngagementAdvisorPresenter(
     override fun onViewReady(context: Context) {
         view.setHeaderBusinessName(model.businessDisplayName(context))
         view.setupNav(R.id.navHome)
-        view.setEngagementProgress(model.demoEngagementProgressPercent())
+        val counts = model.localDataCounts()
+        if (counts.totalRows() == 0) {
+            view.bindLocalAdvisor(
+                title = context.getString(R.string.ai_advisor_local_title_not_enough),
+                body = context.getString(R.string.ai_advisor_local_body_not_enough),
+            )
+        } else {
+            val summary = context.getString(
+                R.string.dashboard_ai_insight_summary_format,
+                counts.customers,
+                counts.promotions,
+                counts.loyaltyReminders,
+                counts.activityEvents,
+            )
+            val disclaimer = context.getString(R.string.ai_advisor_local_disclaimer)
+            view.bindLocalAdvisor(
+                title = context.getString(R.string.ai_advisor_local_title_summary),
+                body = "$summary\n\n$disclaimer",
+            )
+        }
     }
 
     override fun onStubInteraction() {

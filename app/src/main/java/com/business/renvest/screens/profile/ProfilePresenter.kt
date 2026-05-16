@@ -16,10 +16,17 @@ class ProfilePresenter(
         val emailDisplay = if (emailTrimmed.isNotEmpty()) {
             emailTrimmed
         } else {
-            context.getString(R.string.profile_email_placeholder)
+            context.getString(R.string.profile_email_empty)
         }
         val initials = model.initialsFromName(business)
         view.bindProfile(business, initials, emailDisplay)
+        val counts = model.localDataCounts()
+        val notRecorded = context.getString(R.string.metric_not_recorded)
+        view.bindProfileLiveStats(
+            members = counts.customers.toString(),
+            returnOrPlaceholder = notRecorded,
+            activePromotions = counts.promotionsActive.toString(),
+        )
     }
 
     override fun onLogoutClicked(context: Context) {

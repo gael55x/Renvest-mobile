@@ -11,7 +11,15 @@ class PromotionsPresenter(
     override fun onViewReady(context: Context) {
         view.setHeaderBusinessName(model.businessDisplayName(context))
         view.setupNav(R.id.navPromos)
-        view.displayPromotions(model.demoPromotions(context))
+        val items = model.loadPromotions()
+        val counts = model.localDataCounts()
+        view.bindPromotionsHero(
+            activePromotions = counts.promotionsActive.toString(),
+            customerRecords = counts.customers.toString(),
+            activityRecords = counts.activityEvents.toString(),
+        )
+        view.displayPromotions(items)
+        view.setPromotionsEmptyVisible(items.isEmpty())
     }
 
     override fun onStubInteraction() {

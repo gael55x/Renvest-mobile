@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.business.renvest.R
 import com.business.renvest.screens.aiadvisor.AiEngagementAdvisorActivity
 import com.business.renvest.screens.customers.CustomersActivity
 import com.business.renvest.screens.loyalty.LoyaltyActivity
 import com.business.renvest.screens.promotions.PromotionsActivity
 import com.business.renvest.utils.authStore
+import com.business.renvest.utils.renvestDb
 import com.business.renvest.utils.setTextViewText
 import com.business.renvest.utils.setupMainBottomNavigation
 import com.business.renvest.utils.setupRenvestContent
@@ -26,7 +28,7 @@ class DashboardActivity : AppCompatActivity(), DashboardContract.View {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_dashboard, R.id.root)
 
-        presenter = DashboardPresenter(this, DashboardModel(authStore()))
+        presenter = DashboardPresenter(this, DashboardModel(authStore(), renvestDb()))
         presenter.onViewReady(this)
 
         val framelayoutHeaderNotification = findViewById<View>(R.id.framelayoutHeaderNotification)
@@ -79,6 +81,23 @@ class DashboardActivity : AppCompatActivity(), DashboardContract.View {
 
     override fun setBusinessName(text: String) {
         setTextViewText(R.id.textviewBusinessName, text)
+    }
+
+    override fun bindDashboardMetrics(model: DashboardBindModel) {
+        findViewById<TextView>(R.id.textviewAvatarInitials).text = model.avatarInitials
+        findViewById<TextView>(R.id.textviewDashboardRevenueValue).text = model.revenueValue
+        findViewById<TextView>(R.id.textviewDashboardRevenueGrowth).text = model.revenueSubline
+        findViewById<TextView>(R.id.textviewHeroVisitsValue).text = model.visitsValue
+        findViewById<TextView>(R.id.textviewHeroMembersValue).text = model.membersValue
+        findViewById<TextView>(R.id.textviewHeroReturnValue).text = model.returnValue
+        findViewById<TextView>(R.id.textviewPerfMembersValue).text = model.perfMembers
+        findViewById<TextView>(R.id.textviewPerfMembersTrend).isVisible = model.perfMembersTrendVisible
+        findViewById<TextView>(R.id.textviewPerfRatingValue).text = model.perfRating
+        findViewById<TextView>(R.id.textviewPerfTicketValue).text = model.perfTicket
+        findViewById<TextView>(R.id.textviewPerfTicketTrend).isVisible = model.perfTicketTrendVisible
+        findViewById<TextView>(R.id.textviewPerfChurnValue).text = model.perfChurn
+        findViewById<TextView>(R.id.textviewDashboardAiHeadline).text = model.aiTitle
+        findViewById<TextView>(R.id.textviewDashboardAiBody).text = model.aiBody
     }
 
     override fun showComingSoon() {
