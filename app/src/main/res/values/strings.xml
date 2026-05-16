@@ -216,8 +216,8 @@
     <string name="profile_settings_business_type">Business Type</string>
     <string name="profile_settings_email">Email Address</string>
     <string name="profile_settings_location">Business Location</string>
-    <string name="profile_settings_business_type_value">Restaurant / Café</string>
-    <string name="profile_settings_location_value">Makati City, Metro Manila</string>
+    <string name="profile_settings_business_type_value">Not set</string>
+    <string name="profile_settings_location_value">Not set</string>
     <string name="profile_loyalty_reward_threshold">Reward Threshold</string>
     <string name="profile_loyalty_reward_sub">Points needed to unlock reward</string>
     <string name="profile_loyalty_threshold_chip">1,000 pts</string>
