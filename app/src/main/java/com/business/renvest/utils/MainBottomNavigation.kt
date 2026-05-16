@@ -9,7 +9,6 @@ import com.business.renvest.screens.dashboard.DashboardActivity
 import com.business.renvest.screens.profile.ProfileActivity
 import com.business.renvest.screens.promotions.PromotionsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationBarView
 
 fun AppCompatActivity.setupMainBottomNavigation(@IdRes selectedItemId: Int) {
     val bottomnavigationMain = findViewById<BottomNavigationView>(R.id.bottomnavigationMain)
@@ -18,7 +17,7 @@ fun AppCompatActivity.setupMainBottomNavigation(@IdRes selectedItemId: Int) {
         isVisible = true
         number = 3
     }
-    bottomnavigationMain.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
+    bottomnavigationMain.setOnItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navHome -> navigateMainTab(DashboardActivity::class.java, selectedItemId == R.id.navHome)
             R.id.navCustomers -> navigateMainTab(CustomersActivity::class.java, selectedItemId == R.id.navCustomers)
@@ -27,7 +26,7 @@ fun AppCompatActivity.setupMainBottomNavigation(@IdRes selectedItemId: Int) {
             R.id.navProfile -> navigateMainTab(ProfileActivity::class.java, selectedItemId == R.id.navProfile)
             else -> false
         }
-    })
+    }
 }
 
 private fun AppCompatActivity.navigateMainTab(target: Class<*>, alreadySelected: Boolean): Boolean {
