@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbarCustomerDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationIcon="@drawable/ic_arrow_back_24"
+        app:title="@string/customer_detail_title" />
+
+    <TextView
+        android:id="@+id/textviewCustomerDetailName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/padding_screen_horizontal"
+        android:textAppearance="@style/TextAppearance.Renvest.ScreenTitle.Form" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/padding_screen_horizontal"
+        android:paddingTop="@dimen/spacing_field">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonCustomerEdit"
+            style="@style/Widget.Renvest.Button.Outlined"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_small"
+            android:layout_weight="1"
+            android:text="@string/action_edit" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonCustomerDelete"
+            style="@style/Widget.Renvest.Button.Outlined"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/action_delete" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_section"
+        android:paddingHorizontal="@dimen/padding_screen_horizontal"
+        android:text="@string/customer_detail_activity_heading"
+        android:textAppearance="@style/TextAppearance.Renvest.SectionTitle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewCustomerActivity"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingHorizontal="@dimen/padding_screen_horizontal"
+        android:paddingTop="@dimen/spacing_field" />
+</LinearLayout>
