@@ -31,10 +31,10 @@ class PromotionsActivity : AppCompatActivity(), PromotionsContract.View {
         textviewPromotionsEmpty = findViewById(R.id.textviewPromotionsEmpty)
 
         promotionsAdapter = PromotionsAdapter(
-            onItemClick = { presenter.onPromotionItemClicked(it) },
-            onEditClick = { presenter.onStubInteraction() },
+            onItemClick = { presenter.onPromotionEditClicked(this, it) },
+            onEditClick = { presenter.onPromotionEditClicked(this, it) },
             onPauseClick = { presenter.onPromotionPauseClicked(this, it) },
-            onDetailsClick = { presenter.onStubInteraction() },
+            onDetailsClick = { presenter.onPromotionLongPressed(this, it) },
         )
         findViewById<RecyclerView>(R.id.recyclerviewPromotions).apply {
             layoutManager = LinearLayoutManager(this@PromotionsActivity)
@@ -95,6 +95,37 @@ class PromotionsActivity : AppCompatActivity(), PromotionsContract.View {
                     expiryField.text?.toString().orEmpty(),
                 )
             }
+            .show()
+    }
+
+    override fun showEditPromotionDialog(item: PromotionItem, onSubmit: (String, String, String) -> Unit) {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_add_promotion, null, false)
+        val titleField = dialogView.findViewById<TextInputEditText>(R.id.edittextPromoTitle)
+        val rewardField = dialogView.findViewById<TextInputEditText>(R.id.edittextPromoReward)
+        val expiryField = dialogView.findViewById<TextInputEditText>(R.id.edittextPromoExpiry)
+        titleField.setText(item.title)
+        rewardField.setText(item.reward)
+        expiryField.setText(item.expiry)
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.dialog_edit_promotion_title)
+            .setView(dialogView)
+            .setNegativeButton(android.R.string.cancel, null)
+            .setPositiveButton(R.string.action_save) { _, _ ->
+                onSubmit(
+                    titleField.text?.toString().orEmpty(),
+                    rewardField.text?.toString().orEmpty(),
+                    expiryField.text?.toString().orEmpty(),
+                )
+            }
+            .show()
+    }
+
+    override fun showDeletePromotionConfirm(title: String, onConfirm: () -> Unit) {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.dialog_delete_promotion_title)
+            .setMessage(getString(R.string.dialog_delete_promotion_message, title))
+            .setNegativeButton(android.R.string.cancel, null)
+            .setPositiveButton(R.string.action_delete) { _, _ -> onConfirm() }
             .show()
     }
 

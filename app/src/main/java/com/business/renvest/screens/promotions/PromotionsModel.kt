@@ -5,6 +5,7 @@ import com.business.renvest.R
 import com.business.renvest.data.local.LocalDataCounts
 import com.business.renvest.data.local.RenvestDatabase
 import com.business.renvest.data.local.entity.PromotionEntity
+import com.business.renvest.data.local.logActivity
 import com.business.renvest.data.local.localDataCounts
 import com.business.renvest.data.repository.AuthStore
 import java.util.UUID
@@ -21,7 +22,6 @@ class PromotionsModel(
     fun loadPromotions(): List<PromotionItem> =
         db.promotionDao().listAll().map { it.toPromotionItem() }
 
-    /** All three fields required after trim. */
     fun addPromotionMinimal(context: Context, title: String, reward: String, expiry: String): Boolean {
         val t = title.trim()
         val r = reward.trim()
@@ -44,12 +44,46 @@ class PromotionsModel(
                 updatedAt = now,
             ),
         )
+        db.logActivity(title = "Promotion created", subtitle = t)
         return true
+    }
+
+    fun updatePromotion(item: PromotionItem, title: String, reward: String, expiry: String): Boolean {
+        val t = title.trim()
+        val r = reward.trim()
+        val e = expiry.trim()
+        if (t.isEmpty() || r.isEmpty() || e.isEmpty()) return false
+        val existing = db.promotionDao().listAll().find { it.id == item.id } ?: return false
+        val now = System.currentTimeMillis()
+        db.promotionDao().update(
+            existing.copy(
+                title = t,
+                reward = r,
+                expiry = e,
+                updatedAt = now,
+            ),
+        )
+        return true
+    }
+
+    fun deletePromotion(id: String) {
+        db.promotionDao().deleteById(id)
     }
 
     fun togglePromotionStatus(id: String, current: PromotionStatus): Boolean {
         val next = if (current == PromotionStatus.Active) PromotionStatus.Paused else PromotionStatus.Active
-        return db.promotionDao().updateStatus(id, next.name, System.currentTimeMillis()) > 0
+        val ok = db.promotionDao().updateStatus(id, next.name, System.currentTimeMillis()) > 0
+        if (ok) {
+            db.logActivity(
+                title = if (next == PromotionStatus.Active) "Promotion resumed" else "Promotion paused",
+                subtitle = db.promotionDao().listAll().find { it.id == id }?.title.orEmpty(),
+            )
+        }
+        return ok
+    }
+
+    fun markOnboardingPromotionStep(context: Context) {
+        authStore.markOnboardingStep(context, AuthStore.STEP_PROMOTION)
     }
 }
 

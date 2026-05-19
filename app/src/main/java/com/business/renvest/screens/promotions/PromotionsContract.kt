@@ -12,6 +12,8 @@ interface PromotionsContract {
         fun setPromotionsEmptyVisible(visible: Boolean)
         fun showToast(message: String)
         fun showNewPromotionDialog(onSubmit: (String, String, String) -> Unit)
+        fun showEditPromotionDialog(item: PromotionItem, onSubmit: (String, String, String) -> Unit)
+        fun showDeletePromotionConfirm(title: String, onConfirm: () -> Unit)
         fun showComingSoon()
     }
 
@@ -20,7 +22,9 @@ interface PromotionsContract {
         fun onNewPromoClicked(context: Context)
         fun onNewPromotionSubmitted(context: Context, title: String, reward: String, expiry: String)
         fun onPromotionPauseClicked(context: Context, item: PromotionItem)
-        fun onPromotionItemClicked(item: PromotionItem)
+        fun onPromotionEditClicked(context: Context, item: PromotionItem)
+        fun onPromotionEditSubmitted(context: Context, item: PromotionItem, title: String, reward: String, expiry: String)
+        fun onPromotionLongPressed(context: Context, item: PromotionItem)
         fun onStubInteraction()
     }
 }
