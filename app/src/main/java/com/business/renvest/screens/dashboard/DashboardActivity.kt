@@ -5,7 +5,9 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import com.business.renvest.R
+import com.business.renvest.screens.activityfeed.ActivityFeedActivity
 import com.business.renvest.screens.aiadvisor.AiEngagementAdvisorActivity
 import com.business.renvest.screens.customers.CustomersActivity
 import com.business.renvest.screens.loyalty.LoyaltyActivity
@@ -16,7 +18,6 @@ import com.business.renvest.utils.setTextViewText
 import com.business.renvest.utils.setupMainBottomNavigation
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.startActivity
-import com.business.renvest.utils.toast
 import com.business.renvest.utils.toastComingSoon
 import com.google.android.material.card.MaterialCardView
 
@@ -28,48 +29,29 @@ class DashboardActivity : AppCompatActivity(), DashboardContract.View {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_dashboard, R.id.root)
 
-        presenter = DashboardPresenter(this, DashboardModel(authStore(), renvestDb()))
+        presenter = DashboardPresenter(this, DashboardModel(authStore(), renvestDb()), lifecycleScope)
         presenter.onViewReady(this)
 
-        val framelayoutHeaderNotification = findViewById<View>(R.id.framelayoutHeaderNotification)
-        val textviewPerfViewReport = findViewById<TextView>(R.id.textviewPerfViewReport)
-        val materialcardHeroRevenue = findViewById<MaterialCardView>(R.id.materialcardHeroRevenue)
-        val materialcardPerfCellMembers = findViewById<MaterialCardView>(R.id.materialcardPerfCellMembers)
-        val materialcardPerfCellRating = findViewById<MaterialCardView>(R.id.materialcardPerfCellRating)
-        val materialcardPerfCellTicket = findViewById<MaterialCardView>(R.id.materialcardPerfCellTicket)
-        val materialcardPerfCellChurn = findViewById<MaterialCardView>(R.id.materialcardPerfCellChurn)
-        val materialcardAiInsight = findViewById<MaterialCardView>(R.id.materialcardAiInsight)
-
-        framelayoutHeaderNotification.setOnClickListener {
+        findViewById<View>(R.id.framelayoutHeaderNotification).setOnClickListener {
             presenter.onNotificationClicked()
         }
-
-        textviewPerfViewReport.setOnClickListener {
+        findViewById<TextView>(R.id.textviewPerfViewReport).setOnClickListener {
             presenter.onPerfViewReportClicked()
         }
-
-        materialcardHeroRevenue.setOnClickListener {
-            /* static hero; no navigation */
-        }
-
-        materialcardPerfCellMembers.setOnClickListener {
+        findViewById<MaterialCardView>(R.id.materialcardPerfCellMembers).setOnClickListener {
             presenter.onPerfCellMembersClicked()
         }
-
-        materialcardPerfCellRating.setOnClickListener {
-            presenter.onPerfCellRatingClicked()
+        findViewById<MaterialCardView>(R.id.materialcardPerfCellRating).setOnClickListener {
+            presenter.onPerfCellLoyaltyClicked()
         }
-
-        materialcardPerfCellTicket.setOnClickListener {
-            presenter.onPerfCellTicketClicked()
+        findViewById<MaterialCardView>(R.id.materialcardPerfCellTicket).setOnClickListener {
+            presenter.onPerfCellPromotionsClicked()
         }
-
-        materialcardPerfCellChurn.setOnClickListener {
-            presenter.onPerfCellChurnClicked()
+        findViewById<MaterialCardView>(R.id.materialcardPerfCellChurn).setOnClickListener {
+            presenter.onPerfCellActivityClicked()
         }
-
-        materialcardAiInsight.setOnClickListener {
-            presenter.onCardAiInsightClicked()
+        findViewById<MaterialCardView>(R.id.materialcardAiInsight).setOnClickListener {
+            presenter.onCardLocalInsightsClicked()
         }
 
         setupMainBottomNavigation(R.id.navHome)
@@ -92,10 +74,10 @@ class DashboardActivity : AppCompatActivity(), DashboardContract.View {
         findViewById<TextView>(R.id.textviewHeroReturnValue).text = model.returnValue
         findViewById<TextView>(R.id.textviewPerfMembersValue).text = model.perfMembers
         findViewById<TextView>(R.id.textviewPerfMembersTrend).isVisible = model.perfMembersTrendVisible
-        findViewById<TextView>(R.id.textviewPerfRatingValue).text = model.perfRating
-        findViewById<TextView>(R.id.textviewPerfTicketValue).text = model.perfTicket
-        findViewById<TextView>(R.id.textviewPerfTicketTrend).isVisible = model.perfTicketTrendVisible
-        findViewById<TextView>(R.id.textviewPerfChurnValue).text = model.perfChurn
+        findViewById<TextView>(R.id.textviewPerfRatingValue).text = model.perfLoyaltyPrograms
+        findViewById<TextView>(R.id.textviewPerfTicketValue).text = model.perfPromotions
+        findViewById<TextView>(R.id.textviewPerfTicketTrend).isVisible = model.perfPromotionsTrendVisible
+        findViewById<TextView>(R.id.textviewPerfChurnValue).text = model.perfActivityEvents
         findViewById<TextView>(R.id.textviewDashboardAiHeadline).text = model.aiTitle
         findViewById<TextView>(R.id.textviewDashboardAiBody).text = model.aiBody
     }
@@ -116,7 +98,11 @@ class DashboardActivity : AppCompatActivity(), DashboardContract.View {
         startActivity(PromotionsActivity::class.java)
     }
 
-    override fun navigateToAiAdvisor() {
+    override fun navigateToActivityFeed() {
+        startActivity(ActivityFeedActivity::class.java)
+    }
+
+    override fun navigateToLocalInsights() {
         startActivity(AiEngagementAdvisorActivity::class.java)
     }
 }

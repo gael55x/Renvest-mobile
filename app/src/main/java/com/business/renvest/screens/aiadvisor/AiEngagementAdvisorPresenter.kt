@@ -2,6 +2,8 @@ package com.business.renvest.screens.aiadvisor
 
 import android.content.Context
 import com.business.renvest.R
+import com.business.renvest.screens.customers.CustomersActivity
+import com.business.renvest.screens.promotions.PromotionsActivity
 
 class AiEngagementAdvisorPresenter(
     private val view: AiEngagementAdvisorContract.View,
@@ -22,6 +24,7 @@ class AiEngagementAdvisorPresenter(
                 R.string.dashboard_ai_insight_summary_format,
                 counts.customers,
                 counts.promotions,
+                counts.loyaltyPrograms,
                 counts.loyaltyReminders,
                 counts.activityEvents,
             )
@@ -33,7 +36,11 @@ class AiEngagementAdvisorPresenter(
         }
     }
 
-    override fun onStubInteraction() {
-        view.showComingSoon()
+    override fun onActivatePromoClicked(context: Context) {
+        view.navigateTo(PromotionsActivity::class.java)
+    }
+
+    override fun onViewDataClicked(context: Context) {
+        view.navigateTo(CustomersActivity::class.java)
     }
 }

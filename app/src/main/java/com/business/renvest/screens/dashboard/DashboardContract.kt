@@ -11,7 +11,8 @@ interface DashboardContract {
         fun navigateToCustomers()
         fun navigateToLoyalty()
         fun navigateToPromotions()
-        fun navigateToAiAdvisor()
+        fun navigateToActivityFeed()
+        fun navigateToLocalInsights()
     }
 
     interface Presenter {
@@ -19,9 +20,9 @@ interface DashboardContract {
         fun onNotificationClicked()
         fun onPerfViewReportClicked()
         fun onPerfCellMembersClicked()
-        fun onPerfCellRatingClicked()
-        fun onPerfCellTicketClicked()
-        fun onPerfCellChurnClicked()
-        fun onCardAiInsightClicked()
+        fun onPerfCellLoyaltyClicked()
+        fun onPerfCellPromotionsClicked()
+        fun onPerfCellActivityClicked()
+        fun onCardLocalInsightsClicked()
     }
 }

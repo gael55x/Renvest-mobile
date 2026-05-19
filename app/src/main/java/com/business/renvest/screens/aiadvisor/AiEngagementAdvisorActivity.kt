@@ -1,17 +1,15 @@
 package com.business.renvest.screens.aiadvisor
 
 import android.os.Bundle
-import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
 import com.business.renvest.utils.authStore
 import com.business.renvest.utils.renvestDb
-import com.business.renvest.utils.setClickListeners
 import com.business.renvest.utils.setTextViewText
 import com.business.renvest.utils.setupMainBottomNavigation
 import com.business.renvest.utils.setupRenvestContent
-import com.business.renvest.utils.toastComingSoon
+import com.business.renvest.utils.startActivity
 
 class AiEngagementAdvisorActivity : AppCompatActivity(), AiEngagementAdvisorContract.View {
 
@@ -24,8 +22,12 @@ class AiEngagementAdvisorActivity : AppCompatActivity(), AiEngagementAdvisorCont
         presenter = AiEngagementAdvisorPresenter(this, AiEngagementAdvisorModel(authStore(), renvestDb()))
         presenter.onViewReady(this)
 
-        val stub = View.OnClickListener { presenter.onStubInteraction() }
-        setClickListeners(stub, R.id.buttonAiRefresh, R.id.buttonAiActivatePromo, R.id.buttonAiViewData)
+        findViewById<android.view.View>(R.id.buttonAiActivatePromo).setOnClickListener {
+            presenter.onActivatePromoClicked(this)
+        }
+        findViewById<android.view.View>(R.id.buttonAiViewData).setOnClickListener {
+            presenter.onViewDataClicked(this)
+        }
     }
 
     override fun setHeaderBusinessName(text: String) {
@@ -41,7 +43,7 @@ class AiEngagementAdvisorActivity : AppCompatActivity(), AiEngagementAdvisorCont
         findViewById<TextView>(R.id.textviewAiSummaryBody).text = body
     }
 
-    override fun showComingSoon() {
-        toastComingSoon()
+    override fun navigateTo(target: Class<*>) {
+        startActivity(target)
     }
 }

@@ -365,7 +365,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/spacing_xs"
-                            android:text="@string/perf_rating_label"
+                            android:text="@string/perf_loyalty_programs_label"
                             android:textAppearance="@style/TextAppearance.Renvest.Caption" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -473,7 +473,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/spacing_xs"
-                            android:text="@string/perf_churn_label"
+                            android:text="@string/perf_activity_label"
                             android:textAppearance="@style/TextAppearance.Renvest.Caption" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -483,7 +483,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/grid_3"
-                android:text="@string/ai_section_title"
+                android:text="@string/local_insights_section_title"
                 android:textAppearance="@style/TextAppearance.Renvest.SectionTitle" />
 
             <com.google.android.material.card.MaterialCardView
@@ -508,7 +508,7 @@
                         android:background="@drawable/bg_ai_chip"
                         android:paddingHorizontal="@dimen/spacing_field"
                         android:paddingVertical="@dimen/spacing_xs"
-                        android:text="@string/ai_badge"
+                        android:text="@string/local_insights_badge"
                         android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                         android:textColor="@color/on_primary" />
 

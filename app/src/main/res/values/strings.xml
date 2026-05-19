@@ -4,12 +4,12 @@
     <string name="tagline">Grow customer loyalty. Increase repeat visits.</string>
 
     <string name="label_email">Email Address</string>
-    <string name="label_password">Password</string>
+    <string name="label_password">Device passcode</string>
     <string name="label_business_name">Business Name</string>
     <string name="label_owner_name">Owner Name</string>
     <string name="label_confirm_password">Confirm Password</string>
     <string name="hint_email">you@example.com</string>
-    <string name="hint_password">Enter password</string>
+    <string name="hint_password">Enter passcode</string>
     <string name="hint_business_name">e.g. The Coffee Spot</string>
     <string name="hint_owner_name">Full name</string>
     <string name="hint_confirm_password">Re-enter password</string>
@@ -31,7 +31,15 @@
     <string name="metric_em_dash">—</string>
     <string name="dashboard_ai_insight_placeholder_title">Local data only</string>
     <string name="dashboard_ai_insight_placeholder_body">Renvest is not connected to a remote backend yet. This card will summarize real local activity once you add customers, promotions, reminders, and events.</string>
-    <string name="dashboard_ai_insight_summary_format">Local records: %1$d customers, %2$d promotions, %3$d loyalty reminders, %4$d activity items.</string>
+    <string name="dashboard_ai_insight_summary_format">Local records: %1$d customers, %2$d promotions, %3$d loyalty programs, %4$d reminders, %5$d activity items.</string>
+    <string name="dashboard_local_insights_title">Local insights</string>
+    <string name="dashboard_local_insights_empty_body">Add customers, promotions, loyalty programs, and activity on this device. This card shows factual counts only — no cloud analytics.</string>
+    <string name="local_insights_section_title">Local insights</string>
+    <string name="local_insights_badge">ON-DEVICE</string>
+    <string name="local_insights_screen_title">Local insights</string>
+    <string name="local_only_disclaimer_short">Data stays on this device only. Uninstalling the app removes your records.</string>
+    <string name="perf_loyalty_programs_label">Loyalty programs</string>
+    <string name="perf_activity_label">Activity items</string>
 
     <string name="greeting_morning">Good morning</string>
     <string name="greeting_afternoon">Good afternoon</string>
@@ -90,8 +98,8 @@
 
     <string name="customer_row_saved_locally">Saved on this device</string>
 
-    <string name="empty_state_customers">No customers yet.\nAn add-customer flow will come in a later update.</string>
-    <string name="empty_state_activity_feed">No activity events yet.\nLogging activity from the app will come in a later update.</string>
+    <string name="empty_state_customers">No customers yet.\nTap Add to save your first customer on this device.</string>
+    <string name="empty_state_activity_feed">No activity yet.\nTap + to log what happened with a customer.</string>
     <string name="customers_hero_at_risk_label">At-risk (not tracked)</string>
     <string name="activity_hero_events_label">Recorded events</string>
     <string name="activity_hero_customers_label">Customers</string>
@@ -99,7 +107,8 @@
 
     <string name="empty_state_loyalty_reminders">No loyalty reminders yet.\nAdd one below to keep follow-ups in the app.</string>
 
-    <string name="empty_state_promotions">No promotions saved on this device yet.\nAn add-promotion flow will come in a later update.</string>
+    <string name="empty_state_promotions">No promotions yet.\nTap New Promo to create one on this device.</string>
+    <string name="empty_state_loyalty_programs">No loyalty programs yet.\nAdd a simple visit-based reward below.</string>
 
     <string name="loyalty_reminder_hint">New loyalty reminder</string>
     <string name="loyalty_reminder_add">Add reminder</string>
@@ -277,4 +286,54 @@
     <string name="dialog_promotion_expiry_hint">Expiry or schedule (text)</string>
     <string name="promotion_added_confirmation">Promotion saved on this device</string>
     <string name="promotion_status_updated">Promotion status updated</string>
+    <string name="promotion_updated_confirmation">Promotion updated on this device</string>
+    <string name="dialog_edit_promotion_title">Edit promotion</string>
+    <string name="dialog_delete_promotion_title">Remove promotion?</string>
+    <string name="dialog_delete_promotion_message">Remove “%1$s”? This cannot be undone.</string>
+
+    <string name="dialog_logout_title">Log out</string>
+    <string name="dialog_logout_message">Choose what to do with business data saved on this device.</string>
+    <string name="logout_keep_data">Log out (keep data)</string>
+    <string name="logout_clear_data">Log out and erase data</string>
+    <string name="dialog_edit_business_title">Edit business profile</string>
+    <string name="profile_business_updated">Business profile updated</string>
+    <string name="profile_owner_format">Owner: %1$s</string>
+    <string name="export_saved_format">Export ready: %1$s</string>
+
+    <string name="onboarding_title">Set up Renvest</string>
+    <string name="onboarding_subtitle">Complete these steps to get value from your local workspace.</string>
+    <string name="onboarding_finish">Go to dashboard</string>
+    <string name="onboarding_step_done">Done</string>
+    <string name="onboarding_step_todo">Tap to start</string>
+    <string name="onboarding_step_customer_title">Add your first customer</string>
+    <string name="onboarding_step_customer_body">Save a customer name on this device.</string>
+    <string name="onboarding_step_promotion_title">Create a promotion</string>
+    <string name="onboarding_step_promotion_body">Add a reward customers can work toward.</string>
+    <string name="onboarding_step_activity_title">Log activity</string>
+    <string name="onboarding_step_activity_body">Record a visit, points, or note linked to a customer.</string>
+    <string name="onboarding_step_loyalty_title">Create a loyalty program</string>
+    <string name="onboarding_step_loyalty_body">Define visits required and the reward.</string>
+
+    <string name="loyalty_programs_section">Loyalty programs</string>
+    <string name="loyalty_reminders_section">Reminders</string>
+    <string name="loyalty_program_add">Add loyalty program</string>
+    <string name="loyalty_program_added">Loyalty program saved</string>
+    <string name="loyalty_program_invalid">Enter a name, reward, and visits (1 or more).</string>
+    <string name="loyalty_program_removed_format">Removed program: %1$s</string>
+    <string name="loyalty_program_rule_format">%1$d visits → %2$s</string>
+    <string name="dialog_add_loyalty_program_title">New loyalty program</string>
+    <string name="dialog_loyalty_program_name_hint">Program name</string>
+    <string name="dialog_loyalty_program_visits_hint">Visits required</string>
+    <string name="dialog_loyalty_program_reward_hint">Reward description</string>
+
+    <string name="dialog_activity_customer_label">Customer (optional)</string>
+    <string name="dialog_activity_customer_none">No customer linked</string>
+
+    <string name="customer_detail_title">Customer</string>
+    <string name="customer_detail_activity_heading">Activity on this device</string>
+    <string name="customer_not_found">Customer not found</string>
+    <string name="dialog_edit_customer_title">Edit customer</string>
+    <string name="customer_updated_confirmation">Customer updated</string>
+
+    <string name="auth_local_passcode_hint">Passcode unlocks this device only — not a cloud account.</string>
 </resources>

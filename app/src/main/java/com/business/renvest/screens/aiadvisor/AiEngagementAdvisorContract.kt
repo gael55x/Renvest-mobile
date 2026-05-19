@@ -8,11 +8,12 @@ interface AiEngagementAdvisorContract {
         fun setHeaderBusinessName(text: String)
         fun setupNav(@IdRes selectedItemId: Int)
         fun bindLocalAdvisor(title: String, body: String)
-        fun showComingSoon()
+        fun navigateTo(target: Class<*>)
     }
 
     interface Presenter {
         fun onViewReady(context: Context)
-        fun onStubInteraction()
+        fun onActivatePromoClicked(context: Context)
+        fun onViewDataClicked(context: Context)
     }
 }

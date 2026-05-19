@@ -3,6 +3,7 @@ package com.business.renvest.utils
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
+import com.business.renvest.data.local.localDataCounts
 import com.business.renvest.screens.activityfeed.ActivityFeedActivity
 import com.business.renvest.screens.customers.CustomersActivity
 import com.business.renvest.screens.dashboard.DashboardActivity
@@ -11,11 +12,20 @@ import com.business.renvest.screens.promotions.PromotionsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 fun AppCompatActivity.setupMainBottomNavigation(@IdRes selectedItemId: Int) {
+    val counts = renvestDb().localDataCounts()
+    setupMainBottomNavigation(selectedItemId, counts.activityEvents)
+}
+
+fun AppCompatActivity.setupMainBottomNavigation(@IdRes selectedItemId: Int, activityBadgeCount: Int) {
     val bottomnavigationMain = findViewById<BottomNavigationView>(R.id.bottomnavigationMain)
     bottomnavigationMain.selectedItemId = selectedItemId
-    bottomnavigationMain.getOrCreateBadge(R.id.navActivity).apply {
-        isVisible = true
-        number = 3
+    val badge = bottomnavigationMain.getOrCreateBadge(R.id.navActivity)
+    if (activityBadgeCount > 0) {
+        badge.isVisible = true
+        badge.number = activityBadgeCount
+    } else {
+        badge.isVisible = false
+        badge.clearNumber()
     }
     bottomnavigationMain.setOnItemSelectedListener { item ->
         when (item.itemId) {
