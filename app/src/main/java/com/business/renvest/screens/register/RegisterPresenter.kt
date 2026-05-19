@@ -12,6 +12,7 @@ class RegisterPresenter(
     override fun onRegisterSubmitted(
         context: Context,
         businessName: String,
+        ownerName: String,
         email: String,
         password: String,
         confirmPassword: String,
@@ -22,8 +23,8 @@ class RegisterPresenter(
             return
         }
         view.clearConfirmPasswordError()
-        when (val result = model.signUp(context, businessName, email)) {
-            is RenvestResult.Ok -> view.navigateToDashboard()
+        when (val result = model.signUp(context, businessName, ownerName, email, password)) {
+            is RenvestResult.Ok -> view.navigateToOnboarding()
             else -> result.notifyErrorIfNotOk { view.showToast(it) }
         }
     }

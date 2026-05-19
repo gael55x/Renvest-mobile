@@ -42,7 +42,11 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
             val okEmail = textinputEmailLayout.validateRequired(requiredMessage)
             val okPassword = textinputPasswordLayout.validateRequired(requiredMessage, trim = false)
             if (!okEmail || !okPassword) return@setOnClickListener
-            presenter.onLoginSubmitted(this, textinputEmailLayout.valueText())
+            presenter.onLoginSubmitted(
+                this,
+                textinputEmailLayout.valueText(),
+                textinputPasswordLayout.valueText(trim = false),
+            )
         }
 
         materialbuttonGoRegister.setOnClickListener {

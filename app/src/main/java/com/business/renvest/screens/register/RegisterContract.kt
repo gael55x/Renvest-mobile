@@ -5,7 +5,7 @@ import android.content.Context
 interface RegisterContract {
     interface View {
         fun showToast(message: String)
-        fun navigateToDashboard()
+        fun navigateToOnboarding()
         fun setConfirmPasswordError(message: String)
         fun clearConfirmPasswordError()
     }
@@ -14,6 +14,7 @@ interface RegisterContract {
         fun onRegisterSubmitted(
             context: Context,
             businessName: String,
+            ownerName: String,
             email: String,
             password: String,
             confirmPassword: String,

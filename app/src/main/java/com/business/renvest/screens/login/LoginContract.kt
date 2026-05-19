@@ -9,6 +9,6 @@ interface LoginContract {
     }
 
     interface Presenter {
-        fun onLoginSubmitted(context: Context, email: String)
+        fun onLoginSubmitted(context: Context, email: String, password: String)
     }
 }

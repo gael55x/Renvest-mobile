@@ -6,6 +6,11 @@ import com.business.renvest.data.repository.AuthStore
 
 class RegisterModel(private val authStore: AuthStore) {
 
-    fun signUp(context: Context, businessName: String, email: String): RenvestResult<Unit> =
-        authStore.signUp(context, businessName, email)
+    fun signUp(
+        context: Context,
+        businessName: String,
+        ownerName: String,
+        email: String,
+        password: String,
+    ): RenvestResult<Unit> = authStore.signUp(context, businessName, ownerName, email, password)
 }

@@ -9,8 +9,8 @@ class LoginPresenter(
     private val model: LoginModel,
 ) : LoginContract.Presenter {
 
-    override fun onLoginSubmitted(context: Context, email: String) {
-        when (val result = model.signInWithEmail(context, email)) {
+    override fun onLoginSubmitted(context: Context, email: String, password: String) {
+        when (val result = model.signInWithEmail(context, email, password)) {
             is RenvestResult.Ok -> view.navigateToDashboard()
             else -> result.notifyErrorIfNotOk { view.showToast(it) }
         }

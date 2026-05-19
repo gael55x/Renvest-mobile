@@ -5,7 +5,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
-import com.business.renvest.screens.dashboard.DashboardActivity
+import com.business.renvest.screens.onboarding.OnboardingActivity
 import com.business.renvest.screens.login.LoginActivity
 import com.business.renvest.utils.authStore
 import com.business.renvest.utils.setupRenvestContent
@@ -59,6 +59,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
             presenter.onRegisterSubmitted(
                 this,
                 textinputBusinessLayout.valueText(),
+                textinputOwnerLayout.valueText(),
                 textinputEmailLayout.valueText(),
                 textinputPasswordLayout.valueText(trim = false),
                 textinputConfirmPasswordLayout.valueText(trim = false),
@@ -71,8 +72,8 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
         toast(message)
     }
 
-    override fun navigateToDashboard() {
-        startActivityClearTask(DashboardActivity::class.java)
+    override fun navigateToOnboarding() {
+        startActivityClearTask(OnboardingActivity::class.java)
         finish()
     }
 

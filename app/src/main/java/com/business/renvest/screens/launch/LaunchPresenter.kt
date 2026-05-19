@@ -10,7 +10,11 @@ class LaunchPresenter(
 
     override fun start() {
         if (model.isLoggedIn(context)) {
-            view.navigateToDashboard()
+            if (model.isOnboardingComplete(context)) {
+                view.navigateToDashboard()
+            } else {
+                view.navigateToOnboarding()
+            }
         } else {
             view.navigateToLogin()
         }
