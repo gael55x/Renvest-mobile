@@ -18,16 +18,27 @@ class ActivityFeedPresenter(
     }
 
     override fun onLogEventClicked(context: Context) {
-        view.showAddActivityEventDialog { title, subtitle ->
-            onAddActivitySubmitted(context, title, subtitle)
+        scope.launch {
+            val customers = withContext(Dispatchers.IO) { model.loadCustomersForPicker() }
+            withContext(Dispatchers.Main) {
+                view.showAddActivityEventDialog(customers) { title, subtitle, customerId ->
+                    onLogEventSubmitted(context, title, subtitle, customerId)
+                }
+            }
         }
     }
 
-    override fun onAddActivitySubmitted(context: Context, title: String, subtitle: String) {
+    override fun onLogEventSubmitted(
+        context: Context,
+        title: String,
+        subtitle: String,
+        customerId: String?,
+    ) {
         scope.launch {
-            val ok = withContext(Dispatchers.IO) { model.addEvent(title, subtitle) }
+            val ok = withContext(Dispatchers.IO) { model.addEvent(title, subtitle, customerId) }
             withContext(Dispatchers.Main) {
                 if (ok) {
+                    model.markOnboardingActivityStep(context)
                     bindScreen(context)
                     view.showToast(context.getString(R.string.activity_event_added_confirmation))
                 } else {
@@ -51,16 +62,20 @@ class ActivityFeedPresenter(
     }
 
     private fun bindScreen(context: Context) {
-        view.setHeaderBusinessName(model.businessDisplayName(context))
-        view.setupNav(R.id.navActivity)
-        val counts = model.localDataCounts()
-        view.bindHeroMetrics(
-            events = counts.activityEvents.toString(),
-            customers = counts.customers.toString(),
-            promotions = counts.promotions.toString(),
-        )
-        val rows = model.loadEvents()
-        view.bindActivityRows(rows)
-        view.setActivityEmptyVisible(rows.isEmpty())
+        scope.launch {
+            val counts = withContext(Dispatchers.IO) { model.localDataCounts() }
+            val rows = withContext(Dispatchers.IO) { model.loadEvents() }
+            withContext(Dispatchers.Main) {
+                view.setHeaderBusinessName(model.businessDisplayName(context))
+                view.setupNav(R.id.navActivity)
+                view.bindHeroMetrics(
+                    events = counts.activityEvents.toString(),
+                    customers = counts.customers.toString(),
+                    promotions = counts.promotions.toString(),
+                )
+                view.bindActivityRows(rows)
+                view.setActivityEmptyVisible(rows.isEmpty())
+            }
+        }
     }
 }

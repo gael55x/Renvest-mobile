@@ -4,4 +4,5 @@ data class ActivityEventRowUi(
     val id: String,
     val title: String,
     val subtitle: String,
+    val customerId: String? = null,
 )

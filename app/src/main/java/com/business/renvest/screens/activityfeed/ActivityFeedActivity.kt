@@ -2,6 +2,8 @@ package com.business.renvest.screens.activityfeed
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -79,8 +81,19 @@ class ActivityFeedActivity : AppCompatActivity(), ActivityFeedContract.View {
         toast(message)
     }
 
-    override fun showAddActivityEventDialog(onSubmit: (String, String) -> Unit) {
+    override fun showAddActivityEventDialog(
+        customers: List<Pair<String, String>>,
+        onSubmit: (String, String, String?) -> Unit,
+    ) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_add_activity_event, null, false)
+        val spinner = dialogView.findViewById<Spinner>(R.id.spinnerActivityCustomer)
+        val labels = mutableListOf(getString(R.string.dialog_activity_customer_none))
+        val ids = mutableListOf<String?>(null)
+        customers.forEach { (id, name) ->
+            ids.add(id)
+            labels.add(name)
+        }
+        spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, labels)
         val titleField = dialogView.findViewById<TextInputEditText>(R.id.edittextActivityTitle)
         val subtitleField = dialogView.findViewById<TextInputEditText>(R.id.edittextActivitySubtitle)
         MaterialAlertDialogBuilder(this)
@@ -88,9 +101,12 @@ class ActivityFeedActivity : AppCompatActivity(), ActivityFeedContract.View {
             .setView(dialogView)
             .setNegativeButton(android.R.string.cancel, null)
             .setPositiveButton(R.string.action_save) { _, _ ->
+                val selectedIndex = spinner.selectedItemPosition
+                val customerId = ids.getOrNull(selectedIndex)
                 onSubmit(
                     titleField.text?.toString().orEmpty(),
                     subtitleField.text?.toString().orEmpty(),
+                    customerId,
                 )
             }
             .show()
