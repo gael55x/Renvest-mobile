@@ -8,5 +8,7 @@ data class ActivityEventEntity(
     @PrimaryKey val id: String,
     val title: String,
     val subtitle: String,
+    /** Optional link to [CustomerEntity.id]. */
+    val customerId: String?,
     val createdAt: Long,
 )

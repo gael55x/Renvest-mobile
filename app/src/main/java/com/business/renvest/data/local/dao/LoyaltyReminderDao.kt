@@ -17,6 +17,9 @@ interface LoyaltyReminderDao {
     @Query("DELETE FROM loyalty_reminders WHERE id = :id")
     fun deleteById(id: String): Int
 
+    @Query("DELETE FROM loyalty_reminders")
+    fun deleteAll()
+
     @Query("SELECT COUNT(*) FROM loyalty_reminders")
     fun count(): Int
 }

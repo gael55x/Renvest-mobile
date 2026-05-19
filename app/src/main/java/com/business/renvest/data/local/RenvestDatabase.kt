@@ -6,30 +6,31 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.business.renvest.data.local.dao.ActivityEventDao
 import com.business.renvest.data.local.dao.CustomerDao
+import com.business.renvest.data.local.dao.LoyaltyProgramDao
 import com.business.renvest.data.local.dao.LoyaltyReminderDao
 import com.business.renvest.data.local.dao.PromotionDao
 import com.business.renvest.data.local.entity.ActivityEventEntity
 import com.business.renvest.data.local.entity.CustomerEntity
+import com.business.renvest.data.local.entity.LoyaltyProgramEntity
 import com.business.renvest.data.local.entity.LoyaltyReminderEntity
 import com.business.renvest.data.local.entity.PromotionEntity
+import com.business.renvest.data.local.migration.MIGRATION_1_2
 
-/**
- * Local SQLite source of truth. Uses main-thread queries for the synchronous MVP presenters;
- * move work off the UI thread when the app grows.
- */
 @Database(
     entities = [
         LoyaltyReminderEntity::class,
+        LoyaltyProgramEntity::class,
         PromotionEntity::class,
         CustomerEntity::class,
         ActivityEventEntity::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = false,
 )
 abstract class RenvestDatabase : RoomDatabase() {
 
     abstract fun loyaltyReminderDao(): LoyaltyReminderDao
+    abstract fun loyaltyProgramDao(): LoyaltyProgramDao
     abstract fun promotionDao(): PromotionDao
     abstract fun customerDao(): CustomerDao
     abstract fun activityEventDao(): ActivityEventDao
@@ -45,8 +46,8 @@ abstract class RenvestDatabase : RoomDatabase() {
                     RenvestDatabase::class.java,
                     "renvest.db",
                 )
+                    .addMigrations(MIGRATION_1_2)
                     .fallbackToDestructiveMigration()
-                    .allowMainThreadQueries()
                     .build()
                     .also { instance = it }
             }
