@@ -26,6 +26,7 @@ class CustomersPresenter(
             val ok = withContext(Dispatchers.IO) { model.addCustomer(rawName) }
             withContext(Dispatchers.Main) {
                 if (ok) {
+                    model.markOnboardingCustomerStep(context)
                     bindScreen(context)
                     view.showToast(context.getString(R.string.customer_added_confirmation))
                 } else {
@@ -33,6 +34,10 @@ class CustomersPresenter(
                 }
             }
         }
+    }
+
+    override fun onCustomerClicked(context: Context, row: CustomerRowUi) {
+        view.navigateToCustomerDetail(row.id)
     }
 
     override fun onCustomerLongPressed(context: Context, row: CustomerRowUi) {
@@ -49,17 +54,21 @@ class CustomersPresenter(
     }
 
     private fun bindScreen(context: Context) {
-        view.setHeaderBusinessName(model.businessDisplayName(context))
-        view.setupNav(R.id.navCustomers)
-        val counts = model.localDataCounts()
-        val notRecorded = context.getString(R.string.metric_not_recorded)
-        view.bindHeroMetrics(
-            members = counts.customers.toString(),
-            returnOrPlaceholder = notRecorded,
-            atRisk = notRecorded,
-        )
-        val rows = model.loadCustomers()
-        view.bindCustomerRows(rows)
-        view.setCustomersEmptyVisible(rows.isEmpty())
+        scope.launch {
+            val counts = withContext(Dispatchers.IO) { model.localDataCounts() }
+            val rows = withContext(Dispatchers.IO) { model.loadCustomers() }
+            val notRecorded = context.getString(R.string.metric_not_recorded)
+            withContext(Dispatchers.Main) {
+                view.setHeaderBusinessName(model.businessDisplayName(context))
+                view.setupNav(R.id.navCustomers)
+                view.bindHeroMetrics(
+                    members = counts.customers.toString(),
+                    returnOrPlaceholder = notRecorded,
+                    atRisk = notRecorded,
+                )
+                view.bindCustomerRows(rows)
+                view.setCustomersEmptyVisible(rows.isEmpty())
+            }
+        }
     }
 }

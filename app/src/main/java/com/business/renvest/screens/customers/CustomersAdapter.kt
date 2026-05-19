@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.business.renvest.R
 
 class CustomersAdapter(
+    private val onClick: (CustomerRowUi) -> Unit,
     private val onLongClick: (CustomerRowUi) -> Unit,
 ) : RecyclerView.Adapter<CustomersAdapter.VH>() {
 
@@ -22,7 +23,7 @@ class CustomersAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_customer_list_row, parent, false)
-        return VH(v, onLongClick)
+        return VH(v, onClick, onLongClick)
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
@@ -31,12 +32,14 @@ class CustomersAdapter(
 
     class VH(
         itemView: android.view.View,
+        private val onClick: (CustomerRowUi) -> Unit,
         private val onLongClick: (CustomerRowUi) -> Unit,
     ) : RecyclerView.ViewHolder(itemView) {
         private val name: TextView = itemView.findViewById(R.id.textviewCustomerName)
 
         fun bind(row: CustomerRowUi) {
             name.text = row.displayName
+            itemView.setOnClickListener { onClick(row) }
             itemView.setOnLongClickListener {
                 onLongClick(row)
                 true

@@ -14,6 +14,7 @@ interface CustomersContract {
         fun showToast(message: String)
         fun showAddCustomerDialog(onSubmit: (String) -> Unit)
         fun showDeleteCustomerConfirm(displayName: String, onConfirm: () -> Unit)
+        fun navigateToCustomerDetail(customerId: String)
         fun showComingSoon()
     }
 
@@ -21,6 +22,7 @@ interface CustomersContract {
         fun onViewReady(context: Context)
         fun onAddCustomerClicked(context: Context)
         fun onAddCustomerSubmitted(context: Context, rawName: String)
+        fun onCustomerClicked(context: Context, row: CustomerRowUi)
         fun onCustomerLongPressed(context: Context, row: CustomerRowUi)
         fun onStubInteraction()
     }

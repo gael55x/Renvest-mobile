@@ -16,6 +16,7 @@ import com.business.renvest.utils.setTextViewText
 import com.business.renvest.utils.setupMainBottomNavigation
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.toast
+import com.business.renvest.utils.startActivity
 import com.business.renvest.utils.toastComingSoon
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
@@ -31,9 +32,10 @@ class CustomersActivity : AppCompatActivity(), CustomersContract.View {
         setupRenvestContent(R.layout.activity_customers, R.id.root)
 
         textviewCustomersEmpty = findViewById(R.id.textviewCustomersEmpty)
-        customersAdapter = CustomersAdapter { row ->
-            presenter.onCustomerLongPressed(this, row)
-        }
+        customersAdapter = CustomersAdapter(
+            onClick = { presenter.onCustomerClicked(this, it) },
+            onLongClick = { presenter.onCustomerLongPressed(this, it) },
+        )
         findViewById<RecyclerView>(R.id.recyclerviewCustomers).apply {
             layoutManager = LinearLayoutManager(this@CustomersActivity)
             adapter = customersAdapter
@@ -99,6 +101,10 @@ class CustomersActivity : AppCompatActivity(), CustomersContract.View {
             .setNegativeButton(android.R.string.cancel, null)
             .setPositiveButton(R.string.action_delete) { _, _ -> onConfirm() }
             .show()
+    }
+
+    override fun navigateToCustomerDetail(customerId: String) {
+        startActivity(CustomerDetailActivity.intent(this, customerId))
     }
 
     override fun showComingSoon() {

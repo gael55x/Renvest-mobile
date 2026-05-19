@@ -4,6 +4,7 @@ import android.content.Context
 import com.business.renvest.data.local.LocalDataCounts
 import com.business.renvest.data.local.RenvestDatabase
 import com.business.renvest.data.local.entity.CustomerEntity
+import com.business.renvest.data.local.logActivity
 import com.business.renvest.data.local.localDataCounts
 import com.business.renvest.data.repository.AuthStore
 import java.util.UUID
@@ -25,18 +26,24 @@ class CustomersModel(
         val name = displayName.trim()
         if (name.isEmpty()) return false
         val now = System.currentTimeMillis()
+        val id = UUID.randomUUID().toString()
         db.customerDao().insert(
             CustomerEntity(
-                id = UUID.randomUUID().toString(),
+                id = id,
                 displayName = name,
                 createdAt = now,
                 updatedAt = now,
             ),
         )
+        db.logActivity(title = "Customer added", subtitle = name, customerId = id)
         return true
     }
 
     fun removeCustomer(id: String) {
         db.customerDao().deleteById(id)
+    }
+
+    fun markOnboardingCustomerStep(context: Context) {
+        authStore.markOnboardingStep(context, AuthStore.STEP_CUSTOMER)
     }
 }
