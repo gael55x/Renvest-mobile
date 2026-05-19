@@ -23,8 +23,8 @@ flowchart TB
   Db --> Sql
 ```
 
-- **`AuthStore`** is the shared session store (`authStore()` from `Context`): login flag, business name, email. It stays on **SharedPreferences** (`renvest_session`); presenters do not talk to prefs directly—they go through models.
-- **`RenvestDatabase`** (Room, under `com.business.renvest.data.local`) is the **local source of truth** for feature rows: loyalty reminders, promotions, customers, and activity events. Access it with `renvestDb()` from `Context` (singleton on `RenvestApp`).
+- **`AuthStore`** is the shared session store (`authStore()` from `Context`): login flag, business profile, owner name, email, local passcode hash, and onboarding flags. Values are stored in **EncryptedSharedPreferences** when available (`renvest_session` via `SessionPreferences`).
+- **`RenvestDatabase`** (Room v2, under `com.business.renvest.data.local`) is the **local source of truth** for loyalty programs, loyalty reminders, promotions, customers, and activity events (optional `customerId` on events). Access it with `renvestDb()` from `Context` (singleton on `RenvestApp`). Schema changes use `MIGRATION_1_2` when possible; destructive fallback remains as a last resort.
 - **Screen models** wrap **`AuthStore`** and/or **`RenvestDatabase`** so presenters stay thin. Examples: `DashboardModel` (greeting + `LocalDataCounts`), `PromotionsModel` (list + hero counts), `LoyaltyModel` (reminder CRUD), `CustomersModel`, `ActivityFeedModel`, `ProfileModel`, `AiEngagementAdvisorModel` (local counts only for copy—no remote AI).
 - **`RenvestResult`** wraps outcomes for mutations (`signIn`, `signUp`, `clearSession`). Room writes today are direct DAO calls from models; map failures to UI messaging if you add transactional wrappers later. Use `notifyErrorIfNotOk` where `RenvestResult` is returned.
 
