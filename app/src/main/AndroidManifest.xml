@@ -13,6 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Renvest"
         tools:targetApi="31">
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
         <activity
             android:name=".screens.launch.LaunchActivity"
             android:exported="true"
@@ -48,6 +58,12 @@
             android:exported="false" />
         <activity
             android:name=".screens.aiadvisor.AiEngagementAdvisorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.onboarding.OnboardingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.customers.CustomerDetailActivity"
             android:exported="false" />
     </application>
 
