@@ -1,66 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?android:attr/colorBackground"
-    android:orientation="vertical"
+    android:clipToPadding="false"
+    android:fillViewport="true"
     android:paddingHorizontal="@dimen/padding_screen_horizontal"
     android:paddingTop="@dimen/padding_screen_vertical"
     android:paddingBottom="@dimen/padding_screen_vertical">
 
-    <TextView
-        android:id="@+id/textviewStubTitle"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.Renvest.ScreenTitle.Form" />
+        android:orientation="vertical">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/spacing_section"
-        android:layout_weight="1">
+        <TextView
+            android:id="@+id/textviewStubTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Renvest.ScreenTitle.Form" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_section"
+            android:text="@string/loyalty_programs_section"
+            android:textAppearance="@style/TextAppearance.Renvest.SectionTitle" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerviewLoyaltyPrograms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_field"
+            android:nestedScrollingEnabled="false" />
+
+        <TextView
+            android:id="@+id/textviewEmptyPrograms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_field"
+            android:gravity="center"
+            android:text="@string/empty_state_loyalty_programs"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonAddProgram"
+            style="@style/Widget.Renvest.Button.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_field"
+            android:text="@string/loyalty_program_add" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_section"
+            android:text="@string/loyalty_reminders_section"
+            android:textAppearance="@style/TextAppearance.Renvest.SectionTitle" />
 
         <ListView
             android:id="@+id/listviewLoyaltyReminders"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="@dimen/spacing_field"
             android:divider="@android:color/transparent"
-            android:dividerHeight="@dimen/spacing_xs" />
+            android:dividerHeight="@dimen/spacing_xs"
+            android:nestedScrollingEnabled="false" />
 
         <TextView
             android:id="@+id/textviewEmptyReminders"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="@dimen/spacing_field"
             android:text="@string/empty_state_loyalty_reminders"
             android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
             android:textColor="?attr/colorOnSurfaceVariant" />
-    </FrameLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textinputReminderLayout"
-        style="@style/Widget.Renvest.TextInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_field"
-        android:hint="@string/loyalty_reminder_hint">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edittextNewReminder"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textinputReminderLayout"
+            style="@style/Widget.Renvest.TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textCapSentences"
-            android:maxLines="2" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginTop="@dimen/spacing_field"
+            android:hint="@string/loyalty_reminder_hint">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonAddReminder"
-        style="@style/Widget.Renvest.Button.Primary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_field"
-        android:text="@string/loyalty_reminder_add" />
-</LinearLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edittextNewReminder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:maxLines="2" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonAddReminder"
+            style="@style/Widget.Renvest.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_field"
+            android:text="@string/loyalty_reminder_add" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
