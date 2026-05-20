@@ -231,10 +231,18 @@
     <string name="profile_settings_location_value">Not set</string>
     <string name="profile_loyalty_reward_threshold">Reward Threshold</string>
     <string name="profile_loyalty_reward_sub">Points needed to unlock reward</string>
-    <string name="profile_loyalty_threshold_chip">Not set</string>
     <string name="profile_loyalty_points_mode">Points Mode</string>
     <string name="profile_loyalty_points_sub">How points are calculated</string>
-    <string name="profile_loyalty_mode_chip">Not set</string>
+    <string name="profile_value_not_set">Not set</string>
+    <string name="profile_loyalty_threshold_points_format">%1$d pts</string>
+    <string name="profile_loyalty_saved">Saved</string>
+    <string name="dialog_loyalty_threshold_title">Reward threshold</string>
+    <string name="dialog_loyalty_threshold_hint">Points to unlock a reward</string>
+    <string name="dialog_loyalty_points_mode_title">Points mode</string>
+    <string name="loyalty_mode_per_visit">Per visit</string>
+    <string name="loyalty_mode_per_spend">Per amount spent</string>
+    <string name="loyalty_mode_manual">Manual only</string>
+    <string name="error_loyalty_threshold_invalid">Enter points between 1 and 99999</string>
     <string name="profile_email_empty">No email on file</string>
 
     <string name="ai_advisor_screen_title">AI Engagement Advisor</string>
@@ -293,26 +301,24 @@
     <string name="dialog_delete_promotion_title">Remove promotion?</string>
     <string name="dialog_delete_promotion_message">Remove “%1$s”? This cannot be undone.</string>
 
-    <string name="dialog_logout_title">Log out?</string>
-    <string name="dialog_logout_message">Keep or delete your data?</string>
-    <string name="logout_keep_data">Keep data</string>
-    <string name="logout_clear_data">Delete data</string>
     <string name="dialog_edit_business_title">Edit business</string>
     <string name="profile_business_updated">Saved</string>
     <string name="export_saved_format">Exported %1$s</string>
 
     <string name="onboarding_title">Quick setup</string>
-    <string name="onboarding_finish">Done</string>
-    <string name="onboarding_step_done">✓</string>
-    <string name="onboarding_step_todo">Tap</string>
+    <string name="onboarding_subtitle">Complete these steps to get your shop ready.</string>
+    <string name="onboarding_progress_format">%1$d of %2$d complete</string>
+    <string name="onboarding_finish">Go to dashboard</string>
+    <string name="onboarding_step_done">Done</string>
+    <string name="onboarding_step_todo">Go</string>
     <string name="onboarding_step_customer_title">Add a customer</string>
-    <string name="onboarding_step_customer_body"></string>
-    <string name="onboarding_step_promotion_title">Add a promo</string>
-    <string name="onboarding_step_promotion_body"></string>
+    <string name="onboarding_step_customer_body">Save your first customer on the Customers tab.</string>
+    <string name="onboarding_step_promotion_title">Create a promotion</string>
+    <string name="onboarding_step_promotion_body">Add one promo your team can reuse.</string>
     <string name="onboarding_step_activity_title">Log activity</string>
-    <string name="onboarding_step_activity_body"></string>
-    <string name="onboarding_step_loyalty_title">Add loyalty program</string>
-    <string name="onboarding_step_loyalty_body"></string>
+    <string name="onboarding_step_activity_body">Record a visit or points event in Activity.</string>
+    <string name="onboarding_step_loyalty_title">Set up loyalty</string>
+    <string name="onboarding_step_loyalty_body">Create a simple visits-to-reward program.</string>
 
     <string name="loyalty_programs_section">Loyalty programs</string>
     <string name="loyalty_reminders_section">Reminders</string>

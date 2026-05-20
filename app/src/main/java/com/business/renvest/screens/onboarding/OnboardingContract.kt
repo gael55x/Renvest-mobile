@@ -4,6 +4,7 @@ import android.content.Context
 
 interface OnboardingContract {
     interface View {
+        fun bindProgress(completed: Int, total: Int)
         fun bindSteps(steps: List<OnboardingStepUi>)
         fun navigateToDashboard()
         fun navigateToCustomers()

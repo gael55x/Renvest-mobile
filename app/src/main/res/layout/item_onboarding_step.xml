@@ -1,32 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/spacing_field"
     android:clickable="true"
     android:focusable="true"
+    app:cardBackgroundColor="@color/surface"
     app:cardCornerRadius="@dimen/card_corner"
+    app:cardElevation="0dp"
+    app:rippleColor="?attr/colorPrimary"
+    app:strokeColor="@color/outline_soft"
     app:strokeWidth="1dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:minHeight="@dimen/onboarding_step_min_height"
         android:padding="@dimen/spacing_field">
+
+        <FrameLayout
+            android:id="@+id/framelayoutOnboardingStepIcon"
+            android:layout_width="@dimen/onboarding_step_icon_size"
+            android:layout_height="@dimen/onboarding_step_icon_size"
+            android:background="@drawable/bg_onboarding_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageviewOnboardingStepIcon"
+                android:layout_width="@dimen/grid_3"
+                android:layout_height="@dimen/grid_3"
+                android:layout_gravity="center"
+                android:importantForAccessibility="no"
+                app:tint="@color/primary"
+                tools:srcCompat="@drawable/ic_person_24" />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/textviewOnboardingStepTitle"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+            android:layout_marginStart="@dimen/spacing_field"
+            android:layout_marginEnd="@dimen/spacing_small"
+            android:textAppearance="@style/TextAppearance.Renvest.SectionTitle"
+            app:layout_constraintEnd_toStartOf="@id/textviewOnboardingStepStatus"
+            app:layout_constraintStart_toEndOf="@id/framelayoutOnboardingStepIcon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Add a customer" />
+
+        <TextView
+            android:id="@+id/textviewOnboardingStepBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_field"
+            android:layout_marginTop="@dimen/spacing_xs"
+            android:layout_marginEnd="@dimen/spacing_small"
+            android:textAppearance="@style/TextAppearance.Renvest.Body"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textviewOnboardingStepStatus"
+            app:layout_constraintStart_toEndOf="@id/framelayoutOnboardingStepIcon"
+            app:layout_constraintTop_toBottomOf="@id/textviewOnboardingStepTitle"
+            tools:text="Save your first customer record." />
 
         <TextView
             android:id="@+id/textviewOnboardingStepStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xs"
+            android:background="@drawable/bg_onboarding_status_todo"
+            android:drawablePadding="@dimen/spacing_xs"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/spacing_small"
+            android:paddingVertical="@dimen/spacing_xs"
             android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
-            android:textColor="?attr/colorPrimary" />
-    </LinearLayout>
+            android:textColor="@color/primary"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Go" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
