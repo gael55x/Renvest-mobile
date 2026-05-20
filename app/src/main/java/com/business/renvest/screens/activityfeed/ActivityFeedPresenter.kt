@@ -13,6 +13,10 @@ class ActivityFeedPresenter(
     private val scope: CoroutineScope,
 ) : ActivityFeedContract.Presenter {
 
+    private var searchQuery: String = ""
+    private var category: ActivityFeedCategory = ActivityFeedCategory.ALL
+    private var todayOnly: Boolean = false
+
     override fun onViewReady(context: Context) {
         bindScreen(context)
     }
@@ -21,8 +25,8 @@ class ActivityFeedPresenter(
         scope.launch {
             val customers = withContext(Dispatchers.IO) { model.loadCustomersForPicker() }
             withContext(Dispatchers.Main) {
-                view.showAddActivityEventDialog(customers) { title, subtitle, customerId ->
-                    onLogEventSubmitted(context, title, subtitle, customerId)
+                view.showAddActivityEventDialog(customers) { type, customTitle, subtitle, customerId ->
+                    onLogEventSubmitted(context, type, customTitle, subtitle, customerId)
                 }
             }
         }
@@ -30,10 +34,12 @@ class ActivityFeedPresenter(
 
     override fun onLogEventSubmitted(
         context: Context,
-        title: String,
+        type: ActivityLogType,
+        customTitle: String,
         subtitle: String,
         customerId: String?,
     ) {
+        val title = model.resolveTitle(type, customTitle)
         scope.launch {
             val ok = withContext(Dispatchers.IO) { model.addEvent(title, subtitle, customerId) }
             withContext(Dispatchers.Main) {
@@ -57,14 +63,44 @@ class ActivityFeedPresenter(
         }
     }
 
-    override fun onStubInteraction() {
-        view.showComingSoon()
+    override fun onSearchQueryChanged(context: Context, query: String) {
+        searchQuery = query
+        bindScreen(context)
+    }
+
+    override fun onCategorySelected(context: Context, category: ActivityFeedCategory) {
+        this.category = category
+        bindScreen(context)
+    }
+
+    override fun onCalendarClicked(context: Context) {
+        view.showDateRangeDialog(todayOnly) { selected ->
+            onDateRangeSelected(context, selected)
+        }
+    }
+
+    override fun onExportClicked(context: Context) {
+        scope.launch {
+            val file = withContext(Dispatchers.IO) { model.exportLocalData(context) }
+            withContext(Dispatchers.Main) {
+                view.shareExportFile(file)
+                view.showToast(context.getString(R.string.export_saved_format, file.name))
+            }
+        }
+    }
+
+    override fun onDateRangeSelected(context: Context, todayOnly: Boolean) {
+        this.todayOnly = todayOnly
+        bindScreen(context)
     }
 
     private fun bindScreen(context: Context) {
         scope.launch {
             val counts = withContext(Dispatchers.IO) { model.localDataCounts() }
-            val rows = withContext(Dispatchers.IO) { model.loadEvents() }
+            val rows = withContext(Dispatchers.IO) {
+                model.loadEvents(searchQuery, category, todayOnly)
+            }
+            val actionsLabel = context.getString(R.string.activity_actions_count_format, rows.size)
             withContext(Dispatchers.Main) {
                 view.setHeaderBusinessName(model.businessDisplayName(context))
                 view.setupNav(R.id.navActivity, counts.activityEvents)
@@ -73,6 +109,7 @@ class ActivityFeedPresenter(
                     customers = counts.customers.toString(),
                     promotions = counts.promotions.toString(),
                 )
+                view.bindActionsCount(actionsLabel)
                 view.bindActivityRows(rows)
                 view.setActivityEmptyVisible(rows.isEmpty())
             }

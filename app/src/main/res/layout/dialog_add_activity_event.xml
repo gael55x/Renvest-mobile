@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -14,6 +15,19 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/dialog_activity_type_label"
+            android:textAppearance="@style/TextAppearance.Renvest.Label" />
+
+        <Spinner
+            android:id="@+id/spinnerActivityType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xs" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_field"
             android:text="@string/dialog_activity_customer_label"
             android:textAppearance="@style/TextAppearance.Renvest.Label" />
 
@@ -25,11 +39,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textinputActivityTitle"
-            style="@style/Widget.Renvest.TextInputLayout"
+            style="@style/Widget.Renvest.TextInput.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_field"
-            android:hint="@string/dialog_activity_title_hint">
+            app:placeholderText="@string/dialog_activity_title_hint"
+            app:startIconDrawable="@drawable/ic_notifications_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittextActivityTitle"
@@ -41,11 +56,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textinputActivitySubtitle"
-            style="@style/Widget.Renvest.TextInputLayout"
+            style="@style/Widget.Renvest.TextInput.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_field"
-            android:hint="@string/dialog_activity_subtitle_hint">
+            app:placeholderText="@string/dialog_activity_subtitle_hint"
+            app:startIconDrawable="@drawable/ic_edit_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittextActivitySubtitle"

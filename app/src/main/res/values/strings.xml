@@ -101,7 +101,7 @@
     <string name="customer_row_saved_locally">Local</string>
 
     <string name="empty_state_customers">No customers. Tap Add.</string>
-    <string name="empty_state_activity_feed">No activity. Tap +.</string>
+    <string name="empty_state_activity_feed">No activity yet. Tap + to log one.</string>
     <string name="customers_hero_at_risk_label">At-risk (not tracked)</string>
     <string name="activity_hero_events_label">Recorded events</string>
     <string name="activity_hero_customers_label">Customers</string>
@@ -169,7 +169,15 @@
     <string name="chip_feed_rewards">Rewards</string>
     <string name="chip_feed_visits">Visits</string>
     <string name="activity_section_today">TODAY</string>
-    <string name="activity_actions_count">14 actions</string>
+    <string name="activity_actions_count_format">%1$d actions</string>
+    <string name="dialog_activity_type_label">Activity type</string>
+    <string name="activity_type_visit">Visit</string>
+    <string name="activity_type_points">Points earned</string>
+    <string name="activity_type_reward">Reward</string>
+    <string name="activity_type_custom">Custom</string>
+    <string name="dialog_feed_date_range_title">Show activity</string>
+    <string name="feed_range_all_time">All time</string>
+    <string name="feed_range_today">Today only</string>
 
     <string name="promo_card_1_title">Free Coffee After 10 Visits</string>
     <string name="promo_card_1_reward">Free medium coffee</string>
@@ -334,6 +342,10 @@
 
     <string name="dialog_activity_customer_label">Customer</string>
     <string name="dialog_activity_customer_none">None</string>
+    <string name="customers_sort_title">Sort customers</string>
+    <string name="customers_sort_name_asc">Name (A–Z)</string>
+    <string name="customers_sort_name_desc">Name (Z–A)</string>
+    <string name="profile_email_readonly_format">Sign-in email: %1$s</string>
 
     <string name="customer_detail_title">Customer</string>
     <string name="customer_detail_activity_heading">Activity</string>

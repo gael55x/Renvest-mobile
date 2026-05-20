@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:attr/colorBackground"
-    android:orientation="vertical">
+    android:background="?android:attr/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,9 +64,10 @@
             android:id="@+id/buttonFeedAddEvent"
             android:layout_width="@dimen/header_icon_size"
             android:layout_height="@dimen/header_icon_size"
-            android:background="@drawable/bg_circle_surface_stroke"
+            android:background="@drawable/bg_circle_primary"
             android:contentDescription="@string/content_desc_log_event"
-            app:srcCompat="@drawable/ic_add_24" />
+            app:srcCompat="@drawable/ic_add_24"
+            app:tint="@color/on_primary" />
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -184,6 +189,7 @@
                 app:startIconDrawable="@drawable/ic_search_24">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edittextSearchActivityInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -197,6 +203,7 @@
                 android:scrollbars="none">
 
                 <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipgroupActivityFeed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:selectionRequired="true"
@@ -204,33 +211,37 @@
                     app:singleSelection="true">
 
                     <com.google.android.material.chip.Chip
+                        android:id="@+id/chipFeedAll"
+                        style="@style/Widget.Material3.Chip.Filter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
                         android:text="@string/chip_feed_all"
-                        app:checkedIconVisible="false"
-                        style="@style/Widget.Material3.Chip.Filter" />
+                        app:checkedIconVisible="false" />
 
                     <com.google.android.material.chip.Chip
+                        android:id="@+id/chipFeedPoints"
+                        style="@style/Widget.Material3.Chip.Filter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/chip_feed_points"
-                        app:checkedIconVisible="false"
-                        style="@style/Widget.Material3.Chip.Filter" />
+                        app:checkedIconVisible="false" />
 
                     <com.google.android.material.chip.Chip
+                        android:id="@+id/chipFeedRewards"
+                        style="@style/Widget.Material3.Chip.Filter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/chip_feed_rewards"
-                        app:checkedIconVisible="false"
-                        style="@style/Widget.Material3.Chip.Filter" />
+                        app:checkedIconVisible="false" />
 
                     <com.google.android.material.chip.Chip
+                        android:id="@+id/chipFeedVisits"
+                        style="@style/Widget.Material3.Chip.Filter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/chip_feed_visits"
-                        app:checkedIconVisible="false"
-                        style="@style/Widget.Material3.Chip.Filter" />
+                        app:checkedIconVisible="false" />
                 </com.google.android.material.chip.ChipGroup>
             </HorizontalScrollView>
 
@@ -256,10 +267,11 @@
                     android:background="@color/outline_soft" />
 
                 <TextView
+                    android:id="@+id/textviewActivityActionsCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/activity_actions_count"
-                    android:textAppearance="@style/TextAppearance.Renvest.Caption" />
+                    android:textAppearance="@style/TextAppearance.Renvest.Caption"
+                    tools:text="0 actions" />
             </LinearLayout>
 
             <TextView
@@ -293,4 +305,17 @@
         app:itemTextColor="@color/bottom_nav_selector"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/menu_nav_main" />
-</LinearLayout>
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabLogActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/padding_screen_horizontal"
+        android:layout_marginBottom="80dp"
+        android:contentDescription="@string/content_desc_log_event"
+        app:backgroundTint="@color/primary"
+        app:srcCompat="@drawable/ic_add_24"
+        app:tint="@color/on_primary" />
+</FrameLayout>
