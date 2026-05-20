@@ -6,7 +6,7 @@ import androidx.annotation.IdRes
 interface AiEngagementAdvisorContract {
     interface View {
         fun setHeaderBusinessName(text: String)
-        fun setupNav(@IdRes selectedItemId: Int)
+        fun setupNav(@IdRes selectedItemId: Int, activityBadgeCount: Int)
         fun bindLocalAdvisor(title: String, body: String)
         fun navigateTo(target: Class<*>)
     }

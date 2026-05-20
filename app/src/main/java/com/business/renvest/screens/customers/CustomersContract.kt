@@ -7,7 +7,7 @@ import com.business.renvest.R
 interface CustomersContract {
     interface View {
         fun setHeaderBusinessName(text: String)
-        fun setupNav(@IdRes selectedItemId: Int)
+        fun setupNav(@IdRes selectedItemId: Int, activityBadgeCount: Int)
         fun bindHeroMetrics(members: String, returnOrPlaceholder: String, atRisk: String)
         fun bindCustomerRows(items: List<CustomerRowUi>)
         fun setCustomersEmptyVisible(visible: Boolean)

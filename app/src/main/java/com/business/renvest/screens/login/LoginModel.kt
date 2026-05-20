@@ -8,4 +8,7 @@ class LoginModel(private val authStore: AuthStore) {
 
     fun signInWithEmail(context: Context, email: String, password: String): RenvestResult<Unit> =
         authStore.signInWithEmail(context, email, password)
+
+    fun isOnboardingComplete(context: Context): Boolean =
+        authStore.isOnboardingComplete(context)
 }

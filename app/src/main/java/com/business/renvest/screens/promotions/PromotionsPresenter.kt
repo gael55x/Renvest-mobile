@@ -95,7 +95,7 @@ class PromotionsPresenter(
             val counts = withContext(Dispatchers.IO) { model.localDataCounts() }
             withContext(Dispatchers.Main) {
                 view.setHeaderBusinessName(model.businessDisplayName(context))
-                view.setupNav(R.id.navPromos)
+                view.setupNav(R.id.navPromos, counts.activityEvents)
                 view.bindPromotionsHero(
                     activePromotions = counts.promotionsActive.toString(),
                     customerRecords = counts.customers.toString(),

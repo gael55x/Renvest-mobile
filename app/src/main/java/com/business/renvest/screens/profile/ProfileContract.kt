@@ -1,10 +1,12 @@
 package com.business.renvest.screens.profile
 
 import android.content.Context
+import androidx.annotation.IdRes
 import java.io.File
 
 interface ProfileContract {
     interface View {
+        fun setupBottomNav(@IdRes selectedItemId: Int, activityBadgeCount: Int)
         fun bindProfile(businessName: String, initials: String, emailDisplay: String, ownerLine: String)
         fun bindProfileLiveStats(members: String, returnOrPlaceholder: String, activePromotions: String)
         fun showLocalDataDisclaimer()

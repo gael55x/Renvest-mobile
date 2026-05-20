@@ -54,7 +54,10 @@ class DashboardActivity : AppCompatActivity(), DashboardContract.View {
             presenter.onCardLocalInsightsClicked()
         }
 
-        setupMainBottomNavigation(R.id.navHome)
+    }
+
+    override fun setupBottomNav(selectedItemId: Int, activityBadgeCount: Int) {
+        setupMainBottomNavigation(selectedItemId, activityBadgeCount)
     }
 
     override fun setGreeting(text: String) {

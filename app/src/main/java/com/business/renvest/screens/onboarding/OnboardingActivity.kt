@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.business.renvest.R
@@ -38,7 +39,7 @@ class OnboardingActivity : AppCompatActivity(), OnboardingContract.View {
             adapter = this@OnboardingActivity.adapter
         }
 
-        presenter = OnboardingPresenter(this, OnboardingModel(authStore(), renvestDb()))
+        presenter = OnboardingPresenter(this, OnboardingModel(authStore(), renvestDb()), lifecycleScope)
         presenter.onViewReady(this)
 
         findViewById<MaterialButton>(R.id.buttonOnboardingFinish).setOnClickListener {
@@ -102,12 +103,10 @@ private class OnboardingStepsAdapter(
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val title = itemView.findViewById<TextView>(R.id.textviewOnboardingStepTitle)
-        private val body = itemView.findViewById<TextView>(R.id.textviewOnboardingStepBody)
         private val status = itemView.findViewById<TextView>(R.id.textviewOnboardingStepStatus)
 
         fun bind(step: OnboardingStepUi, onClick: (OnboardingStepUi) -> Unit) {
             title.text = step.title
-            body.text = step.description
             status.text = itemView.context.getString(
                 if (step.done) R.string.onboarding_step_done else R.string.onboarding_step_todo,
             )

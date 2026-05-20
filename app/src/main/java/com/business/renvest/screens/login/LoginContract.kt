@@ -5,7 +5,9 @@ import android.content.Context
 interface LoginContract {
     interface View {
         fun showToast(message: String)
+        fun setLoginInProgress(inProgress: Boolean)
         fun navigateToDashboard()
+        fun navigateToOnboarding()
     }
 
     interface Presenter {

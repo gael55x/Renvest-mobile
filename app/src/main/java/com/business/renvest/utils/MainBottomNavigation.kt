@@ -5,15 +5,26 @@ import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
 import com.business.renvest.data.local.localDataCounts
 import com.business.renvest.screens.activityfeed.ActivityFeedActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import com.business.renvest.screens.customers.CustomersActivity
 import com.business.renvest.screens.dashboard.DashboardActivity
 import com.business.renvest.screens.profile.ProfileActivity
 import com.business.renvest.screens.promotions.PromotionsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-fun AppCompatActivity.setupMainBottomNavigation(@IdRes selectedItemId: Int) {
-    val counts = renvestDb().localDataCounts()
-    setupMainBottomNavigation(selectedItemId, counts.activityEvents)
+fun AppCompatActivity.setupMainBottomNavigation(
+    @IdRes selectedItemId: Int,
+    scope: CoroutineScope,
+) {
+    scope.launch {
+        val badge = withContext(Dispatchers.IO) { renvestDb().localDataCounts().activityEvents }
+        withContext(Dispatchers.Main) {
+            setupMainBottomNavigation(selectedItemId, badge)
+        }
+    }
 }
 
 fun AppCompatActivity.setupMainBottomNavigation(@IdRes selectedItemId: Int, activityBadgeCount: Int) {

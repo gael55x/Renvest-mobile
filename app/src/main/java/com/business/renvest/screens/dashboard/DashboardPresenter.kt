@@ -22,6 +22,7 @@ class DashboardPresenter(
         scope.launch {
             val counts = withContext(Dispatchers.IO) { model.localDataCounts() }
             withContext(Dispatchers.Main) {
+                view.setupBottomNav(R.id.navHome, counts.activityEvents)
                 view.bindDashboardMetrics(buildBindModel(context, counts))
             }
         }

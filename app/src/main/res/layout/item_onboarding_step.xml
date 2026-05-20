@@ -22,17 +22,10 @@
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
         <TextView
-            android:id="@+id/textviewOnboardingStepBody"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xs"
-            android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
-
-        <TextView
             android:id="@+id/textviewOnboardingStepStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginTop="@dimen/spacing_xs"
             android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
             android:textColor="?attr/colorPrimary" />
     </LinearLayout>

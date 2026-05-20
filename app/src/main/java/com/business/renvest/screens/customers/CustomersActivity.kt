@@ -59,8 +59,8 @@ class CustomersActivity : AppCompatActivity(), CustomersContract.View {
         setTextViewText(R.id.textviewHeaderBusiness, text)
     }
 
-    override fun setupNav(selectedItemId: Int) {
-        setupMainBottomNavigation(selectedItemId)
+    override fun setupNav(selectedItemId: Int, activityBadgeCount: Int) {
+        setupMainBottomNavigation(selectedItemId, activityBadgeCount)
     }
 
     override fun bindHeroMetrics(members: String, returnOrPlaceholder: String, atRisk: String) {

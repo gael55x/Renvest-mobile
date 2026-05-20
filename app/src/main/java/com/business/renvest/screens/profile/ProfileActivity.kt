@@ -34,8 +34,6 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View {
         presenter = ProfilePresenter(this, ProfileModel(authStore(), renvestDb()), lifecycleScope)
         presenter.onViewReady(this)
 
-        setupMainBottomNavigation(R.id.navProfile)
-
         findViewById<View>(R.id.buttonProfileOverflow).setOnClickListener {
             presenter.onExportClicked(this)
         }
@@ -61,13 +59,23 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View {
         }
     }
 
+    override fun setupBottomNav(selectedItemId: Int, activityBadgeCount: Int) {
+        setupMainBottomNavigation(selectedItemId, activityBadgeCount)
+    }
+
     override fun bindProfile(businessName: String, initials: String, emailDisplay: String, ownerLine: String) {
         setTextViewText(R.id.textviewHeaderBusiness, businessName)
         setTextViewText(R.id.textviewProfileHeroBusinessName, businessName)
         setTextViewText(R.id.textviewProfileHeroInitials, initials)
         setTextViewText(R.id.textviewProfileRowBusinessValue, businessName)
         setTextViewText(R.id.textviewProfileRowEmailValue, emailDisplay)
-        findViewById<TextView>(R.id.textviewProfileHeroSubtitle)?.text = ownerLine
+        val subtitle = findViewById<TextView>(R.id.textviewProfileHeroSubtitle)
+        if (ownerLine.isNotEmpty()) {
+            subtitle.text = ownerLine
+            subtitle.visibility = View.VISIBLE
+        } else {
+            subtitle.visibility = View.GONE
+        }
     }
 
     override fun bindProfileLiveStats(members: String, returnOrPlaceholder: String, activePromotions: String) {
@@ -76,10 +84,7 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View {
         setTextViewText(R.id.textviewProfileStatPromos, activePromotions)
     }
 
-    override fun showLocalDataDisclaimer() {
-        findViewById<TextView>(R.id.textviewProfileLocalDisclaimer)?.text =
-            getString(R.string.local_only_disclaimer_short)
-    }
+    override fun showLocalDataDisclaimer() = Unit
 
     override fun showLogoutDialog() {
         MaterialAlertDialogBuilder(this)

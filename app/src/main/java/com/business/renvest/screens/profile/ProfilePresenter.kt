@@ -24,16 +24,13 @@ class ProfilePresenter(
             context.getString(R.string.profile_email_empty)
         }
         val owner = model.getOwnerName(context).trim()
-        val ownerLine = if (owner.isNotEmpty()) {
-            context.getString(R.string.profile_owner_format, owner)
-        } else {
-            context.getString(R.string.local_only_disclaimer_short)
-        }
+        val ownerLine = if (owner.isNotEmpty()) owner else ""
         view.bindProfile(business, model.initialsFromName(business), emailDisplay, ownerLine)
         scope.launch {
             val counts = withContext(Dispatchers.IO) { model.localDataCounts() }
             val notRecorded = context.getString(R.string.metric_not_recorded)
             withContext(Dispatchers.Main) {
+                view.setupBottomNav(R.id.navProfile, counts.activityEvents)
                 view.bindProfileLiveStats(
                     members = counts.customers.toString(),
                     returnOrPlaceholder = notRecorded,
@@ -41,7 +38,6 @@ class ProfilePresenter(
                 )
             }
         }
-        view.showLocalDataDisclaimer()
     }
 
     override fun onLogoutClicked() {

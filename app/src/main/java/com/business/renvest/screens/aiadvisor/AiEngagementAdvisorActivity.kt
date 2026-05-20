@@ -3,6 +3,7 @@ package com.business.renvest.screens.aiadvisor
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.business.renvest.R
 import com.business.renvest.utils.authStore
 import com.business.renvest.utils.renvestDb
@@ -19,7 +20,11 @@ class AiEngagementAdvisorActivity : AppCompatActivity(), AiEngagementAdvisorCont
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_ai_advisor, R.id.root)
 
-        presenter = AiEngagementAdvisorPresenter(this, AiEngagementAdvisorModel(authStore(), renvestDb()))
+        presenter = AiEngagementAdvisorPresenter(
+            this,
+            AiEngagementAdvisorModel(authStore(), renvestDb()),
+            lifecycleScope,
+        )
         presenter.onViewReady(this)
 
         findViewById<android.view.View>(R.id.buttonAiActivatePromo).setOnClickListener {
@@ -34,8 +39,8 @@ class AiEngagementAdvisorActivity : AppCompatActivity(), AiEngagementAdvisorCont
         setTextViewText(R.id.textviewHeaderBusiness, text)
     }
 
-    override fun setupNav(selectedItemId: Int) {
-        setupMainBottomNavigation(selectedItemId)
+    override fun setupNav(selectedItemId: Int, activityBadgeCount: Int) {
+        setupMainBottomNavigation(selectedItemId, activityBadgeCount)
     }
 
     override fun bindLocalAdvisor(title: String, body: String) {

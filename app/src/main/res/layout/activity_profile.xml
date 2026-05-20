@@ -683,14 +683,6 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:id="@+id/textviewProfileLocalDisclaimer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_section"
-                android:text="@string/local_only_disclaimer_short"
-                android:textAppearance="@style/TextAppearance.Renvest.Caption" />
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonLogout"
                 style="@style/Widget.Material3.Button.TextButton"

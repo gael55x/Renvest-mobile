@@ -1,7 +1,0 @@
-# AMOLONG_VerticalSlicing
-
-This file is the Markdown version of `AMOLONG_VerticalSlicing.pdf`.
-
-For me, vertical slicing makes more sense than organizing everything by file type. Instead of putting all Activities in one folder, all Presenters in another, and all data-related code somewhere else, vertical slicing groups files based on the actual feature or screen. In Renvest, that means the `login`, `register`, and `dashboard` screens each have their own package with the files that directly belong to them. When I open one feature folder, I can already see the main pieces of that screen without jumping around too much. Personally, I find that easier to read because I can focus on one feature at a time.
-
-I also think vertical slicing is helpful because it makes maintenance feel less messy. If I need to update the login flow, I know exactly where to start because the related files are already grouped together. The same idea applies to register and dashboard. Compared to horizontal layering, this feels more practical to me because one feature does not get scattered across several unrelated folders. Shared classes like `AuthStore` can still stay in the `data` package, but the feature boundaries are still clear. Overall, I see vertical slicing as a cleaner and more natural way to organize this kind of project, especially when the goal is to make the code easier to understand, explain, and continue developing later.

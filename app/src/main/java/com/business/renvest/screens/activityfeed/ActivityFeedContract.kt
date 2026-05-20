@@ -6,7 +6,7 @@ import androidx.annotation.IdRes
 interface ActivityFeedContract {
     interface View {
         fun setHeaderBusinessName(text: String)
-        fun setupNav(@IdRes selectedItemId: Int)
+        fun setupNav(@IdRes selectedItemId: Int, activityBadgeCount: Int)
         fun bindHeroMetrics(events: String, customers: String, promotions: String)
         fun bindActivityRows(items: List<ActivityEventRowUi>)
         fun setActivityEmptyVisible(visible: Boolean)

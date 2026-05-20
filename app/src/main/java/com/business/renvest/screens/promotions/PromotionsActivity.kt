@@ -57,8 +57,8 @@ class PromotionsActivity : AppCompatActivity(), PromotionsContract.View {
         setTextViewText(R.id.textviewHeaderBusiness, text)
     }
 
-    override fun setupNav(selectedItemId: Int) {
-        setupMainBottomNavigation(selectedItemId)
+    override fun setupNav(selectedItemId: Int, activityBadgeCount: Int) {
+        setupMainBottomNavigation(selectedItemId, activityBadgeCount)
     }
 
     override fun bindPromotionsHero(activePromotions: String, customerRecords: String, activityRecords: String) {

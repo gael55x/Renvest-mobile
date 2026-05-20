@@ -6,7 +6,7 @@ import androidx.annotation.IdRes
 interface PromotionsContract {
     interface View {
         fun setHeaderBusinessName(text: String)
-        fun setupNav(@IdRes selectedItemId: Int)
+        fun setupNav(@IdRes selectedItemId: Int, activityBadgeCount: Int)
         fun bindPromotionsHero(activePromotions: String, customerRecords: String, activityRecords: String)
         fun displayPromotions(items: List<PromotionItem>)
         fun setPromotionsEmptyVisible(visible: Boolean)

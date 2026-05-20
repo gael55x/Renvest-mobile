@@ -41,29 +41,13 @@
             android:text="@string/app_name"
             android:textAppearance="@style/TextAppearance.Renvest.Display" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
-            android:gravity="center_horizontal"
-            android:text="@string/tagline"
-            android:textAppearance="@style/TextAppearance.Renvest.Body" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_section"
-            android:labelFor="@id/edittextEmail"
-            android:text="@string/label_email"
-            android:textAppearance="@style/TextAppearance.Renvest.Label" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textinputEmailLayout"
             style="@style/Widget.Renvest.TextInput.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xs"
-            app:placeholderText="@string/hint_email"
+            android:layout_marginTop="@dimen/spacing_section"
+            android:hint="@string/label_email"
             app:startIconDrawable="@drawable/ic_mail_24">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -75,22 +59,14 @@
                 tools:ignore="TextContrastCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_field"
-            android:labelFor="@id/edittextPassword"
-            android:text="@string/label_password"
-            android:textAppearance="@style/TextAppearance.Renvest.Label" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textinputPasswordLayout"
             style="@style/Widget.Renvest.TextInput.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xs"
+            android:layout_marginTop="@dimen/spacing_field"
+            android:hint="@string/label_password"
             app:endIconMode="password_toggle"
-            app:placeholderText="@string/hint_password"
             app:startIconDrawable="@drawable/ic_lock_24">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -101,37 +77,12 @@
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textviewForgotPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
-            android:gravity="end"
-            android:text="@string/forgot_password"
-            android:textAppearance="@style/TextAppearance.Renvest.Link" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_section"
-            android:gravity="center_horizontal"
-            android:text="@string/auth_local_passcode_hint"
-            android:textAppearance="@style/TextAppearance.Renvest.Caption" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
-            android:gravity="center_horizontal"
-            android:text="@string/local_only_disclaimer_short"
-            android:textAppearance="@style/TextAppearance.Renvest.Caption" />
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonLogin"
             style="@style/Widget.Renvest.Button.Primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_field"
+            android:layout_marginTop="@dimen/spacing_section"
             android:text="@string/action_login" />
 
         <com.google.android.material.button.MaterialButton

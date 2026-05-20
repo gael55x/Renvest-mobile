@@ -15,20 +15,6 @@
         android:text="@string/onboarding_title"
         android:textAppearance="@style/TextAppearance.Renvest.ScreenTitle.Form" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_small"
-        android:text="@string/onboarding_subtitle"
-        android:textAppearance="@style/TextAppearance.Renvest.Body" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_field"
-        android:text="@string/local_only_disclaimer_short"
-        android:textAppearance="@style/TextAppearance.Renvest.Caption" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerviewOnboardingSteps"
         android:layout_width="match_parent"

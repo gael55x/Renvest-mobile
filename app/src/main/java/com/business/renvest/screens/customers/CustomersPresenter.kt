@@ -60,7 +60,7 @@ class CustomersPresenter(
             val notRecorded = context.getString(R.string.metric_not_recorded)
             withContext(Dispatchers.Main) {
                 view.setHeaderBusinessName(model.businessDisplayName(context))
-                view.setupNav(R.id.navCustomers)
+                view.setupNav(R.id.navCustomers, counts.activityEvents)
                 view.bindHeroMetrics(
                     members = counts.customers.toString(),
                     returnOrPlaceholder = notRecorded,

@@ -1,11 +1,13 @@
 package com.business.renvest.screens.dashboard
 
 import android.content.Context
+import androidx.annotation.IdRes
 
 interface DashboardContract {
     interface View {
         fun setGreeting(text: String)
         fun setBusinessName(text: String)
+        fun setupBottomNav(@IdRes selectedItemId: Int, activityBadgeCount: Int)
         fun bindDashboardMetrics(model: DashboardBindModel)
         fun showComingSoon()
         fun navigateToCustomers()

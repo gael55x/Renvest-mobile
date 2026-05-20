@@ -54,10 +54,14 @@ class LoyaltyPresenter(
     }
 
     override fun onReminderClicked(context: Context, position: Int) {
-        val item = model.reminderAt(position) ?: return
-        view.showMessage(
-            context.getString(R.string.loyalty_reminder_item_click_format, item.title, item.subtitle),
-        )
+        scope.launch {
+            val item = withContext(Dispatchers.IO) { model.reminderAt(position) } ?: return@launch
+            withContext(Dispatchers.Main) {
+                view.showMessage(
+                    context.getString(R.string.loyalty_reminder_item_click_format, item.title, item.subtitle),
+                )
+            }
+        }
     }
 
     override fun onReminderLongClicked(context: Context, position: Int): Boolean {

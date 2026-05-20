@@ -1,13 +1,23 @@
 package com.business.renvest.data.repository
 
 import android.content.Context
+import android.content.SharedPreferences
 import com.business.renvest.R
+import com.business.renvest.app.RenvestApp
 import com.business.renvest.data.RenvestResult
 import com.business.renvest.data.security.LocalPasswordHasher
 
-class AuthStore {
+class AuthStore(
+    private val sessionPreferences: SessionPreferences? = null,
+) {
 
-    private fun session(context: Context) = SessionPreferences(context).prefs
+    private fun session(context: Context): SharedPreferences {
+        val app = context.applicationContext
+        val holder = sessionPreferences
+            ?: (app as? RenvestApp)?.sessionPreferences
+            ?: SessionPreferences(app)
+        return holder.prefs
+    }
 
     fun isLoggedIn(context: Context): Boolean =
         session(context).getBoolean(KEY_LOGGED_IN, false)
@@ -32,13 +42,14 @@ class AuthStore {
         val storedEmail = prefs.getString(KEY_EMAIL, "").orEmpty()
         val storedHash = prefs.getString(KEY_PASSWORD_HASH, "").orEmpty()
         val salt = prefs.getString(KEY_PASSWORD_SALT, "").orEmpty()
-        if (storedHash.isNotEmpty()) {
-            if (!storedEmail.equals(email.trim(), ignoreCase = true)) {
-                return RenvestResult.Err.Validation("No account found for this email on this device.")
-            }
-            if (!LocalPasswordHasher.verify(password, salt, storedHash)) {
-                return RenvestResult.Err.Validation("Incorrect passcode.")
-            }
+        if (storedHash.isEmpty()) {
+            return RenvestResult.Err.Validation(context.getString(R.string.error_no_account))
+        }
+        if (!storedEmail.equals(email.trim(), ignoreCase = true)) {
+            return RenvestResult.Err.Validation(context.getString(R.string.error_wrong_email))
+        }
+        if (!LocalPasswordHasher.verify(password, salt, storedHash)) {
+            return RenvestResult.Err.Validation(context.getString(R.string.error_wrong_passcode))
         }
         prefs.edit()
             .putBoolean(KEY_LOGGED_IN, true)

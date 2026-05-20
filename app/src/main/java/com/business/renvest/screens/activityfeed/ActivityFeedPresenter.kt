@@ -67,7 +67,7 @@ class ActivityFeedPresenter(
             val rows = withContext(Dispatchers.IO) { model.loadEvents() }
             withContext(Dispatchers.Main) {
                 view.setHeaderBusinessName(model.businessDisplayName(context))
-                view.setupNav(R.id.navActivity)
+                view.setupNav(R.id.navActivity, counts.activityEvents)
                 view.bindHeroMetrics(
                     events = counts.activityEvents.toString(),
                     customers = counts.customers.toString(),
