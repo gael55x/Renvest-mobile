@@ -65,11 +65,11 @@ class DashboardPresenter(
     }
 
     override fun onNotificationClicked() {
-        view.showComingSoon()
+        view.navigateToActivityFeed()
     }
 
     override fun onPerfViewReportClicked() {
-        view.showComingSoon()
+        view.navigateToActivityFeed()
     }
 
     override fun onPerfCellMembersClicked() {
