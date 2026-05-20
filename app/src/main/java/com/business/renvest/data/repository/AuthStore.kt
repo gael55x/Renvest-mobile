@@ -94,7 +94,9 @@ class AuthStore(
     }
 
     fun clearSession(context: Context): RenvestResult<Unit> {
-        session(context).edit().clear().apply()
+        session(context).edit()
+            .putBoolean(KEY_LOGGED_IN, false)
+            .apply()
         return RenvestResult.Ok(Unit)
     }
 
