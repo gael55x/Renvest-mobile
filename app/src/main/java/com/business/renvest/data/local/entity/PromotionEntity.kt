@@ -11,6 +11,8 @@ data class PromotionEntity(
     val expiry: String,
     val enrolledSummary: String,
     val usageSummary: String,
+    val enrolledCount: Int,
+    val redeemedCount: Int,
     val progressPercent: Int,
     /** Stored name of [com.business.renvest.screens.promotions.PromotionStatus] */
     val status: String,
