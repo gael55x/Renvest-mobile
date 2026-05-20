@@ -20,6 +20,8 @@ interface ActivityFeedContract {
         fun showDeleteActivityConfirm(title: String, onConfirm: () -> Unit)
         fun showDateRangeDialog(todayOnly: Boolean, onSelected: (Boolean) -> Unit)
         fun shareExportFile(file: File)
+        fun restoreSearchQuery(query: String)
+        fun selectCategory(category: ActivityFeedCategory)
     }
 
     interface Presenter {

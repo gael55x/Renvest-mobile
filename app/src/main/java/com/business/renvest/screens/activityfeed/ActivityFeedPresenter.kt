@@ -1,6 +1,7 @@
 package com.business.renvest.screens.activityfeed
 
 import android.content.Context
+import android.os.Bundle
 import com.business.renvest.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,6 +20,23 @@ class ActivityFeedPresenter(
 
     override fun onViewReady(context: Context) {
         bindScreen(context)
+    }
+
+    fun restoreState(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) return
+        searchQuery = savedInstanceState.getString(KEY_SEARCH).orEmpty()
+        category = ActivityFeedCategory.entries[
+            savedInstanceState.getInt(KEY_CATEGORY, ActivityFeedCategory.ALL.ordinal)
+        ]
+        todayOnly = savedInstanceState.getBoolean(KEY_TODAY_ONLY, false)
+        view.restoreSearchQuery(searchQuery)
+        view.selectCategory(category)
+    }
+
+    fun saveState(outState: Bundle) {
+        outState.putString(KEY_SEARCH, searchQuery)
+        outState.putInt(KEY_CATEGORY, category.ordinal)
+        outState.putBoolean(KEY_TODAY_ONLY, todayOnly)
     }
 
     override fun onLogEventClicked(context: Context) {
@@ -114,5 +132,11 @@ class ActivityFeedPresenter(
                 view.setActivityEmptyVisible(rows.isEmpty())
             }
         }
+    }
+
+    companion object {
+        private const val KEY_SEARCH = "activity_search"
+        private const val KEY_CATEGORY = "activity_category"
+        private const val KEY_TODAY_ONLY = "activity_today_only"
     }
 }

@@ -21,6 +21,7 @@ import com.business.renvest.utils.setTextViewText
 import com.business.renvest.utils.setupMainBottomNavigation
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.toast
+import android.content.DialogInterface
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -33,6 +34,7 @@ class ActivityFeedActivity : AppCompatActivity(), ActivityFeedContract.View {
     private lateinit var presenter: ActivityFeedPresenter
     private lateinit var activityAdapter: ActivityFeedAdapter
     private lateinit var textviewActivityFeedEmpty: TextView
+    private lateinit var searchField: TextInputEditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,11 +49,14 @@ class ActivityFeedActivity : AppCompatActivity(), ActivityFeedContract.View {
             adapter = activityAdapter
         }
 
+        searchField = findViewById(R.id.edittextSearchActivityInput)
+
         presenter = ActivityFeedPresenter(
             this,
             ActivityFeedModel(authStore(), renvestDb()),
             lifecycleScope,
         )
+        presenter.restoreState(savedInstanceState)
         presenter.onViewReady(this)
 
         val logClick = View.OnClickListener { presenter.onLogEventClicked(this) }
@@ -64,7 +69,7 @@ class ActivityFeedActivity : AppCompatActivity(), ActivityFeedContract.View {
             presenter.onExportClicked(this)
         }
 
-        findViewById<TextInputEditText>(R.id.edittextSearchActivityInput).doAfterTextChanged { text ->
+        searchField.doAfterTextChanged { text ->
             presenter.onSearchQueryChanged(this, text?.toString().orEmpty())
         }
 
@@ -79,6 +84,27 @@ class ActivityFeedActivity : AppCompatActivity(), ActivityFeedContract.View {
             }
             presenter.onCategorySelected(this, category)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        presenter.saveState(outState)
+    }
+
+    override fun restoreSearchQuery(query: String) {
+        if (searchField.text?.toString() != query) {
+            searchField.setText(query)
+        }
+    }
+
+    override fun selectCategory(category: ActivityFeedCategory) {
+        val chipId = when (category) {
+            ActivityFeedCategory.POINTS -> R.id.chipFeedPoints
+            ActivityFeedCategory.REWARD -> R.id.chipFeedRewards
+            ActivityFeedCategory.VISIT -> R.id.chipFeedVisits
+            ActivityFeedCategory.ALL -> R.id.chipFeedAll
+        }
+        findViewById<Chip>(chipId).isChecked = true
     }
 
     override fun setHeaderBusinessName(text: String) {
@@ -157,7 +183,7 @@ class ActivityFeedActivity : AppCompatActivity(), ActivityFeedContract.View {
         }
         updateTitleVisibility()
 
-        MaterialAlertDialogBuilder(this)
+        val dialog = MaterialAlertDialogBuilder(this)
             .setTitle(R.string.dialog_add_activity_title)
             .setView(dialogView)
             .setNegativeButton(android.R.string.cancel, null)
@@ -171,7 +197,31 @@ class ActivityFeedActivity : AppCompatActivity(), ActivityFeedContract.View {
                     customerId,
                 )
             }
-            .show()
+            .create()
+        dialog.setOnShowListener {
+            val saveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE) ?: return@setOnShowListener
+            val validate = {
+                val type = types.getOrElse(typeSpinner.selectedItemPosition) { ActivityLogType.CUSTOM }
+                val visitOk = type != ActivityLogType.VISIT || customerSpinner.selectedItemPosition > 0
+                val customOk = type != ActivityLogType.CUSTOM ||
+                    !titleField.text?.toString().orEmpty().trim().isNullOrEmpty()
+                saveButton.isEnabled = visitOk && customOk
+            }
+            typeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    updateTitleVisibility()
+                    validate()
+                }
+                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+            }
+            customerSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) = validate()
+                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+            }
+            titleField.doAfterTextChanged { validate() }
+            validate()
+        }
+        dialog.show()
     }
 
     override fun showDeleteActivityConfirm(title: String, onConfirm: () -> Unit) {
