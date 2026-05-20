@@ -5,19 +5,21 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.business.renvest.R
 import com.business.renvest.utils.authStore
 import com.business.renvest.utils.renvestDb
-import com.business.renvest.utils.setClickListeners
 import com.business.renvest.utils.setTextViewText
 import com.business.renvest.utils.setupMainBottomNavigation
 import com.business.renvest.utils.setupRenvestContent
-import com.business.renvest.utils.toast
+import com.business.renvest.utils.showValidatedFormDialog
 import com.business.renvest.utils.startActivity
-import androidx.core.widget.doAfterTextChanged
+import com.business.renvest.utils.toast
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 
@@ -26,12 +28,14 @@ class CustomersActivity : AppCompatActivity(), CustomersContract.View {
     private lateinit var presenter: CustomersPresenter
     private lateinit var customersAdapter: CustomersAdapter
     private lateinit var textviewCustomersEmpty: TextView
+    private lateinit var searchField: TextInputEditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_customers, R.id.root)
 
         textviewCustomersEmpty = findViewById(R.id.textviewCustomersEmpty)
+        searchField = findViewById(R.id.edittextSearchCustomersInput)
         customersAdapter = CustomersAdapter(
             onClick = { presenter.onCustomerClicked(this, it) },
             onLongClick = { presenter.onCustomerLongPressed(this, it) },
@@ -46,17 +50,49 @@ class CustomersActivity : AppCompatActivity(), CustomersContract.View {
             CustomersModel(authStore(), renvestDb()),
             lifecycleScope,
         )
+        presenter.restoreState(savedInstanceState)
         presenter.onViewReady(this)
 
         findViewById<View>(R.id.buttonFilter).setOnClickListener { presenter.onSortClicked(this) }
         findViewById<View>(R.id.textviewSort).setOnClickListener { presenter.onSortClicked(this) }
-        findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edittextSearchCustomersInput)
-            .doAfterTextChanged { text ->
-                presenter.onSearchQueryChanged(this, text?.toString().orEmpty())
-            }
+        searchField.doAfterTextChanged { text ->
+            presenter.onSearchQueryChanged(this, text?.toString().orEmpty())
+        }
         findViewById<View>(R.id.buttonAddCustomer).setOnClickListener {
             presenter.onAddCustomerClicked(this)
         }
+
+        findViewById<ChipGroup>(R.id.chipgroupCustomerSegments).setOnCheckedStateChangeListener { group, checkedIds ->
+            val id = checkedIds.firstOrNull() ?: return@setOnCheckedStateChangeListener
+            val filter = when (group.findViewById<Chip>(id)?.id) {
+                R.id.chipCustomerNearReward -> CustomerSegmentFilter.NEAR_REWARD
+                R.id.chipCustomerReadyForReward -> CustomerSegmentFilter.READY_FOR_REWARD
+                R.id.chipCustomerNew -> CustomerSegmentFilter.NEW
+                else -> CustomerSegmentFilter.ALL
+            }
+            presenter.onSegmentFilterSelected(this, filter)
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        presenter.saveState(outState)
+    }
+
+    override fun restoreSearchQuery(query: String) {
+        if (searchField.text?.toString() != query) {
+            searchField.setText(query)
+        }
+    }
+
+    override fun selectSegmentFilter(filter: CustomerSegmentFilter) {
+        val chipId = when (filter) {
+            CustomerSegmentFilter.NEAR_REWARD -> R.id.chipCustomerNearReward
+            CustomerSegmentFilter.READY_FOR_REWARD -> R.id.chipCustomerReadyForReward
+            CustomerSegmentFilter.NEW -> R.id.chipCustomerNew
+            CustomerSegmentFilter.ALL -> R.id.chipCustomerAll
+        }
+        findViewById<Chip>(chipId).isChecked = true
     }
 
     override fun setHeaderBusinessName(text: String) {
@@ -87,15 +123,16 @@ class CustomersActivity : AppCompatActivity(), CustomersContract.View {
 
     override fun showAddCustomerDialog(onSubmit: (String) -> Unit) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_add_customer, null, false)
-        val nameField = dialogView.findViewById<TextInputEditText>(R.id.edittextCustomerName)
-        MaterialAlertDialogBuilder(this)
-            .setTitle(R.string.dialog_add_customer_title)
-            .setView(dialogView)
-            .setNegativeButton(android.R.string.cancel, null)
-            .setPositiveButton(R.string.action_save) { _, _ ->
-                onSubmit(nameField.text?.toString().orEmpty())
-            }
-            .show()
+        val nameLayout = dialogView.findViewById<com.google.android.material.textfield.TextInputLayout>(
+            R.id.textinputCustomerName,
+        )
+        showValidatedFormDialog(
+            titleRes = R.string.dialog_add_customer_title,
+            dialogView = dialogView,
+            nameLayout,
+        ) {
+            onSubmit(nameLayout.editText?.text?.toString().orEmpty())
+        }
     }
 
     override fun showDeleteCustomerConfirm(displayName: String, onConfirm: () -> Unit) {

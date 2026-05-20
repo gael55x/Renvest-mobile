@@ -1,6 +1,7 @@
 package com.business.renvest.screens.customers
 
 import android.content.Context
+import android.os.Bundle
 import com.business.renvest.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,9 +16,27 @@ class CustomersPresenter(
 
     private var searchQuery: String = ""
     private var sortAscending: Boolean = true
+    private var segmentFilter: CustomerSegmentFilter = CustomerSegmentFilter.ALL
 
     override fun onViewReady(context: Context) {
         bindScreen(context)
+    }
+
+    fun restoreState(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) return
+        searchQuery = savedInstanceState.getString(KEY_SEARCH).orEmpty()
+        sortAscending = savedInstanceState.getBoolean(KEY_SORT, true)
+        segmentFilter = CustomerSegmentFilter.entries[
+            savedInstanceState.getInt(KEY_SEGMENT, CustomerSegmentFilter.ALL.ordinal)
+        ]
+        view.restoreSearchQuery(searchQuery)
+        view.selectSegmentFilter(segmentFilter)
+    }
+
+    fun saveState(outState: Bundle) {
+        outState.putString(KEY_SEARCH, searchQuery)
+        outState.putBoolean(KEY_SORT, sortAscending)
+        outState.putInt(KEY_SEGMENT, segmentFilter.ordinal)
     }
 
     override fun onAddCustomerClicked(context: Context) {
@@ -57,6 +76,11 @@ class CustomersPresenter(
         bindScreen(context)
     }
 
+    override fun onSegmentFilterSelected(context: Context, filter: CustomerSegmentFilter) {
+        segmentFilter = filter
+        bindScreen(context)
+    }
+
     override fun onSortClicked(context: Context) {
         view.showSortDialog(sortAscending) { onSortSelected(context, it) }
     }
@@ -69,7 +93,9 @@ class CustomersPresenter(
     private fun bindScreen(context: Context) {
         scope.launch {
             val counts = withContext(Dispatchers.IO) { model.localDataCounts() }
-            val rows = withContext(Dispatchers.IO) { model.loadCustomers(searchQuery, sortAscending) }
+            val rows = withContext(Dispatchers.IO) {
+                model.loadCustomers(searchQuery, sortAscending, segmentFilter)
+            }
             val notRecorded = context.getString(R.string.metric_not_recorded)
             withContext(Dispatchers.Main) {
                 view.setHeaderBusinessName(model.businessDisplayName(context))
@@ -83,5 +109,11 @@ class CustomersPresenter(
                 view.setCustomersEmptyVisible(rows.isEmpty())
             }
         }
+    }
+
+    companion object {
+        private const val KEY_SEARCH = "customers_search"
+        private const val KEY_SORT = "customers_sort_asc"
+        private const val KEY_SEGMENT = "customers_segment"
     }
 }

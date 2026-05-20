@@ -20,9 +20,17 @@ class CustomersModel(
 
     fun localDataCounts(): LocalDataCounts = db.localDataCounts()
 
-    fun loadCustomers(searchQuery: String, sortAscending: Boolean): List<CustomerRowUi> {
+    fun loadCustomers(
+        searchQuery: String,
+        sortAscending: Boolean,
+        segment: CustomerSegmentFilter,
+    ): List<CustomerRowUi> {
         val query = searchQuery.trim().lowercase()
         return db.customerDao().listAll()
+            .filter { entity ->
+                matchesSegment(db.visitProgressForCustomer(entity.id), segment) &&
+                    (query.isEmpty() || entity.displayName.lowercase().contains(query))
+            }
             .map { entity ->
                 val progress = db.visitProgressForCustomer(entity.id)
                 CustomerRowUi(
@@ -32,8 +40,10 @@ class CustomersModel(
                     lastVisitSummary = progress.lastVisitLabel,
                 )
             }
-            .filter { query.isEmpty() || it.displayName.lowercase().contains(query) }
-            .let { list -> if (sortAscending) list.sortedBy { it.displayName.lowercase() } else list.sortedByDescending { it.displayName.lowercase() } }
+            .let { list ->
+                if (sortAscending) list.sortedBy { it.displayName.lowercase() }
+                else list.sortedByDescending { it.displayName.lowercase() }
+            }
     }
 
     /** @return false if name is blank after trim */
@@ -66,5 +76,15 @@ class CustomersModel(
 
     fun markOnboardingCustomerStep(context: Context) {
         authStore.markOnboardingStep(context, AuthStore.STEP_CUSTOMER)
+    }
+
+    private fun matchesSegment(
+        progress: com.business.renvest.data.local.CustomerVisitProgress,
+        segment: CustomerSegmentFilter,
+    ): Boolean = when (segment) {
+        CustomerSegmentFilter.ALL -> true
+        CustomerSegmentFilter.NEAR_REWARD -> progress.nearReward
+        CustomerSegmentFilter.READY_FOR_REWARD -> progress.readyForReward
+        CustomerSegmentFilter.NEW -> progress.currentVisits == 0 && progress.lastVisitLabel.isEmpty()
     }
 }

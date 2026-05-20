@@ -190,10 +190,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_field"
-                android:scrollbars="none"
-                android:visibility="gone">
+                android:scrollbars="none">
 
                 <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipgroupCustomerSegments"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:selectionRequired="true"
@@ -201,6 +201,7 @@
                     app:singleSelection="true">
 
                     <com.google.android.material.chip.Chip
+                        android:id="@+id/chipCustomerAll"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
@@ -209,13 +210,7 @@
                         style="@style/Widget.Material3.Chip.Filter" />
 
                     <com.google.android.material.chip.Chip
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/chip_at_risk"
-                        app:checkedIconVisible="false"
-                        style="@style/Widget.Material3.Chip.Filter" />
-
-                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipCustomerNearReward"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/chip_near_reward"
@@ -223,20 +218,15 @@
                         style="@style/Widget.Material3.Chip.Filter" />
 
                     <com.google.android.material.chip.Chip
+                        android:id="@+id/chipCustomerReadyForReward"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/chip_gold_tier"
+                        android:text="@string/chip_ready_for_reward"
                         app:checkedIconVisible="false"
                         style="@style/Widget.Material3.Chip.Filter" />
 
                     <com.google.android.material.chip.Chip
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/chip_silver_tier"
-                        app:checkedIconVisible="false"
-                        style="@style/Widget.Material3.Chip.Filter" />
-
-                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipCustomerNew"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/chip_new_customer"

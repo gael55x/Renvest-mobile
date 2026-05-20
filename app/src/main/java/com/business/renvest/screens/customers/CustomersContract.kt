@@ -15,6 +15,8 @@ interface CustomersContract {
         fun showDeleteCustomerConfirm(displayName: String, onConfirm: () -> Unit)
         fun showSortDialog(sortAscending: Boolean, onSelected: (Boolean) -> Unit)
         fun navigateToCustomerDetail(customerId: String)
+        fun restoreSearchQuery(query: String)
+        fun selectSegmentFilter(filter: CustomerSegmentFilter)
     }
 
     interface Presenter {
@@ -24,6 +26,7 @@ interface CustomersContract {
         fun onCustomerClicked(context: Context, row: CustomerRowUi)
         fun onCustomerLongPressed(context: Context, row: CustomerRowUi)
         fun onSearchQueryChanged(context: Context, query: String)
+        fun onSegmentFilterSelected(context: Context, filter: CustomerSegmentFilter)
         fun onSortClicked(context: Context)
         fun onSortSelected(context: Context, sortAscending: Boolean)
     }
