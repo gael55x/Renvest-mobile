@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -11,46 +12,55 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textinputProgramName"
-            style="@style/Widget.Renvest.TextInputLayout"
+            style="@style/Widget.Renvest.TextInput.Dialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/dialog_loyalty_program_name_hint">
+            android:hint="@string/dialog_loyalty_program_name_hint"
+            app:placeholderText="@string/dialog_loyalty_program_name_placeholder"
+            app:startIconDrawable="@drawable/ic_star_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittextProgramName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapWords" />
+                android:inputType="textCapWords"
+                android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textinputProgramVisits"
-            style="@style/Widget.Renvest.TextInputLayout"
+            style="@style/Widget.Renvest.TextInput.Dialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_field"
-            android:hint="@string/dialog_loyalty_program_visits_hint">
+            android:hint="@string/dialog_loyalty_program_visits_hint"
+            app:placeholderText="@string/dialog_loyalty_program_visits_placeholder"
+            app:startIconDrawable="@drawable/ic_shield_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittextProgramVisits"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number" />
+                android:inputType="number"
+                android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textinputProgramReward"
-            style="@style/Widget.Renvest.TextInputLayout"
+            style="@style/Widget.Renvest.TextInput.Dialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_field"
-            android:hint="@string/dialog_loyalty_program_reward_hint">
+            android:hint="@string/dialog_loyalty_program_reward_hint"
+            app:placeholderText="@string/dialog_loyalty_program_reward_placeholder"
+            app:startIconDrawable="@drawable/ic_card_gift_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittextProgramReward"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapSentences" />
+                android:inputType="textCapSentences"
+                android:maxLines="2" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 </ScrollView>

@@ -10,64 +10,67 @@
     android:paddingTop="@dimen/padding_screen_vertical"
     android:paddingBottom="@dimen/padding_screen_vertical">
 
-    <FrameLayout
-        android:id="@+id/framelayoutOnboardingLogo"
-        android:layout_width="@dimen/logo_size"
-        android:layout_height="@dimen/logo_size"
-        android:background="@drawable/bg_logo_rounded"
+    <LinearLayout
+        android:id="@+id/linearlayoutOnboardingHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:layout_width="@dimen/grid_4"
-            android:layout_height="@dimen/grid_4"
-            android:layout_gravity="center"
-            android:contentDescription="@string/app_name"
-            app:srcCompat="@drawable/ic_renvest_mark" />
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/framelayoutOnboardingLogo"
+            android:layout_width="@dimen/logo_size"
+            android:layout_height="@dimen/logo_size"
+            android:background="@drawable/bg_logo_rounded">
 
-    <TextView
-        android:id="@+id/textviewOnboardingTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_field"
-        android:text="@string/onboarding_title"
-        android:textAppearance="@style/TextAppearance.Renvest.ScreenTitle.Form"
-        app:layout_constraintBottom_toTopOf="@id/textviewOnboardingSubtitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/framelayoutOnboardingLogo"
-        app:layout_constraintTop_toTopOf="@id/framelayoutOnboardingLogo"
-        app:layout_constraintVertical_chainStyle="packed" />
+            <ImageView
+                android:layout_width="@dimen/grid_4"
+                android:layout_height="@dimen/grid_4"
+                android:layout_gravity="center"
+                android:contentDescription="@string/app_name"
+                app:srcCompat="@drawable/ic_renvest_mark" />
+        </FrameLayout>
 
-    <TextView
-        android:id="@+id/textviewOnboardingSubtitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_field"
-        android:layout_marginTop="@dimen/spacing_xs"
-        android:text="@string/onboarding_subtitle"
-        android:textAppearance="@style/TextAppearance.Renvest.Body"
-        app:layout_constraintBottom_toBottomOf="@id/framelayoutOnboardingLogo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/framelayoutOnboardingLogo"
-        app:layout_constraintTop_toBottomOf="@id/textviewOnboardingTitle" />
+        <TextView
+            android:id="@+id/textviewOnboardingTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_field"
+            android:gravity="center_horizontal"
+            android:text="@string/onboarding_title"
+            android:textAppearance="@style/TextAppearance.Renvest.ScreenTitle.Form" />
+
+        <TextView
+            android:id="@+id/textviewOnboardingSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:gravity="center_horizontal"
+            android:paddingHorizontal="@dimen/spacing_small"
+            android:text="@string/onboarding_subtitle"
+            android:textAppearance="@style/TextAppearance.Renvest.Body" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textviewOnboardingProgressLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_section"
+        android:gravity="center_horizontal"
         android:textAppearance="@style/TextAppearance.Renvest.Label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/framelayoutOnboardingLogo"
+        app:layout_constraintTop_toBottomOf="@id/linearlayoutOnboardingHeader"
         tools:text="2 of 4 complete" />
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressOnboarding"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_small"
+        android:layout_marginTop="@dimen/spacing_field"
         android:max="100"
         app:indicatorColor="@color/primary"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +87,9 @@
         android:layout_marginTop="@dimen/spacing_section"
         android:clipToPadding="false"
         android:overScrollMode="never"
-        android:paddingBottom="@dimen/spacing_small"
+        android:paddingTop="@dimen/spacing_small"
+        android:paddingBottom="@dimen/spacing_field"
+        android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@id/buttonOnboardingFinish"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +102,7 @@
         style="@style/Widget.Renvest.Button.Primary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_field"
+        android:layout_marginTop="@dimen/spacing_section"
         android:text="@string/onboarding_finish"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

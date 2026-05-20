@@ -136,6 +136,10 @@ private class OnboardingStepsAdapter(
             val primary = ContextCompat.getColor(context, R.color.primary)
             val muted = ContextCompat.getColor(context, R.color.text_secondary)
 
+            val strokeDonePx = context.resources.getDimensionPixelSize(R.dimen.onboarding_step_stroke_done)
+            val strokeTodoPx = context.resources.getDimensionPixelSize(R.dimen.onboarding_step_stroke_todo)
+            val outline = ContextCompat.getColor(context, R.color.outline_soft)
+
             if (step.done) {
                 status.text = context.getString(R.string.onboarding_step_done)
                 status.setTextColor(primary)
@@ -143,15 +147,15 @@ private class OnboardingStepsAdapter(
                 status.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_24, 0, 0, 0)
                 status.compoundDrawableTintList = ColorStateList.valueOf(primary)
                 card.strokeColor = primary
-                card.strokeWidth = context.resources.getDimensionPixelSize(R.dimen.onboarding_step_stroke_done)
+                card.strokeWidth = strokeDonePx
             } else {
                 status.text = context.getString(R.string.onboarding_step_todo)
                 status.setTextColor(primary)
                 status.setBackgroundResource(R.drawable.bg_onboarding_status_todo)
                 status.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_chevron_right_24, 0)
                 status.compoundDrawableTintList = ColorStateList.valueOf(primary)
-                card.strokeColor = ContextCompat.getColor(context, R.color.outline_soft)
-                card.strokeWidth = context.resources.getDimensionPixelSize(R.dimen.onboarding_step_stroke_todo)
+                card.strokeColor = outline
+                card.strokeWidth = strokeTodoPx
             }
 
             title.setTextColor(if (step.done) muted else ContextCompat.getColor(context, R.color.text_primary))

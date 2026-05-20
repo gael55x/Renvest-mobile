@@ -112,7 +112,8 @@
     <string name="empty_state_promotions">No promos. Tap New Promo.</string>
     <string name="empty_state_loyalty_programs">No programs. Tap Add program.</string>
 
-    <string name="loyalty_reminder_hint">New loyalty reminder</string>
+    <string name="loyalty_reminder_hint">Reminder title</string>
+    <string name="loyalty_reminder_placeholder">e.g. Send birthday offer</string>
     <string name="loyalty_reminder_add">Add reminder</string>
     <string name="loyalty_reminder_empty_error">Enter a reminder title.</string>
     <string name="loyalty_reminder_item_click_format">%1$s\n%2$s</string>
@@ -246,6 +247,7 @@
     <string name="profile_loyalty_saved">Saved</string>
     <string name="dialog_loyalty_threshold_title">Reward threshold</string>
     <string name="dialog_loyalty_threshold_hint">Points to unlock a reward</string>
+    <string name="dialog_loyalty_threshold_placeholder">e.g. 100</string>
     <string name="dialog_loyalty_points_mode_title">Points mode</string>
     <string name="loyalty_mode_per_visit">Per visit</string>
     <string name="loyalty_mode_per_spend">Per amount spent</string>
@@ -285,6 +287,7 @@
     <string name="content_desc_log_event">Log activity event</string>
     <string name="dialog_add_customer_title">Add customer</string>
     <string name="dialog_customer_name_hint">Customer name</string>
+    <string name="dialog_customer_name_placeholder">e.g. Maria Santos</string>
     <string name="customer_added_confirmation">Saved</string>
     <string name="dialog_delete_customer_title">Remove?</string>
     <string name="dialog_delete_customer_message">Remove %1$s?</string>
@@ -292,16 +295,21 @@
     <string name="action_save">Save</string>
 
     <string name="dialog_add_activity_title">Log activity</string>
-    <string name="dialog_activity_title_hint">What happened?</string>
+    <string name="dialog_activity_title_hint">Custom title</string>
+    <string name="dialog_activity_title_placeholder">Only if you chose Custom type</string>
     <string name="dialog_activity_subtitle_hint">Note (optional)</string>
+    <string name="dialog_activity_subtitle_placeholder">e.g. 10 points, birthday visit</string>
     <string name="activity_event_added_confirmation">Saved</string>
     <string name="dialog_delete_activity_title">Remove?</string>
     <string name="dialog_delete_activity_message">Remove %1$s?</string>
 
     <string name="dialog_add_promotion_title">New promotion</string>
     <string name="dialog_promotion_title_hint">Promotion title</string>
-    <string name="dialog_promotion_reward_hint">Reward description</string>
-    <string name="dialog_promotion_expiry_hint">Expiry</string>
+    <string name="dialog_promotion_title_placeholder">e.g. Free coffee Friday</string>
+    <string name="dialog_promotion_reward_hint">Reward</string>
+    <string name="dialog_promotion_reward_placeholder">e.g. Free medium drink</string>
+    <string name="dialog_promotion_expiry_hint">Expiry date</string>
+    <string name="dialog_promotion_expiry_placeholder">e.g. Dec 31 or Ongoing</string>
     <string name="promotion_added_confirmation">Saved</string>
     <string name="promotion_status_updated">Updated</string>
     <string name="promotion_updated_confirmation">Saved</string>
@@ -337,8 +345,13 @@
     <string name="loyalty_program_rule_format">%1$d visits → %2$s</string>
     <string name="dialog_add_loyalty_program_title">New loyalty program</string>
     <string name="dialog_loyalty_program_name_hint">Program name</string>
+    <string name="dialog_loyalty_program_name_placeholder">e.g. Stamp card</string>
     <string name="dialog_loyalty_program_visits_hint">Visits required</string>
-    <string name="dialog_loyalty_program_reward_hint">Reward description</string>
+    <string name="dialog_loyalty_program_visits_placeholder">e.g. 10</string>
+    <string name="dialog_loyalty_program_reward_hint">Reward</string>
+    <string name="dialog_loyalty_program_reward_placeholder">e.g. Free pastry</string>
+    <string name="dialog_business_type_placeholder">e.g. Cafe, Salon, Retail</string>
+    <string name="dialog_business_location_placeholder">e.g. Manila, PH</string>
 
     <string name="dialog_activity_customer_label">Customer</string>
     <string name="dialog_activity_customer_none">None</string>

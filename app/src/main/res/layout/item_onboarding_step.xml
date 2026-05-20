@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/spacing_field"
+    android:layout_marginBottom="@dimen/onboarding_step_gap"
     android:clickable="true"
     android:focusable="true"
     app:cardBackgroundColor="@color/surface"
@@ -12,13 +12,14 @@
     app:cardElevation="0dp"
     app:rippleColor="?attr/colorPrimary"
     app:strokeColor="@color/outline_soft"
-    app:strokeWidth="1dp">
+    app:strokeWidth="@dimen/onboarding_step_stroke_todo">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="@dimen/onboarding_step_min_height"
-        android:padding="@dimen/spacing_field">
+        android:paddingHorizontal="@dimen/onboarding_step_padding_horizontal"
+        android:paddingVertical="@dimen/onboarding_step_padding_vertical">
 
         <FrameLayout
             android:id="@+id/framelayoutOnboardingStepIcon"
@@ -44,11 +45,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_field"
-            android:layout_marginEnd="@dimen/spacing_small"
+            android:layout_marginEnd="@dimen/spacing_field"
             android:textAppearance="@style/TextAppearance.Renvest.SectionTitle"
             app:layout_constraintEnd_toStartOf="@id/textviewOnboardingStepStatus"
             app:layout_constraintStart_toEndOf="@id/framelayoutOnboardingStepIcon"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/framelayoutOnboardingStepIcon"
             tools:text="Add a customer" />
 
         <TextView
@@ -56,24 +57,29 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_field"
-            android:layout_marginTop="@dimen/spacing_xs"
-            android:layout_marginEnd="@dimen/spacing_small"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginEnd="@dimen/spacing_field"
+            android:lineSpacingExtra="2dp"
             android:textAppearance="@style/TextAppearance.Renvest.Body"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/framelayoutOnboardingStepIcon"
             app:layout_constraintEnd_toStartOf="@id/textviewOnboardingStepStatus"
             app:layout_constraintStart_toEndOf="@id/framelayoutOnboardingStepIcon"
             app:layout_constraintTop_toBottomOf="@id/textviewOnboardingStepTitle"
-            tools:text="Save your first customer record." />
+            app:layout_constraintVertical_bias="0"
+            tools:text="Save your first customer on the Customers tab." />
 
         <TextView
             android:id="@+id/textviewOnboardingStepStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_small"
             android:background="@drawable/bg_onboarding_status_todo"
             android:drawablePadding="@dimen/spacing_xs"
-            android:gravity="center_vertical"
+            android:gravity="center"
+            android:minHeight="32dp"
+            android:minWidth="56dp"
             android:paddingHorizontal="@dimen/spacing_small"
-            android:paddingVertical="@dimen/spacing_xs"
+            android:paddingVertical="@dimen/spacing_small"
             android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
             android:textColor="@color/primary"
             android:textStyle="bold"

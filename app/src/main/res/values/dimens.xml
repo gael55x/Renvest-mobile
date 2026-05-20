@@ -22,7 +22,10 @@
     <dimen name="header_icon_size">40dp</dimen>
 
     <dimen name="onboarding_step_icon_size">48dp</dimen>
-    <dimen name="onboarding_step_min_height">72dp</dimen>
+    <dimen name="onboarding_step_min_height">88dp</dimen>
+    <dimen name="onboarding_step_padding_horizontal">20dp</dimen>
+    <dimen name="onboarding_step_padding_vertical">18dp</dimen>
+    <dimen name="onboarding_step_gap">20dp</dimen>
     <dimen name="onboarding_step_stroke_done">2dp</dimen>
     <dimen name="onboarding_step_stroke_todo">1dp</dimen>
 </resources>

@@ -14,10 +14,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textinputPromoTitle"
-            style="@style/Widget.Renvest.TextInputLayout"
+            style="@style/Widget.Renvest.TextInput.Dialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/dialog_promotion_title_hint">
+            android:hint="@string/dialog_promotion_title_hint"
+            app:placeholderText="@string/dialog_promotion_title_placeholder"
+            app:startIconDrawable="@drawable/ic_promo_star_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittextPromoTitle"
@@ -29,11 +31,13 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textinputPromoReward"
-            style="@style/Widget.Renvest.TextInputLayout"
+            style="@style/Widget.Renvest.TextInput.Dialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_field"
-            android:hint="@string/dialog_promotion_reward_hint">
+            android:hint="@string/dialog_promotion_reward_hint"
+            app:placeholderText="@string/dialog_promotion_reward_placeholder"
+            app:startIconDrawable="@drawable/ic_card_gift_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittextPromoReward"
@@ -45,18 +49,20 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textinputPromoExpiry"
-            style="@style/Widget.Renvest.TextInputLayout"
+            style="@style/Widget.Renvest.TextInput.Dialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_field"
-            android:hint="@string/dialog_promotion_expiry_hint">
+            android:hint="@string/dialog_promotion_expiry_hint"
+            app:placeholderText="@string/dialog_promotion_expiry_placeholder"
+            app:startIconDrawable="@drawable/ic_calendar_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittextPromoExpiry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:maxLines="2" />
+                android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 </ScrollView>

@@ -22,7 +22,8 @@
             android:id="@+id/spinnerActivityType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xs" />
+            android:layout_marginTop="@dimen/spacing_xs"
+            android:minHeight="48dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -35,15 +36,17 @@
             android:id="@+id/spinnerActivityCustomer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xs" />
+            android:layout_marginTop="@dimen/spacing_xs"
+            android:minHeight="48dp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textinputActivityTitle"
-            style="@style/Widget.Renvest.TextInput.Outlined"
+            style="@style/Widget.Renvest.TextInput.Dialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_field"
-            app:placeholderText="@string/dialog_activity_title_hint"
+            android:hint="@string/dialog_activity_title_hint"
+            app:placeholderText="@string/dialog_activity_title_placeholder"
             app:startIconDrawable="@drawable/ic_notifications_24">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -56,11 +59,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textinputActivitySubtitle"
-            style="@style/Widget.Renvest.TextInput.Outlined"
+            style="@style/Widget.Renvest.TextInput.Dialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_field"
-            app:placeholderText="@string/dialog_activity_subtitle_hint"
+            android:hint="@string/dialog_activity_subtitle_hint"
+            app:placeholderText="@string/dialog_activity_subtitle_placeholder"
             app:startIconDrawable="@drawable/ic_edit_24">
 
             <com.google.android.material.textfield.TextInputEditText
