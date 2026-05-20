@@ -37,6 +37,26 @@ class AuthStore(
     fun getBusinessLocation(context: Context): String =
         session(context).getString(KEY_BUSINESS_LOCATION, "").orEmpty()
 
+    fun getLoyaltyRewardThreshold(context: Context): Int =
+        session(context).getInt(KEY_LOYALTY_REWARD_THRESHOLD, 0)
+
+    fun getLoyaltyPointsMode(context: Context): String =
+        session(context).getString(KEY_LOYALTY_POINTS_MODE, "").orEmpty()
+
+    fun updateLoyaltyRewardThreshold(context: Context, points: Int): RenvestResult<Unit> {
+        session(context).edit()
+            .putInt(KEY_LOYALTY_REWARD_THRESHOLD, points)
+            .apply()
+        return RenvestResult.Ok(Unit)
+    }
+
+    fun updateLoyaltyPointsMode(context: Context, mode: String): RenvestResult<Unit> {
+        session(context).edit()
+            .putString(KEY_LOYALTY_POINTS_MODE, mode)
+            .apply()
+        return RenvestResult.Ok(Unit)
+    }
+
     fun signInWithEmail(context: Context, email: String, password: String): RenvestResult<Unit> {
         val prefs = session(context)
         val storedEmail = prefs.getString(KEY_EMAIL, "").orEmpty()
@@ -130,6 +150,8 @@ class AuthStore(
         private const val KEY_EMAIL = "email"
         private const val KEY_BUSINESS_TYPE = "business_type"
         private const val KEY_BUSINESS_LOCATION = "business_location"
+        private const val KEY_LOYALTY_REWARD_THRESHOLD = "loyalty_reward_threshold"
+        private const val KEY_LOYALTY_POINTS_MODE = "loyalty_points_mode"
         private const val KEY_PASSWORD_SALT = "password_salt"
         private const val KEY_PASSWORD_HASH = "password_hash"
         const val KEY_ONBOARDING_COMPLETE = "onboarding_complete"

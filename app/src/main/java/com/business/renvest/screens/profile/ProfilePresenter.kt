@@ -26,6 +26,10 @@ class ProfilePresenter(
         val owner = model.getOwnerName(context).trim()
         val ownerLine = if (owner.isNotEmpty()) owner else ""
         view.bindProfile(business, model.initialsFromName(business), emailDisplay, ownerLine)
+        view.bindLoyaltySettings(
+            thresholdLabel = model.loyaltyThresholdDisplay(context),
+            pointsModeLabel = model.loyaltyPointsModeDisplay(context),
+        )
         scope.launch {
             val counts = withContext(Dispatchers.IO) { model.localDataCounts() }
             val notRecorded = context.getString(R.string.metric_not_recorded)
@@ -40,19 +44,9 @@ class ProfilePresenter(
         }
     }
 
-    override fun onLogoutClicked() {
-        view.showLogoutDialog()
-    }
-
-    override fun onLogoutConfirmed(context: Context, clearLocalData: Boolean) {
+    override fun onLogoutClicked(context: Context) {
         scope.launch {
-            val result = withContext(Dispatchers.IO) {
-                if (clearLocalData) {
-                    model.clearSessionAndLocalData(context)
-                } else {
-                    model.clearSession(context)
-                }
-            }
+            val result = withContext(Dispatchers.IO) { model.clearSession(context) }
             withContext(Dispatchers.Main) {
                 when (result) {
                     is RenvestResult.Ok -> view.navigateToLoginClearTask()
@@ -99,7 +93,66 @@ class ProfilePresenter(
         }
     }
 
+    override fun onLoyaltyThresholdClicked(context: Context) {
+        view.showLoyaltyThresholdDialog(model.getLoyaltyRewardThreshold(context)) { raw ->
+            onLoyaltyThresholdSubmitted(context, raw)
+        }
+    }
+
+    override fun onLoyaltyThresholdSubmitted(context: Context, rawPoints: String) {
+        scope.launch {
+            val result = withContext(Dispatchers.IO) {
+                model.updateLoyaltyRewardThreshold(context, rawPoints)
+            }
+            withContext(Dispatchers.Main) {
+                when (result) {
+                    is RenvestResult.Ok -> {
+                        view.bindLoyaltySettings(
+                            thresholdLabel = model.loyaltyThresholdDisplay(context),
+                            pointsModeLabel = model.loyaltyPointsModeDisplay(context),
+                        )
+                        view.showToast(context.getString(R.string.profile_loyalty_saved))
+                    }
+                    else -> result.notifyErrorIfNotOk { view.showToast(it) }
+                }
+            }
+        }
+    }
+
+    override fun onLoyaltyPointsModeClicked(context: Context) {
+        val options = LoyaltyPointsMode.ALL.map { modeLabel(context, it) }.toTypedArray()
+        val checkedIndex = LoyaltyPointsMode.ALL.indexOf(model.getLoyaltyPointsMode(context))
+        view.showLoyaltyPointsModeDialog(checkedIndex, options) { index ->
+            onLoyaltyPointsModeSelected(context, LoyaltyPointsMode.ALL[index])
+        }
+    }
+
+    override fun onLoyaltyPointsModeSelected(context: Context, mode: String) {
+        scope.launch {
+            val result = withContext(Dispatchers.IO) { model.updateLoyaltyPointsMode(context, mode) }
+            withContext(Dispatchers.Main) {
+                when (result) {
+                    is RenvestResult.Ok -> {
+                        view.bindLoyaltySettings(
+                            thresholdLabel = model.loyaltyThresholdDisplay(context),
+                            pointsModeLabel = model.loyaltyPointsModeDisplay(context),
+                        )
+                        view.showToast(context.getString(R.string.profile_loyalty_saved))
+                    }
+                    else -> result.notifyErrorIfNotOk { view.showToast(it) }
+                }
+            }
+        }
+    }
+
     override fun onSettingsStubClicked() {
         view.showComingSoon()
+    }
+
+    private fun modeLabel(context: Context, mode: String): String = when (mode) {
+        LoyaltyPointsMode.PER_VISIT -> context.getString(R.string.loyalty_mode_per_visit)
+        LoyaltyPointsMode.PER_SPEND -> context.getString(R.string.loyalty_mode_per_spend)
+        LoyaltyPointsMode.MANUAL -> context.getString(R.string.loyalty_mode_manual)
+        else -> mode
     }
 }

@@ -9,8 +9,10 @@ interface ProfileContract {
         fun setupBottomNav(@IdRes selectedItemId: Int, activityBadgeCount: Int)
         fun bindProfile(businessName: String, initials: String, emailDisplay: String, ownerLine: String)
         fun bindProfileLiveStats(members: String, returnOrPlaceholder: String, activePromotions: String)
+        fun bindLoyaltySettings(thresholdLabel: String, pointsModeLabel: String)
+        fun showLoyaltyThresholdDialog(currentPoints: Int, onSubmit: (String) -> Unit)
+        fun showLoyaltyPointsModeDialog(checkedIndex: Int, options: Array<String>, onSelected: (Int) -> Unit)
         fun showLocalDataDisclaimer()
-        fun showLogoutDialog()
         fun showEditBusinessDialog(
             businessName: String,
             businessType: String,
@@ -25,11 +27,14 @@ interface ProfileContract {
 
     interface Presenter {
         fun onViewReady(context: Context)
-        fun onLogoutClicked()
-        fun onLogoutConfirmed(context: Context, clearLocalData: Boolean)
+        fun onLogoutClicked(context: Context)
         fun onExportClicked(context: Context)
         fun onEditBusinessClicked(context: Context)
         fun onEditBusinessSubmitted(context: Context, name: String, type: String, location: String)
+        fun onLoyaltyThresholdClicked(context: Context)
+        fun onLoyaltyThresholdSubmitted(context: Context, rawPoints: String)
+        fun onLoyaltyPointsModeClicked(context: Context)
+        fun onLoyaltyPointsModeSelected(context: Context, mode: String)
         fun onSettingsStubClicked()
     }
 }

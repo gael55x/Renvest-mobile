@@ -590,16 +590,18 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/textviewProfileLoyaltyThresholdChip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/spacing_xs"
                             android:background="@drawable/bg_badge_promo_active"
                             android:paddingHorizontal="@dimen/spacing_small"
                             android:paddingVertical="@dimen/spacing_xs"
-                            android:text="@string/profile_loyalty_threshold_chip"
+                            android:text="@string/profile_value_not_set"
                             android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                             android:textColor="@color/primary"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:text="100 pts" />
 
                         <ImageView
                             android:layout_width="@dimen/grid_3"
@@ -662,16 +664,18 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/textviewProfileLoyaltyPointsModeChip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/spacing_xs"
                             android:background="@drawable/bg_badge_silver"
                             android:paddingHorizontal="@dimen/spacing_small"
                             android:paddingVertical="@dimen/spacing_xs"
-                            android:text="@string/profile_loyalty_mode_chip"
+                            android:text="@string/profile_value_not_set"
                             android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                             android:textColor="@color/badge_silver_text"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:text="Per visit" />
 
                         <ImageView
                             android:layout_width="@dimen/grid_3"

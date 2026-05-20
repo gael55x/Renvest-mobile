@@ -44,18 +44,23 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View {
             presenter.onEditBusinessClicked(this)
         }
 
+        findViewById<View>(R.id.rowLoyaltyThreshold).setOnClickListener {
+            presenter.onLoyaltyThresholdClicked(this)
+        }
+        findViewById<View>(R.id.rowLoyaltyPointsMode).setOnClickListener {
+            presenter.onLoyaltyPointsModeClicked(this)
+        }
+
         val stub = View.OnClickListener { presenter.onSettingsStubClicked() }
         setClickListeners(
             stub,
             R.id.rowSettingsBusinessType,
             R.id.rowSettingsEmail,
             R.id.rowSettingsLocation,
-            R.id.rowLoyaltyThreshold,
-            R.id.rowLoyaltyPointsMode,
         )
 
         findViewById<MaterialButton>(R.id.buttonLogout).setOnClickListener {
-            presenter.onLogoutClicked()
+            presenter.onLogoutClicked(this)
         }
     }
 
@@ -84,28 +89,43 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View {
         setTextViewText(R.id.textviewProfileStatPromos, activePromotions)
     }
 
-    override fun showLocalDataDisclaimer() = Unit
+    override fun bindLoyaltySettings(thresholdLabel: String, pointsModeLabel: String) {
+        setTextViewText(R.id.textviewProfileLoyaltyThresholdChip, thresholdLabel)
+        setTextViewText(R.id.textviewProfileLoyaltyPointsModeChip, pointsModeLabel)
+    }
 
-    override fun showLogoutDialog() {
+    override fun showLoyaltyThresholdDialog(currentPoints: Int, onSubmit: (String) -> Unit) {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_loyalty_threshold, null, false)
+        val input = dialogView.findViewById<TextInputEditText>(R.id.edittextLoyaltyThreshold)
+        if (currentPoints > 0) {
+            input.setText(currentPoints.toString())
+        }
         MaterialAlertDialogBuilder(this)
-            .setTitle(R.string.dialog_logout_title)
-            .setMessage(R.string.dialog_logout_message)
-            .setNegativeButton(R.string.logout_keep_data, null)
-            .setNeutralButton(android.R.string.cancel, null)
-            .setPositiveButton(R.string.logout_clear_data) { _, _ ->
-                presenter.onLogoutConfirmed(this, clearLocalData = true)
-            }
-            .create()
-            .apply {
-                setOnShowListener {
-                    getButton(android.app.AlertDialog.BUTTON_NEGATIVE)?.setOnClickListener {
-                        presenter.onLogoutConfirmed(this@ProfileActivity, clearLocalData = false)
-                        dismiss()
-                    }
-                }
+            .setTitle(R.string.dialog_loyalty_threshold_title)
+            .setView(dialogView)
+            .setNegativeButton(android.R.string.cancel, null)
+            .setPositiveButton(R.string.action_save) { _, _ ->
+                onSubmit(input.text?.toString().orEmpty())
             }
             .show()
     }
+
+    override fun showLoyaltyPointsModeDialog(
+        checkedIndex: Int,
+        options: Array<String>,
+        onSelected: (Int) -> Unit,
+    ) {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.dialog_loyalty_points_mode_title)
+            .setSingleChoiceItems(options, checkedIndex) { dialog, which ->
+                onSelected(which)
+                dialog.dismiss()
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
+    override fun showLocalDataDisclaimer() = Unit
 
     override fun showEditBusinessDialog(
         businessName: String,
