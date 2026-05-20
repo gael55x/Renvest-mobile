@@ -1,8 +1,6 @@
 package com.business.renvest.screens.loyalty
 
 import android.os.Bundle
-import android.view.View
-import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -12,29 +10,27 @@ import androidx.recyclerview.widget.RecyclerView
 import com.business.renvest.R
 import com.business.renvest.utils.authStore
 import com.business.renvest.utils.renvestDb
+import com.business.renvest.utils.setupMainBottomNavigation
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.toast
-import com.business.renvest.utils.valueText
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 
 class LoyaltyActivity : AppCompatActivity(), LoyaltyContract.View {
 
     private lateinit var presenter: LoyaltyPresenter
-    private lateinit var remindersAdapter: LoyaltyRemindersListAdapter
     private lateinit var programsAdapter: LoyaltyProgramsAdapter
-    private lateinit var listviewLoyaltyReminders: ListView
+    private lateinit var remindersAdapter: LoyaltyRemindersAdapter
     private lateinit var textviewEmptyPrograms: TextView
+    private lateinit var textviewEmptyReminders: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_loyalty, R.id.root)
 
-        listviewLoyaltyReminders = findViewById(R.id.listviewLoyaltyReminders)
-        listviewLoyaltyReminders.emptyView = findViewById(R.id.textviewEmptyReminders)
         textviewEmptyPrograms = findViewById(R.id.textviewEmptyPrograms)
+        textviewEmptyReminders = findViewById(R.id.textviewEmptyReminders)
 
         programsAdapter = LoyaltyProgramsAdapter { position ->
             presenter.onProgramLongClicked(this, position)
@@ -44,29 +40,32 @@ class LoyaltyActivity : AppCompatActivity(), LoyaltyContract.View {
             adapter = programsAdapter
         }
 
+        remindersAdapter = LoyaltyRemindersAdapter(
+            onClick = { position -> presenter.onReminderClicked(this, position) },
+            onLongClick = { position -> presenter.onReminderLongClicked(this, position) },
+        )
+        findViewById<RecyclerView>(R.id.recyclerviewLoyaltyReminders).apply {
+            layoutManager = LinearLayoutManager(this@LoyaltyActivity)
+            adapter = remindersAdapter
+        }
+
         presenter = LoyaltyPresenter(this, LoyaltyModel(authStore(), renvestDb()), lifecycleScope)
         presenter.onViewReady(this)
-
-        listviewLoyaltyReminders.setOnItemClickListener { _, _, position, _ ->
-            presenter.onReminderClicked(this, position)
-        }
-        listviewLoyaltyReminders.setOnItemLongClickListener { _, _, position, _ ->
-            presenter.onReminderLongClicked(this, position)
-        }
 
         findViewById<MaterialButton>(R.id.buttonAddProgram).setOnClickListener {
             presenter.onAddProgramClicked(this)
         }
-
-        val textinputReminderLayout = findViewById<TextInputLayout>(R.id.textinputReminderLayout)
         findViewById<MaterialButton>(R.id.buttonAddReminder).setOnClickListener {
-            presenter.onAddReminderClicked(this, textinputReminderLayout.valueText(trim = false))
-            textinputReminderLayout.editText?.text?.clear()
+            presenter.onAddReminderClicked(this)
         }
     }
 
-    override fun setScreenTitle(titleResId: Int) {
-        findViewById<TextView>(R.id.textviewStubTitle).setText(titleResId)
+    override fun setupBottomNav(selectedItemId: Int, activityBadgeCount: Int) {
+        setupMainBottomNavigation(selectedItemId, activityBadgeCount, clearTabSelection = true)
+    }
+
+    override fun bindHeader(businessName: String) {
+        findViewById<TextView>(R.id.textviewHeaderBusiness).text = businessName
     }
 
     override fun bindProgramsList(items: List<LoyaltyProgramRow>) {
@@ -77,13 +76,12 @@ class LoyaltyActivity : AppCompatActivity(), LoyaltyContract.View {
         textviewEmptyPrograms.isVisible = visible
     }
 
-    override fun bindRemindersList(items: ArrayList<LoyaltyReminderRow>) {
-        remindersAdapter = LoyaltyRemindersListAdapter(this, items)
-        listviewLoyaltyReminders.adapter = remindersAdapter
+    override fun bindRemindersList(items: List<LoyaltyReminderRow>) {
+        remindersAdapter.submitList(items)
     }
 
-    override fun refreshRemindersList() {
-        remindersAdapter.notifyDataSetChanged()
+    override fun setRemindersEmptyVisible(visible: Boolean) {
+        textviewEmptyReminders.isVisible = visible
     }
 
     override fun showMessage(message: String) {
@@ -106,6 +104,19 @@ class LoyaltyActivity : AppCompatActivity(), LoyaltyContract.View {
                     visits,
                     rewardField.text?.toString().orEmpty(),
                 )
+            }
+            .show()
+    }
+
+    override fun showAddReminderDialog(onSubmit: (String) -> Unit) {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_add_loyalty_reminder, null, false)
+        val titleField = dialogView.findViewById<TextInputEditText>(R.id.edittextReminderTitle)
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.dialog_add_loyalty_reminder_title)
+            .setView(dialogView)
+            .setNegativeButton(android.R.string.cancel, null)
+            .setPositiveButton(R.string.action_save) { _, _ ->
+                onSubmit(titleField.text?.toString().orEmpty())
             }
             .show()
     }

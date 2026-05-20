@@ -1,19 +1,20 @@
 package com.business.renvest.utils
 
+import android.content.Intent
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import com.business.renvest.R
 import com.business.renvest.data.local.localDataCounts
 import com.business.renvest.screens.activityfeed.ActivityFeedActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import com.business.renvest.screens.customers.CustomersActivity
 import com.business.renvest.screens.dashboard.DashboardActivity
 import com.business.renvest.screens.profile.ProfileActivity
 import com.business.renvest.screens.promotions.PromotionsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 fun AppCompatActivity.setupMainBottomNavigation(
     @IdRes selectedItemId: Int,
@@ -27,9 +28,18 @@ fun AppCompatActivity.setupMainBottomNavigation(
     }
 }
 
-fun AppCompatActivity.setupMainBottomNavigation(@IdRes selectedItemId: Int, activityBadgeCount: Int) {
+fun AppCompatActivity.setupMainBottomNavigation(
+    @IdRes selectedItemId: Int,
+    activityBadgeCount: Int,
+    clearTabSelection: Boolean = false,
+) {
     val bottomnavigationMain = findViewById<BottomNavigationView>(R.id.bottomnavigationMain)
-    bottomnavigationMain.selectedItemId = selectedItemId
+    if (clearTabSelection) {
+        bottomnavigationMain.menu.setGroupCheckable(0, true, false)
+    } else {
+        bottomnavigationMain.menu.setGroupCheckable(0, true, true)
+        bottomnavigationMain.selectedItemId = selectedItemId
+    }
     val badge = bottomnavigationMain.getOrCreateBadge(R.id.navActivity)
     if (activityBadgeCount > 0) {
         badge.isVisible = true
@@ -40,18 +50,19 @@ fun AppCompatActivity.setupMainBottomNavigation(@IdRes selectedItemId: Int, acti
     }
     bottomnavigationMain.setOnItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.navHome -> navigateMainTab(DashboardActivity::class.java, selectedItemId == R.id.navHome)
-            R.id.navCustomers -> navigateMainTab(CustomersActivity::class.java, selectedItemId == R.id.navCustomers)
-            R.id.navPromos -> navigateMainTab(PromotionsActivity::class.java, selectedItemId == R.id.navPromos)
-            R.id.navActivity -> navigateMainTab(ActivityFeedActivity::class.java, selectedItemId == R.id.navActivity)
-            R.id.navProfile -> navigateMainTab(ProfileActivity::class.java, selectedItemId == R.id.navProfile)
+            R.id.navHome -> navigateMainTab(DashboardActivity::class.java)
+            R.id.navCustomers -> navigateMainTab(CustomersActivity::class.java)
+            R.id.navPromos -> navigateMainTab(PromotionsActivity::class.java)
+            R.id.navActivity -> navigateMainTab(ActivityFeedActivity::class.java)
+            R.id.navProfile -> navigateMainTab(ProfileActivity::class.java)
             else -> false
         }
     }
 }
 
-private fun AppCompatActivity.navigateMainTab(target: Class<*>, alreadySelected: Boolean): Boolean {
-    if (alreadySelected) return true
-    startActivity(target)
+private fun AppCompatActivity.navigateMainTab(target: Class<*>): Boolean {
+    if (this::class.java == target) return true
+    startActivity(Intent(this, target))
+    finish()
     return true
 }

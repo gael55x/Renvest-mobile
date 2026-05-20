@@ -40,22 +40,27 @@
             android:exported="false" />
         <activity
             android:name=".screens.dashboard.DashboardActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleTask" />
         <activity
             android:name=".screens.profile.ProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleTask" />
         <activity
             android:name=".screens.loyalty.LoyaltyActivity"
             android:exported="false" />
         <activity
             android:name=".screens.promotions.PromotionsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleTask" />
         <activity
             android:name=".screens.customers.CustomersActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleTask" />
         <activity
             android:name=".screens.activityfeed.ActivityFeedActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleTask" />
         <activity
             android:name=".screens.aiadvisor.AiEngagementAdvisorActivity"
             android:exported="false" />

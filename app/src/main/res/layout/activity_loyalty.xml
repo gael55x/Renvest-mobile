@@ -1,108 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?android:attr/colorBackground"
-    android:clipToPadding="false"
-    android:fillViewport="true"
-    android:paddingHorizontal="@dimen/padding_screen_horizontal"
-    android:paddingTop="@dimen/padding_screen_vertical"
-    android:paddingBottom="@dimen/padding_screen_vertical">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/padding_screen_horizontal"
+        android:paddingTop="@dimen/padding_screen_vertical"
+        android:paddingBottom="@dimen/spacing_field">
 
-        <TextView
-            android:id="@+id/textviewStubTitle"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.Renvest.ScreenTitle.Form" />
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_section"
-            android:text="@string/loyalty_programs_section"
-            android:textAppearance="@style/TextAppearance.Renvest.SectionTitle" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerviewLoyaltyPrograms"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_field"
-            android:nestedScrollingEnabled="false" />
-
-        <TextView
-            android:id="@+id/textviewEmptyPrograms"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_field"
-            android:gravity="center"
-            android:text="@string/empty_state_loyalty_programs"
-            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-            android:visibility="gone" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonAddProgram"
-            style="@style/Widget.Renvest.Button.Outlined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_field"
-            android:text="@string/loyalty_program_add" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_section"
-            android:text="@string/loyalty_reminders_section"
-            android:textAppearance="@style/TextAppearance.Renvest.SectionTitle" />
-
-        <ListView
-            android:id="@+id/listviewLoyaltyReminders"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="@dimen/spacing_field"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="@dimen/spacing_xs"
-            android:nestedScrollingEnabled="false" />
-
-        <TextView
-            android:id="@+id/textviewEmptyReminders"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="@dimen/spacing_field"
-            android:text="@string/empty_state_loyalty_reminders"
-            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-            android:textColor="?attr/colorOnSurfaceVariant" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textinputReminderLayout"
-            style="@style/Widget.Renvest.TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_field"
-            android:hint="@string/loyalty_reminder_hint"
-            app:placeholderText="@string/loyalty_reminder_placeholder">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edittextNewReminder"
+            <TextView
+                android:id="@+id/textviewHeaderBusiness"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapSentences"
-                android:maxLines="2" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:textAppearance="@style/TextAppearance.Renvest.Caption"
+                tools:text="@string/default_business_display" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonAddReminder"
-            style="@style/Widget.Renvest.Button.Primary"
+            <TextView
+                android:id="@+id/textviewScreenTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xs"
+                android:text="@string/loyalty_screen_title"
+                android:textAppearance="@style/TextAppearance.Renvest.SectionTitle" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xs"
+                android:text="@string/loyalty_screen_subtitle"
+                android:textAppearance="@style/TextAppearance.Renvest.Body" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:overScrollMode="ifContentScrolls"
+        android:paddingHorizontal="@dimen/padding_screen_horizontal"
+        android:paddingBottom="@dimen/spacing_field">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_field"
-            android:text="@string/loyalty_reminder_add" />
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Renvest.StatCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_field">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/loyalty_programs_section"
+                            android:textAppearance="@style/TextAppearance.Renvest.SectionTitle" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/buttonAddProgram"
+                            style="@style/Widget.Renvest.Button.SmallPrimaryOutlined"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/action_add"
+                            app:icon="@drawable/ic_add_24"
+                            app:iconGravity="textStart"
+                            app:iconPadding="@dimen/spacing_xs" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textviewEmptyPrograms"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_field"
+                        android:gravity="center"
+                        android:text="@string/empty_state_loyalty_programs"
+                        android:textAppearance="@style/TextAppearance.Renvest.Body"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:visibility="gone" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerviewLoyaltyPrograms"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_field"
+                        android:nestedScrollingEnabled="false"
+                        tools:itemCount="1"
+                        tools:listitem="@layout/item_loyalty_program_row" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Renvest.StatCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_field">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_field">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/loyalty_reminders_section"
+                            android:textAppearance="@style/TextAppearance.Renvest.SectionTitle" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/buttonAddReminder"
+                            style="@style/Widget.Renvest.Button.SmallPrimaryOutlined"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/action_add"
+                            app:icon="@drawable/ic_add_24"
+                            app:iconGravity="textStart"
+                            app:iconPadding="@dimen/spacing_xs" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textviewEmptyReminders"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_field"
+                        android:gravity="center"
+                        android:text="@string/empty_state_loyalty_reminders"
+                        android:textAppearance="@style/TextAppearance.Renvest.Body"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:visibility="gone" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerviewLoyaltyReminders"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_field"
+                        android:nestedScrollingEnabled="false"
+                        tools:itemCount="1"
+                        tools:listitem="@layout/item_loyalty_reminder_row" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_field"
+                android:gravity="center_horizontal"
+                android:text="@string/loyalty_screen_hint"
+                android:textAppearance="@style/TextAppearance.Renvest.Caption" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomnavigationMain"
+        style="@style/Widget.Renvest.BottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemIconTint="@color/bottom_nav_selector"
+        app:itemTextColor="@color/bottom_nav_selector"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/menu_nav_main" />
+</LinearLayout>

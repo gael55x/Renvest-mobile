@@ -107,14 +107,17 @@
     <string name="activity_hero_customers_label">Customers</string>
     <string name="activity_hero_promotions_label">Promotions</string>
 
-    <string name="empty_state_loyalty_reminders">No reminders. Add below.</string>
+    <string name="empty_state_loyalty_reminders">No reminders yet. Tap Add to create one.</string>
 
     <string name="empty_state_promotions">No promos. Tap New Promo.</string>
-    <string name="empty_state_loyalty_programs">No programs. Tap Add program.</string>
+    <string name="empty_state_loyalty_programs">No programs yet. Tap Add to create one.</string>
 
     <string name="loyalty_reminder_hint">Reminder title</string>
     <string name="loyalty_reminder_placeholder">e.g. Send birthday offer</string>
     <string name="loyalty_reminder_add">Add reminder</string>
+    <string name="loyalty_reminder_added">Reminder saved</string>
+    <string name="loyalty_reminder_row_subtitle">Tap to view · long-press to remove</string>
+    <string name="dialog_add_loyalty_reminder_title">New reminder</string>
     <string name="loyalty_reminder_empty_error">Enter a reminder title.</string>
     <string name="loyalty_reminder_item_click_format">%1$s\n%2$s</string>
     <string name="loyalty_reminder_removed_format">Removed: %1$s</string>
@@ -123,7 +126,9 @@
     <string name="feature_activity_title">Activity</string>
     <string name="feature_stub_body">This area is coming soon. You will manage loyalty, promotions, and customers here.</string>
 
-    <string name="loyalty_screen_title">Loyalty Management</string>
+    <string name="loyalty_screen_title">Loyalty</string>
+    <string name="loyalty_screen_subtitle">Programs and reminders for your shop</string>
+    <string name="loyalty_screen_hint">Long-press a row to remove it</string>
     <string name="promo_screen_title">Promotion Management</string>
     <string name="activity_feed_screen_title">Customer Activity</string>
     <string name="action_add">Add</string>
@@ -238,6 +243,8 @@
     <string name="profile_settings_location">Business Location</string>
     <string name="profile_settings_business_type_value">Not set</string>
     <string name="profile_settings_location_value">Not set</string>
+    <string name="profile_loyalty_programs">Programs &amp; reminders</string>
+    <string name="profile_loyalty_programs_sub">Stamp cards and follow-up notes</string>
     <string name="profile_loyalty_reward_threshold">Reward Threshold</string>
     <string name="profile_loyalty_reward_sub">Points needed to unlock reward</string>
     <string name="profile_loyalty_points_mode">Points Mode</string>

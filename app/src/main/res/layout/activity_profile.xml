@@ -547,6 +547,66 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/rowLoyaltyPrograms"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/spacing_field">
+
+                        <FrameLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@color/perf_icon_bg_star">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@null"
+                                app:srcCompat="@drawable/ic_card_gift_24"
+                                app:tint="@color/badge_gold_text" />
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/spacing_field"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/profile_loyalty_programs"
+                                android:textAppearance="@style/TextAppearance.Renvest.SectionTitle"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="@string/profile_loyalty_programs_sub"
+                                android:textAppearance="@style/TextAppearance.Renvest.Caption" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="@dimen/grid_3"
+                            android:layout_height="@dimen/grid_3"
+                            android:contentDescription="@null"
+                            app:srcCompat="@drawable/ic_chevron_right_24"
+                            app:tint="@color/text_secondary" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/outline_soft" />
+
+                    <LinearLayout
                         android:id="@+id/rowLoyaltyThreshold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

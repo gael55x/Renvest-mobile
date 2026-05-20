@@ -1,9 +1,9 @@
 package com.business.renvest.screens.loyalty
 
 import android.content.Context
-import androidx.annotation.StringRes
 import com.business.renvest.R
 import com.business.renvest.data.local.RenvestDatabase
+import com.business.renvest.data.local.localDataCounts
 import com.business.renvest.data.local.entity.LoyaltyProgramEntity
 import com.business.renvest.data.local.entity.LoyaltyReminderEntity
 import com.business.renvest.data.local.logActivity
@@ -18,14 +18,15 @@ class LoyaltyModel(
     private val reminderDao get() = db.loyaltyReminderDao()
     private val programDao get() = db.loyaltyProgramDao()
 
-    @StringRes
-    fun screenTitleRes(): Int = R.string.loyalty_screen_title
+    fun businessDisplayName(context: Context): String = authStore.businessDisplayName(context)
+
+    fun activityBadgeCount(): Int = db.localDataCounts().activityEvents
 
     fun programsSnapshot(): List<LoyaltyProgramRow> =
         programDao.listAll().map { it.toProgramRow() }
 
-    fun remindersSnapshot(): ArrayList<LoyaltyReminderRow> =
-        ArrayList(reminderDao.listAll().map { it.toRow() })
+    fun remindersSnapshot(): List<LoyaltyReminderRow> =
+        reminderDao.listAll().map { it.toRow() }
 
     fun reminderAt(index: Int): LoyaltyReminderRow? =
         reminderDao.listAll().getOrNull(index)?.toRow()
@@ -55,7 +56,7 @@ class LoyaltyModel(
         return entity.toProgramRow()
     }
 
-    fun addReminderFromTitle(raw: String): Boolean {
+    fun addReminderFromTitle(context: Context, raw: String): Boolean {
         val title = raw.trim()
         if (title.isEmpty()) return false
         val now = System.currentTimeMillis()
@@ -63,7 +64,7 @@ class LoyaltyModel(
             LoyaltyReminderEntity(
                 id = UUID.randomUUID().toString(),
                 title = title,
-                subtitle = NEW_REMINDER_SUBTITLE,
+                subtitle = context.getString(R.string.loyalty_reminder_row_subtitle),
                 createdAt = now,
                 updatedAt = now,
             ),
@@ -92,7 +93,4 @@ class LoyaltyModel(
     private fun LoyaltyReminderEntity.toRow(): LoyaltyReminderRow =
         LoyaltyReminderRow(id = id, title = title, subtitle = subtitle)
 
-    companion object {
-        private const val NEW_REMINDER_SUBTITLE = "Long-press to remove"
-    }
 }

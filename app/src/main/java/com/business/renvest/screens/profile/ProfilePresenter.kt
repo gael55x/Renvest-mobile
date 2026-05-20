@@ -78,6 +78,10 @@ class ProfilePresenter(
         openBusinessEditDialog(context, BusinessEditField.NAME)
     }
 
+    override fun onLoyaltyProgramsClicked(context: Context) {
+        view.navigateToLoyalty()
+    }
+
     override fun onEditBusinessSubmitted(context: Context, name: String, type: String, location: String) {
         scope.launch {
             val result = withContext(Dispatchers.IO) {

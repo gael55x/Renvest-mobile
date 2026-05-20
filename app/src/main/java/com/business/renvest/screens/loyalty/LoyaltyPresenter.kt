@@ -14,7 +14,14 @@ class LoyaltyPresenter(
 ) : LoyaltyContract.Presenter {
 
     override fun onViewReady(context: Context) {
+        view.bindHeader(model.businessDisplayName(context))
         bindScreen(context)
+        scope.launch {
+            val badge = withContext(Dispatchers.IO) { model.activityBadgeCount() }
+            withContext(Dispatchers.Main) {
+                view.setupBottomNav(R.id.navHome, badge)
+            }
+        }
     }
 
     override fun onAddProgramClicked(context: Context) {
@@ -79,21 +86,27 @@ class LoyaltyPresenter(
         return true
     }
 
-    override fun onAddReminderClicked(context: Context, rawTitle: String) {
+    override fun onAddReminderClicked(context: Context) {
+        view.showAddReminderDialog { title ->
+            onAddReminderSubmitted(context, title)
+        }
+    }
+
+    override fun onAddReminderSubmitted(context: Context, rawTitle: String) {
         scope.launch {
-            val ok = withContext(Dispatchers.IO) { model.addReminderFromTitle(rawTitle) }
+            val ok = withContext(Dispatchers.IO) { model.addReminderFromTitle(context, rawTitle) }
             withContext(Dispatchers.Main) {
                 if (!ok) {
                     view.showMessage(context.getString(R.string.loyalty_reminder_empty_error))
                     return@withContext
                 }
                 bindReminders(context)
+                view.showMessage(context.getString(R.string.loyalty_reminder_added))
             }
         }
     }
 
     private fun bindScreen(context: Context) {
-        view.setScreenTitle(model.screenTitleRes())
         scope.launch {
             val programs = withContext(Dispatchers.IO) { model.programsSnapshot() }
             val reminders = withContext(Dispatchers.IO) { model.remindersSnapshot() }
@@ -101,6 +114,7 @@ class LoyaltyPresenter(
                 view.bindProgramsList(programs)
                 view.setProgramsEmptyVisible(programs.isEmpty())
                 view.bindRemindersList(reminders)
+                view.setRemindersEmptyVisible(reminders.isEmpty())
             }
         }
     }
@@ -110,7 +124,7 @@ class LoyaltyPresenter(
             val reminders = withContext(Dispatchers.IO) { model.remindersSnapshot() }
             withContext(Dispatchers.Main) {
                 view.bindRemindersList(reminders)
-                view.refreshRemindersList()
+                view.setRemindersEmptyVisible(reminders.isEmpty())
             }
         }
     }

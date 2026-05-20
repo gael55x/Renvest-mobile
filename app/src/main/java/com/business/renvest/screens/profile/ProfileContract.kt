@@ -25,6 +25,7 @@ interface ProfileContract {
         fun showComingSoon()
         fun showToast(message: String)
         fun navigateToLoginClearTask()
+        fun navigateToLoyalty()
     }
 
     interface Presenter {
@@ -33,6 +34,7 @@ interface ProfileContract {
         fun onExportClicked(context: Context)
         fun onEditBusinessClicked(context: Context)
         fun onBusinessNameClicked(context: Context)
+        fun onLoyaltyProgramsClicked(context: Context)
         fun onEditBusinessSubmitted(context: Context, name: String, type: String, location: String)
         fun onLoyaltyThresholdClicked(context: Context)
         fun onLoyaltyThresholdSubmitted(context: Context, rawPoints: String)

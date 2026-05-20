@@ -9,12 +9,14 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
 import com.business.renvest.R
 import com.business.renvest.screens.login.LoginActivity
+import com.business.renvest.screens.loyalty.LoyaltyActivity
 import com.business.renvest.utils.authStore
 import com.business.renvest.utils.renvestDb
 import com.business.renvest.utils.setClickListeners
 import com.business.renvest.utils.setTextViewText
 import com.business.renvest.utils.setupMainBottomNavigation
 import com.business.renvest.utils.setupRenvestContent
+import com.business.renvest.utils.startActivity
 import com.business.renvest.utils.startActivityClearTask
 import com.business.renvest.utils.toast
 import com.business.renvest.utils.toastComingSoon
@@ -44,6 +46,9 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View {
             presenter.onBusinessNameClicked(this)
         }
 
+        findViewById<View>(R.id.rowLoyaltyPrograms).setOnClickListener {
+            presenter.onLoyaltyProgramsClicked(this)
+        }
         findViewById<View>(R.id.rowLoyaltyThreshold).setOnClickListener {
             presenter.onLoyaltyThresholdClicked(this)
         }
@@ -207,5 +212,9 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View {
     override fun navigateToLoginClearTask() {
         startActivityClearTask(LoginActivity::class.java)
         finish()
+    }
+
+    override fun navigateToLoyalty() {
+        startActivity(LoyaltyActivity::class.java)
     }
 }
