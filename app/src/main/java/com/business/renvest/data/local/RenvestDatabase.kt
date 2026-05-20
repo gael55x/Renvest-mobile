@@ -15,6 +15,7 @@ import com.business.renvest.data.local.entity.LoyaltyProgramEntity
 import com.business.renvest.data.local.entity.LoyaltyReminderEntity
 import com.business.renvest.data.local.entity.PromotionEntity
 import com.business.renvest.data.local.migration.MIGRATION_1_2
+import com.business.renvest.data.local.migration.MIGRATION_2_3
 
 @Database(
     entities = [
@@ -24,7 +25,7 @@ import com.business.renvest.data.local.migration.MIGRATION_1_2
         CustomerEntity::class,
         ActivityEventEntity::class,
     ],
-    version = 2,
+    version = 3,
     exportSchema = false,
 )
 abstract class RenvestDatabase : RoomDatabase() {
@@ -46,7 +47,7 @@ abstract class RenvestDatabase : RoomDatabase() {
                     RenvestDatabase::class.java,
                     "renvest.db",
                 )
-                    .addMigrations(MIGRATION_1_2)
+                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                     .fallbackToDestructiveMigration()
                     .build()
                     .also { instance = it }

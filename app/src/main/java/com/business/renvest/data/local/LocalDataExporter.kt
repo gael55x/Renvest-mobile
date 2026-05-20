@@ -58,6 +58,7 @@ class LocalDataExporter(private val db: RenvestDatabase) {
                     .put("title", e.title)
                     .put("subtitle", e.subtitle)
                     .put("customerId", e.customerId)
+                    .put("eventType", e.eventType)
                     .put("createdAt", e.createdAt),
             )
         }

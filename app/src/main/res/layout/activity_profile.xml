@@ -159,7 +159,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="@dimen/spacing_xs"
-                                        android:text="@string/profile_status_active_pro"
+                                        android:text="@string/profile_status_mvp"
                                         android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                                         android:textColor="@color/on_dashboard_hero" />
                                 </LinearLayout>

@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_xs"
-                android:text="@string/local_insights_screen_title"
+                android:text="@string/ai_advisor_screen_title"
                 android:textAppearance="@style/TextAppearance.Renvest.SectionTitle" />
         </LinearLayout>
 

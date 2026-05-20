@@ -4,7 +4,9 @@ import android.content.Context
 import com.business.renvest.data.local.LocalDataCounts
 import com.business.renvest.data.local.RenvestDatabase
 import com.business.renvest.data.local.entity.CustomerEntity
+import com.business.renvest.data.local.ActivityEventType
 import com.business.renvest.data.local.logActivity
+import com.business.renvest.data.local.visitProgressForCustomer
 import com.business.renvest.data.local.localDataCounts
 import com.business.renvest.data.repository.AuthStore
 import java.util.UUID
@@ -21,7 +23,15 @@ class CustomersModel(
     fun loadCustomers(searchQuery: String, sortAscending: Boolean): List<CustomerRowUi> {
         val query = searchQuery.trim().lowercase()
         return db.customerDao().listAll()
-            .map { CustomerRowUi(id = it.id, displayName = it.displayName) }
+            .map { entity ->
+                val progress = db.visitProgressForCustomer(entity.id)
+                CustomerRowUi(
+                    id = entity.id,
+                    displayName = entity.displayName,
+                    progressSummary = "${progress.currentVisits}/${progress.visitsRequired} visits",
+                    lastVisitSummary = progress.lastVisitLabel,
+                )
+            }
             .filter { query.isEmpty() || it.displayName.lowercase().contains(query) }
             .let { list -> if (sortAscending) list.sortedBy { it.displayName.lowercase() } else list.sortedByDescending { it.displayName.lowercase() } }
     }
@@ -40,11 +50,17 @@ class CustomersModel(
                 updatedAt = now,
             ),
         )
-        db.logActivity(title = "Customer added", subtitle = name, customerId = id)
+        db.logActivity(
+            title = "Customer added",
+            subtitle = name,
+            customerId = id,
+            eventType = ActivityEventType.SYSTEM,
+        )
         return true
     }
 
     fun removeCustomer(id: String) {
+        db.activityEventDao().deleteByCustomerId(id)
         db.customerDao().deleteById(id)
     }
 

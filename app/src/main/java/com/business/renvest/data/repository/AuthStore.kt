@@ -95,6 +95,10 @@ class AuthStore(
             .putString(KEY_PASSWORD_SALT, salt)
             .putString(KEY_PASSWORD_HASH, hash)
             .putBoolean(KEY_ONBOARDING_COMPLETE, false)
+            .putBoolean(STEP_CUSTOMER, false)
+            .putBoolean(STEP_PROMOTION, false)
+            .putBoolean(STEP_ACTIVITY, false)
+            .putBoolean(STEP_LOYALTY, false)
             .apply()
         return RenvestResult.Ok(Unit)
     }

@@ -5,8 +5,8 @@
 
     <string name="label_email">Email</string>
     <string name="label_password">Passcode</string>
-    <string name="login_hint_username">Username</string>
-    <string name="login_hint_password">Password</string>
+    <string name="login_hint_username">Email</string>
+    <string name="login_hint_password">Passcode</string>
     <string name="register_hint_confirm_password">Confirm password</string>
     <string name="label_business_name">Business name</string>
     <string name="label_owner_name">Owner name</string>
@@ -23,6 +23,7 @@
     <string name="link_register">New here? Register</string>
     <string name="link_already_login">Have an account? Log in</string>
     <string name="error_field_required">Required</string>
+    <string name="error_visit_requires_customer">Select a customer for a visit</string>
     <string name="error_password_mismatch">Passcodes don\'t match</string>
     <string name="error_no_account">Register first</string>
     <string name="error_wrong_email">Wrong email</string>
@@ -37,11 +38,18 @@
     <string name="dashboard_ai_insight_placeholder_title">Summary</string>
     <string name="dashboard_ai_insight_placeholder_body">Add customers, promos, and activity to see counts here.</string>
     <string name="dashboard_ai_insight_summary_format">%1$d customers · %2$d promos · %3$d programs · %4$d reminders · %5$d activity</string>
-    <string name="dashboard_local_insights_title">Summary</string>
-    <string name="dashboard_local_insights_empty_body">Add data to see counts.</string>
-    <string name="local_insights_section_title">Summary</string>
-    <string name="local_insights_badge">RENVEST AI</string>
-    <string name="local_insights_screen_title">Summary</string>
+    <string name="dashboard_local_insights_title">Advisor insights</string>
+    <string name="dashboard_local_insights_empty_body">Add customers and visits to see suggestions.</string>
+    <string name="local_insights_section_title">AI Advisor</string>
+    <string name="local_insights_badge">Insights</string>
+    <string name="local_insights_screen_title">AI Advisor</string>
+    <string name="dashboard_advisor_card_title">Advisor insights</string>
+    <string name="dashboard_advisor_card_empty">Add customers and visits to see suggestions.</string>
+    <string name="dashboard_advisor_view_cta">View insights →</string>
+    <string name="dashboard_hero_visits_week_label">Visits this week</string>
+    <string name="dashboard_visits_this_week_format">%1$d visits logged</string>
+    <string name="dashboard_stat_near_reward_label">Near reward</string>
+    <string name="dashboard_stat_ready_reward_label">Ready for reward</string>
     <string name="perf_loyalty_programs_label">Programs</string>
     <string name="perf_activity_label">Activity</string>
 
@@ -49,20 +57,20 @@
     <string name="greeting_afternoon">Good afternoon</string>
     <string name="greeting_evening">Good evening</string>
 
-    <string name="dashboard_revenue_label">TOTAL REVENUE · THIS MONTH</string>
+    <string name="dashboard_revenue_label">VISITS THIS WEEK</string>
     <string name="dashboard_revenue_value">₱124,830</string>
     <string name="dashboard_revenue_growth">↑ +12.4% vs last month</string>
-    <string name="dashboard_stat_visits_label">Total Visits</string>
+    <string name="dashboard_stat_visits_label">Near reward</string>
     <string name="dashboard_stat_visits_value">1,284</string>
-    <string name="dashboard_stat_members_label">Loyalty Members</string>
+    <string name="dashboard_stat_members_label">Customers</string>
     <string name="dashboard_stat_members_value">347</string>
-    <string name="dashboard_stat_return_label">Return Rate</string>
+    <string name="dashboard_stat_return_label">Ready for reward</string>
     <string name="dashboard_stat_return_value">68%</string>
 
     <string name="perf_section_title">Performance</string>
     <string name="perf_view_report">View Report</string>
     <string name="perf_members_value">347</string>
-    <string name="perf_members_label">Loyalty Members</string>
+    <string name="perf_members_label">Customers</string>
     <string name="perf_members_trend">+24 this week</string>
     <string name="perf_rating_value">4.8</string>
     <string name="perf_rating_label">Avg. Rating</string>
@@ -128,7 +136,7 @@
 
     <string name="loyalty_screen_title">Loyalty</string>
     <string name="loyalty_screen_subtitle">Programs and reminders for your shop</string>
-    <string name="loyalty_screen_hint">Long-press a row to remove it</string>
+    <string name="loyalty_screen_hint">Primary rule used for visit progress. Long-press a row to remove it.</string>
     <string name="promo_screen_title">Promotion Management</string>
     <string name="activity_feed_screen_title">Customer Activity</string>
     <string name="action_add">Add</string>
@@ -339,11 +347,11 @@
     <string name="onboarding_step_customer_title">Add a customer</string>
     <string name="onboarding_step_customer_body">Save your first customer on the Customers tab.</string>
     <string name="onboarding_step_promotion_title">Create a promotion</string>
-    <string name="onboarding_step_promotion_body">Add one promo your team can reuse.</string>
-    <string name="onboarding_step_activity_title">Log activity</string>
-    <string name="onboarding_step_activity_body">Record a visit or points event in Activity.</string>
+    <string name="onboarding_step_promotion_body">Add a promo offer your team can reuse.</string>
+    <string name="onboarding_step_activity_title">Log a visit</string>
+    <string name="onboarding_step_activity_body">Record a customer visit in Activity or on their profile.</string>
     <string name="onboarding_step_loyalty_title">Set up loyalty</string>
-    <string name="onboarding_step_loyalty_body">Create a simple visits-to-reward program.</string>
+    <string name="onboarding_step_loyalty_body">Create your visits-to-reward rule.</string>
 
     <string name="loyalty_programs_section">Loyalty programs</string>
     <string name="loyalty_reminders_section">Reminders</string>
@@ -374,4 +382,25 @@
     <string name="customer_not_found">Customer not found</string>
     <string name="dialog_edit_customer_title">Edit customer</string>
     <string name="customer_updated_confirmation">Saved</string>
+    <string name="customer_last_visit_format">Last: %1$s</string>
+    <string name="customer_detail_progress_format">%1$d / %2$d visits toward reward</string>
+    <string name="empty_state_customer_activity">No visits yet. Tap Log visit.</string>
+    <string name="action_log_visit">Log visit</string>
+    <string name="action_redeem_reward">Redeem</string>
+    <string name="customer_reward_redeemed">Reward recorded</string>
+    <string name="customer_reward_not_ready">Not ready for reward yet</string>
+    <string name="promo_not_tracked_label">Not tracked in this version</string>
+    <string name="dialog_logout_title">Log out?</string>
+    <string name="dialog_logout_message">Choose whether to keep shop data on this device.</string>
+    <string name="action_logout_keep_data">Log out</string>
+    <string name="action_logout_clear_data">Log out and clear data</string>
+    <string name="ai_advisor_insight_no_program_title">Set up loyalty</string>
+    <string name="ai_advisor_insight_no_program_body">Create a visits-to-reward program on the Loyalty screen.</string>
+    <string name="ai_advisor_insight_no_visits_title">Log a visit</string>
+    <string name="ai_advisor_insight_no_visits_body">Record customer visits to track loyalty progress.</string>
+    <string name="ai_advisor_insight_near_reward_title">Customers close to a reward</string>
+    <string name="ai_advisor_insight_near_reward_body">%1$d customers are one visit away from their reward.</string>
+    <string name="loyalty_primary_rule_hint">Primary rule used for visit progress on customers</string>
+    <string name="content_desc_sort_customers">Sort customers</string>
+    <string name="profile_status_mvp">Active account</string>
 </resources>

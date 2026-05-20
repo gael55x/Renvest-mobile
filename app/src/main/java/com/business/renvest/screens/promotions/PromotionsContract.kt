@@ -19,6 +19,7 @@ interface PromotionsContract {
 
     interface Presenter {
         fun onViewReady(context: Context)
+        fun onTabSelected(context: Context, filter: PromoFilter)
         fun onNewPromoClicked(context: Context)
         fun onNewPromotionSubmitted(context: Context, title: String, reward: String, expiry: String)
         fun onPromotionPauseClicked(context: Context, item: PromotionItem)

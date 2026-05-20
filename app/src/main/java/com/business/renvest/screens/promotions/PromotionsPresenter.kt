@@ -13,7 +13,14 @@ class PromotionsPresenter(
     private val scope: CoroutineScope,
 ) : PromotionsContract.Presenter {
 
+    private var filter: PromoFilter = PromoFilter.ALL
+
     override fun onViewReady(context: Context) {
+        bindScreen(context)
+    }
+
+    override fun onTabSelected(context: Context, filter: PromoFilter) {
+        this.filter = filter
         bindScreen(context)
     }
 
@@ -91,7 +98,7 @@ class PromotionsPresenter(
 
     private fun bindScreen(context: Context) {
         scope.launch {
-            val items = withContext(Dispatchers.IO) { model.loadPromotions() }
+            val items = withContext(Dispatchers.IO) { model.loadPromotions(filter) }
             val counts = withContext(Dispatchers.IO) { model.localDataCounts() }
             withContext(Dispatchers.Main) {
                 view.setHeaderBusinessName(model.businessDisplayName(context))

@@ -18,6 +18,6 @@
         android:title="@string/nav_activity" />
     <item
         android:id="@+id/navProfile"
-        android:icon="@drawable/ic_person_24"
+        android:icon="@drawable/ic_store_24"
         android:title="@string/nav_profile" />
 </menu>

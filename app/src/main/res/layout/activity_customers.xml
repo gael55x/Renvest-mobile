@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_xs"
-                android:text="@string/loyalty_screen_title"
+                android:text="@string/feature_customers_title"
                 android:textAppearance="@style/TextAppearance.Renvest.SectionTitle" />
         </LinearLayout>
 
@@ -44,7 +44,7 @@
             android:layout_height="@dimen/header_icon_size"
             android:layout_marginEnd="@dimen/spacing_small"
             android:background="@drawable/bg_circle_surface_stroke"
-            android:contentDescription="@string/content_desc_filter"
+            android:contentDescription="@string/content_desc_sort_customers"
             app:srcCompat="@drawable/ic_filter_list_24" />
 
         <com.google.android.material.button.MaterialButton
@@ -186,10 +186,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <HorizontalScrollView
+                android:id="@+id/scrollCustomersFilters"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_field"
-                android:scrollbars="none">
+                android:scrollbars="none"
+                android:visibility="gone">
 
                 <com.google.android.material.chip.ChipGroup
                     android:layout_width="wrap_content"

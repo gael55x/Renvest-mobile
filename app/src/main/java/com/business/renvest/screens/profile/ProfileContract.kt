@@ -26,6 +26,7 @@ interface ProfileContract {
         fun showToast(message: String)
         fun navigateToLoginClearTask()
         fun navigateToLoyalty()
+        fun showLogoutDialog(onLogoutKeepData: () -> Unit, onLogoutClearData: () -> Unit)
     }
 
     interface Presenter {

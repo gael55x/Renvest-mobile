@@ -5,8 +5,9 @@ import com.business.renvest.screens.activityfeed.ActivityEventRowUi
 
 interface CustomerDetailContract {
     interface View {
-        fun bindCustomer(name: String)
+        fun bindCustomer(name: String, progressLabel: String)
         fun bindActivityRows(items: List<ActivityEventRowUi>)
+        fun setActivityEmptyVisible(visible: Boolean)
         fun showToast(message: String)
         fun showEditNameDialog(currentName: String, onSubmit: (String) -> Unit)
         fun showDeleteConfirm(name: String, onConfirm: () -> Unit)
@@ -15,6 +16,8 @@ interface CustomerDetailContract {
 
     interface Presenter {
         fun onViewReady(context: Context, customerId: String)
+        fun onLogVisitClicked(context: Context, customerId: String)
+        fun onRedeemRewardClicked(context: Context, customerId: String)
         fun onEditClicked(context: Context, customerId: String)
         fun onEditSubmitted(context: Context, customerId: String, rawName: String)
         fun onDeleteClicked(context: Context, customerId: String)

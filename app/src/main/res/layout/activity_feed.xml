@@ -315,6 +315,7 @@
         android:layout_marginEnd="@dimen/padding_screen_horizontal"
         android:layout_marginBottom="80dp"
         android:contentDescription="@string/content_desc_log_event"
+        android:visibility="gone"
         app:backgroundTint="@color/primary"
         app:srcCompat="@drawable/ic_add_24"
         app:tint="@color/on_primary" />

@@ -20,6 +20,9 @@ interface ActivityEventDao {
     @Query("DELETE FROM activity_events WHERE id = :id")
     fun deleteById(id: String): Int
 
+    @Query("DELETE FROM activity_events WHERE customerId = :customerId")
+    fun deleteByCustomerId(customerId: String): Int
+
     @Query("DELETE FROM activity_events")
     fun deleteAll()
 

@@ -2,7 +2,7 @@ package com.business.renvest.screens.dashboard
 
 import android.content.Context
 import com.business.renvest.R
-import com.business.renvest.data.local.LocalDataCounts
+import com.business.renvest.data.local.DashboardStats
 import java.util.Calendar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,23 +20,24 @@ class DashboardPresenter(
         view.setGreeting(context.getString(DashboardModel.greetingStringResForHour(hour)))
         view.setBusinessName(model.businessDisplayName(context))
         scope.launch {
-            val counts = withContext(Dispatchers.IO) { model.localDataCounts() }
+            val stats = withContext(Dispatchers.IO) { model.dashboardStats() }
             withContext(Dispatchers.Main) {
-                view.setupBottomNav(R.id.navHome, counts.activityEvents)
-                view.bindDashboardMetrics(buildBindModel(context, counts))
+                view.setupBottomNav(R.id.navHome, stats.counts.activityEvents)
+                view.bindDashboardMetrics(buildBindModel(context, stats))
             }
         }
     }
 
-    private fun buildBindModel(context: Context, counts: LocalDataCounts): DashboardBindModel {
-        val notRecorded = context.getString(R.string.metric_not_recorded)
-        val emDash = context.getString(R.string.metric_em_dash)
+    private fun buildBindModel(context: Context, stats: DashboardStats): DashboardBindModel {
+        val counts = stats.counts
         val customers = counts.customers.toString()
+        val visitsWeek = context.getString(R.string.dashboard_visits_this_week_format, stats.visitsThisWeek)
+        val nearReward = stats.customersNearReward.toString()
         val (aiTitle, aiBody) = if (counts.totalRows() == 0) {
-            context.getString(R.string.dashboard_local_insights_title) to
-                context.getString(R.string.dashboard_local_insights_empty_body)
+            context.getString(R.string.dashboard_advisor_card_title) to
+                context.getString(R.string.dashboard_advisor_card_empty)
         } else {
-            context.getString(R.string.dashboard_local_insights_title) to
+            context.getString(R.string.dashboard_advisor_card_title) to
                 context.getString(
                     R.string.dashboard_ai_insight_summary_format,
                     counts.customers,
@@ -48,11 +49,11 @@ class DashboardPresenter(
         }
         return DashboardBindModel(
             avatarInitials = model.initialsFromBusiness(context),
-            revenueValue = emDash,
-            revenueSubline = notRecorded,
-            visitsValue = emDash,
+            revenueValue = stats.visitsThisWeek.toString(),
+            revenueSubline = context.getString(R.string.dashboard_hero_visits_week_label),
+            visitsValue = nearReward,
             membersValue = customers,
-            returnValue = notRecorded,
+            returnValue = stats.customersReadyForReward.toString(),
             perfMembers = customers,
             perfMembersTrendVisible = false,
             perfLoyaltyPrograms = counts.loyaltyPrograms.toString(),

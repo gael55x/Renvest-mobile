@@ -22,3 +22,29 @@ val MIGRATION_1_2 = object : Migration(1, 2) {
         )
     }
 }
+
+val MIGRATION_2_3 = object : Migration(2, 3) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            "ALTER TABLE activity_events ADD COLUMN eventType TEXT NOT NULL DEFAULT 'CUSTOM'",
+        )
+        db.execSQL(
+            """
+            UPDATE activity_events SET eventType = 'VISIT'
+            WHERE lower(title) LIKE '%visit%'
+            """.trimIndent(),
+        )
+        db.execSQL(
+            """
+            UPDATE activity_events SET eventType = 'REWARD'
+            WHERE lower(title) LIKE '%reward%'
+            """.trimIndent(),
+        )
+        db.execSQL(
+            """
+            UPDATE activity_events SET eventType = 'POINTS'
+            WHERE lower(title) LIKE '%point%'
+            """.trimIndent(),
+        )
+    }
+}

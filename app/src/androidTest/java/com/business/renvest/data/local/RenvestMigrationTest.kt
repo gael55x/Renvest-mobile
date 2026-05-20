@@ -8,6 +8,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.business.renvest.data.local.migration.MIGRATION_1_2
+import com.business.renvest.data.local.migration.MIGRATION_2_3
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -48,5 +49,19 @@ class RenvestMigrationTest {
             .build()
         db.loyaltyProgramDao().count()
         db.close()
+    }
+
+    @Test
+    fun migrate2To3_addsEventType() {
+        helper.createDatabase(testDb, 2).apply {
+            execSQL(
+                """
+                INSERT INTO activity_events (id, title, subtitle, customerId, createdAt)
+                VALUES ('e1', 'Visit logged', '', NULL, 2)
+                """.trimIndent(),
+            )
+            close()
+        }
+        helper.runMigrationsAndValidate(testDb, 3, true, MIGRATION_2_3)
     }
 }

@@ -503,12 +503,13 @@
                     android:padding="@dimen/grid_3">
 
                     <TextView
+                        android:id="@+id/textviewDashboardAdvisorCta"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_ai_chip"
                         android:paddingHorizontal="@dimen/spacing_field"
                         android:paddingVertical="@dimen/spacing_xs"
-                        android:text="@string/ai_badge"
+                        android:text="@string/dashboard_advisor_view_cta"
                         android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                         android:textColor="@color/on_primary" />
 

@@ -16,15 +16,52 @@ class CustomerDetailPresenter(
     override fun onViewReady(context: Context, customerId: String) {
         scope.launch {
             val customer = withContext(Dispatchers.IO) { model.findCustomer(customerId) }
-            withContext(Dispatchers.Main) {
-                if (customer == null) {
+            if (customer == null) {
+                withContext(Dispatchers.Main) {
                     view.showToast(context.getString(R.string.customer_not_found))
                     view.closeScreen()
-                    return@withContext
                 }
-                view.bindCustomer(customer.displayName)
-                val events = withContext(Dispatchers.IO) { model.loadActivityForCustomer(customerId) }
+                return@launch
+            }
+            val progress = withContext(Dispatchers.IO) { model.visitProgress(customerId) }
+            val events = withContext(Dispatchers.IO) { model.loadActivityForCustomer(customerId) }
+            withContext(Dispatchers.Main) {
+                val progressLabel = context.getString(
+                    R.string.customer_detail_progress_format,
+                    progress.currentVisits,
+                    progress.visitsRequired,
+                )
+                view.bindCustomer(customer.displayName, progressLabel)
                 view.bindActivityRows(events)
+                view.setActivityEmptyVisible(events.isEmpty())
+            }
+        }
+    }
+
+    override fun onLogVisitClicked(context: Context, customerId: String) {
+        scope.launch {
+            val ok = withContext(Dispatchers.IO) { model.logVisit(customerId) }
+            withContext(Dispatchers.Main) {
+                if (ok) {
+                    view.showToast(context.getString(R.string.activity_event_added_confirmation))
+                    onViewReady(context, customerId)
+                } else {
+                    view.showToast(context.getString(R.string.error_field_required))
+                }
+            }
+        }
+    }
+
+    override fun onRedeemRewardClicked(context: Context, customerId: String) {
+        scope.launch {
+            val ok = withContext(Dispatchers.IO) { model.redeemReward(customerId) }
+            withContext(Dispatchers.Main) {
+                if (ok) {
+                    view.showToast(context.getString(R.string.customer_reward_redeemed))
+                    onViewReady(context, customerId)
+                } else {
+                    view.showToast(context.getString(R.string.customer_reward_not_ready))
+                }
             }
         }
     }

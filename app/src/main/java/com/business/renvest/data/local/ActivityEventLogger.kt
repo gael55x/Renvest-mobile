@@ -7,6 +7,7 @@ fun RenvestDatabase.logActivity(
     title: String,
     subtitle: String = "",
     customerId: String? = null,
+    eventType: String = ActivityEventType.SYSTEM,
 ) {
     val now = System.currentTimeMillis()
     activityEventDao().insert(
@@ -15,6 +16,7 @@ fun RenvestDatabase.logActivity(
             title = title,
             subtitle = subtitle,
             customerId = customerId,
+            eventType = eventType,
             createdAt = now,
         ),
     )

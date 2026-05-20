@@ -41,14 +41,14 @@ class ActivityFeedPresenter(
     ) {
         val title = model.resolveTitle(type, customTitle)
         scope.launch {
-            val ok = withContext(Dispatchers.IO) { model.addEvent(title, subtitle, customerId) }
+            val ok = withContext(Dispatchers.IO) { model.addEvent(title, subtitle, customerId, type) }
             withContext(Dispatchers.Main) {
                 if (ok) {
                     model.markOnboardingActivityStep(context)
                     bindScreen(context)
                     view.showToast(context.getString(R.string.activity_event_added_confirmation))
                 } else {
-                    view.showToast(context.getString(R.string.error_field_required))
+                    view.showToast(context.getString(R.string.error_visit_requires_customer))
                 }
             }
         }

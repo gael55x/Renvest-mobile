@@ -36,6 +36,8 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View {
         presenter = ProfilePresenter(this, ProfileModel(authStore(), renvestDb()), lifecycleScope)
         presenter.onViewReady(this)
 
+        findViewById<View>(R.id.rowLoyaltyPointsMode).visibility = View.GONE
+
         findViewById<View>(R.id.buttonProfileOverflow).setOnClickListener {
             presenter.onExportClicked(this)
         }
@@ -216,5 +218,15 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View {
 
     override fun navigateToLoyalty() {
         startActivity(LoyaltyActivity::class.java)
+    }
+
+    override fun showLogoutDialog(onLogoutKeepData: () -> Unit, onLogoutClearData: () -> Unit) {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.dialog_logout_title)
+            .setMessage(R.string.dialog_logout_message)
+            .setNegativeButton(android.R.string.cancel, null)
+            .setNeutralButton(R.string.action_logout_keep_data) { _, _ -> onLogoutKeepData() }
+            .setPositiveButton(R.string.action_logout_clear_data) { _, _ -> onLogoutClearData() }
+            .show()
     }
 }

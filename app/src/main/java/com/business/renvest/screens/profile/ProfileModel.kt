@@ -6,6 +6,8 @@ import com.business.renvest.data.RenvestResult
 import com.business.renvest.data.local.LocalDataCounts
 import com.business.renvest.data.local.LocalDataExporter
 import com.business.renvest.data.local.RenvestDatabase
+import com.business.renvest.data.local.clearAllBusinessData
+import com.business.renvest.data.local.dashboardStats
 import com.business.renvest.data.local.localDataCounts
 import com.business.renvest.data.repository.AuthStore
 import java.io.File
@@ -69,7 +71,13 @@ class ProfileModel(
 
     fun localDataCounts(): LocalDataCounts = db.localDataCounts()
 
+    fun dashboardStats() = db.dashboardStats()
+
     fun clearSession(context: Context): RenvestResult<Unit> = authStore.clearSession(context)
+
+    fun clearBusinessData() {
+        db.clearAllBusinessData()
+    }
 
     fun updateBusinessProfile(
         context: Context,

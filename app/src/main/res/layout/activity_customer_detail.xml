@@ -21,6 +21,39 @@
         android:paddingHorizontal="@dimen/padding_screen_horizontal"
         android:textAppearance="@style/TextAppearance.Renvest.ScreenTitle.Form" />
 
+    <TextView
+        android:id="@+id/textviewCustomerDetailProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/padding_screen_horizontal"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        android:textColor="?attr/colorOnSurfaceVariant" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/padding_screen_horizontal"
+        android:paddingTop="@dimen/spacing_field">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonCustomerLogVisit"
+            style="@style/Widget.Renvest.Button.Primary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_small"
+            android:layout_weight="1"
+            android:text="@string/action_log_visit" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonCustomerRedeem"
+            style="@style/Widget.Renvest.Button.Outlined"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/action_redeem_reward" />
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,6 +86,17 @@
         android:paddingHorizontal="@dimen/padding_screen_horizontal"
         android:text="@string/customer_detail_activity_heading"
         android:textAppearance="@style/TextAppearance.Renvest.SectionTitle" />
+
+    <TextView
+        android:id="@+id/textviewCustomerActivityEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/spacing_field"
+        android:text="@string/empty_state_customer_activity"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerviewCustomerActivity"

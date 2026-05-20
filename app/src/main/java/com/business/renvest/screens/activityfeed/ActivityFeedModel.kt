@@ -2,6 +2,7 @@ package com.business.renvest.screens.activityfeed
 
 import android.content.Context
 import com.business.renvest.R
+import com.business.renvest.data.local.ActivityEventType
 import com.business.renvest.data.local.LocalDataCounts
 import com.business.renvest.data.local.LocalDataExporter
 import com.business.renvest.data.local.RenvestDatabase
@@ -62,17 +63,25 @@ class ActivityFeedModel(
         }
     }
 
-    /** @return false if title is blank after trim */
-    fun addEvent(title: String, subtitle: String, customerId: String?): Boolean {
+    /** @return false if title is blank after trim, or visit without customer */
+    fun addEvent(
+        title: String,
+        subtitle: String,
+        customerId: String?,
+        logType: ActivityLogType,
+    ): Boolean {
         val t = title.trim()
         if (t.isEmpty()) return false
+        val cid = customerId?.takeIf { it.isNotBlank() }
+        if (logType == ActivityLogType.VISIT && cid == null) return false
         val now = System.currentTimeMillis()
         db.activityEventDao().insert(
             ActivityEventEntity(
                 id = UUID.randomUUID().toString(),
                 title = t,
                 subtitle = subtitle.trim(),
-                customerId = customerId?.takeIf { it.isNotBlank() },
+                customerId = cid,
+                eventType = ActivityEventType.fromLogType(logType),
                 createdAt = now,
             ),
         )
@@ -91,11 +100,10 @@ class ActivityFeedModel(
 
     private fun matchesCategory(entity: ActivityEventEntity, category: ActivityFeedCategory): Boolean {
         if (category == ActivityFeedCategory.ALL) return true
-        val haystack = "${entity.title} ${entity.subtitle}".lowercase()
         return when (category) {
-            ActivityFeedCategory.POINTS -> haystack.contains("point")
-            ActivityFeedCategory.REWARD -> haystack.contains("reward")
-            ActivityFeedCategory.VISIT -> haystack.contains("visit")
+            ActivityFeedCategory.POINTS -> entity.eventType == ActivityEventType.POINTS
+            ActivityFeedCategory.REWARD -> entity.eventType == ActivityEventType.REWARD
+            ActivityFeedCategory.VISIT -> ActivityEventType.isVisit(entity.eventType, entity.title)
             ActivityFeedCategory.ALL -> true
         }
     }

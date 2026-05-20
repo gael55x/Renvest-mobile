@@ -36,12 +36,12 @@ class ProfilePresenter(
         )
         scope.launch {
             val counts = withContext(Dispatchers.IO) { model.localDataCounts() }
-            val notRecorded = context.getString(R.string.metric_not_recorded)
+            val stats = withContext(Dispatchers.IO) { model.dashboardStats() }
             withContext(Dispatchers.Main) {
                 view.setupBottomNav(R.id.navProfile, counts.activityEvents)
                 view.bindProfileLiveStats(
                     members = counts.customers.toString(),
-                    returnOrPlaceholder = notRecorded,
+                    returnOrPlaceholder = stats.customersNearReward.toString(),
                     activePromotions = counts.promotionsActive.toString(),
                 )
             }
@@ -49,7 +49,17 @@ class ProfilePresenter(
     }
 
     override fun onLogoutClicked(context: Context) {
+        view.showLogoutDialog(
+            onLogoutKeepData = { performLogout(context, clearData = false) },
+            onLogoutClearData = { performLogout(context, clearData = true) },
+        )
+    }
+
+    private fun performLogout(context: Context, clearData: Boolean) {
         scope.launch {
+            if (clearData) {
+                withContext(Dispatchers.IO) { model.clearBusinessData() }
+            }
             val result = withContext(Dispatchers.IO) { model.clearSession(context) }
             withContext(Dispatchers.Main) {
                 when (result) {

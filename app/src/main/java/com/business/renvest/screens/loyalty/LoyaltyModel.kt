@@ -6,6 +6,7 @@ import com.business.renvest.data.local.RenvestDatabase
 import com.business.renvest.data.local.localDataCounts
 import com.business.renvest.data.local.entity.LoyaltyProgramEntity
 import com.business.renvest.data.local.entity.LoyaltyReminderEntity
+import com.business.renvest.data.local.ActivityEventType
 import com.business.renvest.data.local.logActivity
 import com.business.renvest.data.repository.AuthStore
 import java.util.UUID
@@ -46,7 +47,11 @@ class LoyaltyModel(
                 updatedAt = now,
             ),
         )
-        db.logActivity(title = "Loyalty program created", subtitle = programName)
+        db.logActivity(
+            title = "Loyalty program created",
+            subtitle = programName,
+            eventType = ActivityEventType.SYSTEM,
+        )
         return true
     }
 

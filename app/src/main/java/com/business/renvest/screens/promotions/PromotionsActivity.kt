@@ -16,6 +16,7 @@ import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.toast
 import com.business.renvest.utils.toastComingSoon
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textfield.TextInputEditText
 
 class PromotionsActivity : AppCompatActivity(), PromotionsContract.View {
@@ -34,7 +35,7 @@ class PromotionsActivity : AppCompatActivity(), PromotionsContract.View {
             onItemClick = { presenter.onPromotionEditClicked(this, it) },
             onEditClick = { presenter.onPromotionEditClicked(this, it) },
             onPauseClick = { presenter.onPromotionPauseClicked(this, it) },
-            onDetailsClick = { presenter.onPromotionLongPressed(this, it) },
+            onDetailsClick = { presenter.onPromotionEditClicked(this, it) },
         )
         findViewById<RecyclerView>(R.id.recyclerviewPromotions).apply {
             layoutManager = LinearLayoutManager(this@PromotionsActivity)
@@ -51,6 +52,20 @@ class PromotionsActivity : AppCompatActivity(), PromotionsContract.View {
         findViewById<View>(R.id.buttonNewPromo).setOnClickListener {
             presenter.onNewPromoClicked(this)
         }
+
+        findViewById<TabLayout>(R.id.tabPromoFilter).addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                val f = when (tab?.position) {
+                    1 -> PromoFilter.ACTIVE
+                    2 -> PromoFilter.PAUSED
+                    else -> PromoFilter.ALL
+                }
+                presenter.onTabSelected(this@PromotionsActivity, f)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) = Unit
+            override fun onTabReselected(tab: TabLayout.Tab?) = Unit
+        })
     }
 
     override fun setHeaderBusinessName(text: String) {

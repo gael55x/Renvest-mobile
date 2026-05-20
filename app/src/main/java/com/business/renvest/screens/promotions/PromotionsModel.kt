@@ -5,6 +5,7 @@ import com.business.renvest.R
 import com.business.renvest.data.local.LocalDataCounts
 import com.business.renvest.data.local.RenvestDatabase
 import com.business.renvest.data.local.entity.PromotionEntity
+import com.business.renvest.data.local.ActivityEventType
 import com.business.renvest.data.local.logActivity
 import com.business.renvest.data.local.localDataCounts
 import com.business.renvest.data.repository.AuthStore
@@ -19,8 +20,16 @@ class PromotionsModel(
 
     fun localDataCounts(): LocalDataCounts = db.localDataCounts()
 
-    fun loadPromotions(): List<PromotionItem> =
-        db.promotionDao().listAll().map { it.toPromotionItem() }
+    fun loadPromotions(filter: PromoFilter = PromoFilter.ALL): List<PromotionItem> =
+        db.promotionDao().listAll()
+            .map { it.toPromotionItem() }
+            .filter { item ->
+                when (filter) {
+                    PromoFilter.ALL -> true
+                    PromoFilter.ACTIVE -> item.status == PromotionStatus.Active
+                    PromoFilter.PAUSED -> item.status == PromotionStatus.Paused
+                }
+            }
 
     fun addPromotionMinimal(context: Context, title: String, reward: String, expiry: String): Boolean {
         val t = title.trim()
@@ -35,8 +44,8 @@ class PromotionsModel(
                 title = t,
                 reward = r,
                 expiry = e,
-                enrolledSummary = placeholder,
-                usageSummary = placeholder,
+                enrolledSummary = context.getString(R.string.promo_not_tracked_label),
+                usageSummary = context.getString(R.string.promo_not_tracked_label),
                 progressPercent = 0,
                 status = PromotionStatus.Active.name,
                 useGiftIcon = false,
@@ -44,7 +53,11 @@ class PromotionsModel(
                 updatedAt = now,
             ),
         )
-        db.logActivity(title = "Promotion created", subtitle = t)
+        db.logActivity(
+            title = "Promotion created",
+            subtitle = t,
+            eventType = ActivityEventType.SYSTEM,
+        )
         return true
     }
 
@@ -77,6 +90,7 @@ class PromotionsModel(
             db.logActivity(
                 title = if (next == PromotionStatus.Active) "Promotion resumed" else "Promotion paused",
                 subtitle = db.promotionDao().listAll().find { it.id == id }?.title.orEmpty(),
+                eventType = ActivityEventType.SYSTEM,
             )
         }
         return ok

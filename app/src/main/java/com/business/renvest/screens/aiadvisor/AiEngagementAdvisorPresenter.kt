@@ -19,26 +19,10 @@ class AiEngagementAdvisorPresenter(
         view.setHeaderBusinessName(model.businessDisplayName(context))
         scope.launch {
             val counts = withContext(Dispatchers.IO) { model.localDataCounts() }
+            val insight = withContext(Dispatchers.IO) { model.advisorInsight(context) }
             withContext(Dispatchers.Main) {
                 view.setupNav(R.id.navHome, counts.activityEvents)
-                if (counts.totalRows() == 0) {
-                    view.bindLocalAdvisor(
-                        title = context.getString(R.string.ai_advisor_local_title_not_enough),
-                        body = context.getString(R.string.ai_advisor_local_body_not_enough),
-                    )
-                } else {
-                    view.bindLocalAdvisor(
-                        title = context.getString(R.string.ai_advisor_local_title_summary),
-                        body = context.getString(
-                            R.string.dashboard_ai_insight_summary_format,
-                            counts.customers,
-                            counts.promotions,
-                            counts.loyaltyPrograms,
-                            counts.loyaltyReminders,
-                            counts.activityEvents,
-                        ),
-                    )
-                }
+                view.bindLocalAdvisor(insight.title, insight.body)
             }
         }
     }

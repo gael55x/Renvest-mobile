@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -45,6 +46,12 @@ class CustomerDetailActivity : AppCompatActivity(), CustomerDetailContract.View 
         presenter.onViewReady(this, customerId)
 
         findViewById<MaterialToolbar>(R.id.toolbarCustomerDetail).setNavigationOnClickListener { finish() }
+        findViewById<MaterialButton>(R.id.buttonCustomerLogVisit).setOnClickListener {
+            presenter.onLogVisitClicked(this, customerId)
+        }
+        findViewById<MaterialButton>(R.id.buttonCustomerRedeem).setOnClickListener {
+            presenter.onRedeemRewardClicked(this, customerId)
+        }
         findViewById<MaterialButton>(R.id.buttonCustomerEdit).setOnClickListener {
             presenter.onEditClicked(this, customerId)
         }
@@ -53,13 +60,18 @@ class CustomerDetailActivity : AppCompatActivity(), CustomerDetailContract.View 
         }
     }
 
-    override fun bindCustomer(name: String) {
+    override fun bindCustomer(name: String, progressLabel: String) {
         findViewById<TextView>(R.id.textviewCustomerDetailName).text = name
+        findViewById<TextView>(R.id.textviewCustomerDetailProgress).text = progressLabel
         findViewById<MaterialToolbar>(R.id.toolbarCustomerDetail).title = name
     }
 
     override fun bindActivityRows(items: List<ActivityEventRowUi>) {
         activityAdapter.submitList(items)
+    }
+
+    override fun setActivityEmptyVisible(visible: Boolean) {
+        findViewById<TextView>(R.id.textviewCustomerActivityEmpty).isVisible = visible
     }
 
     override fun showToast(message: String) {

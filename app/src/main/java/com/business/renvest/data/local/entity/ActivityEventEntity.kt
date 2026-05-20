@@ -10,5 +10,7 @@ data class ActivityEventEntity(
     val subtitle: String,
     /** Optional link to [CustomerEntity.id]. */
     val customerId: String?,
+    /** [com.business.renvest.data.local.ActivityEventType] */
+    val eventType: String,
     val createdAt: Long,
 )

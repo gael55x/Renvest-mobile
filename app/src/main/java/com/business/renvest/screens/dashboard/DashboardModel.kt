@@ -3,8 +3,10 @@ package com.business.renvest.screens.dashboard
 import android.content.Context
 import androidx.annotation.StringRes
 import com.business.renvest.R
+import com.business.renvest.data.local.DashboardStats
 import com.business.renvest.data.local.LocalDataCounts
 import com.business.renvest.data.local.RenvestDatabase
+import com.business.renvest.data.local.dashboardStats
 import com.business.renvest.data.local.localDataCounts
 import com.business.renvest.data.repository.AuthStore
 
@@ -16,6 +18,8 @@ class DashboardModel(
     fun businessDisplayName(context: Context): String = authStore.businessDisplayName(context)
 
     fun localDataCounts(): LocalDataCounts = db.localDataCounts()
+
+    fun dashboardStats(): DashboardStats = db.dashboardStats()
 
     fun initialsFromBusiness(context: Context): String {
         val name = businessDisplayName(context)
