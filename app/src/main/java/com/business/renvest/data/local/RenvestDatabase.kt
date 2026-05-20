@@ -48,6 +48,7 @@ abstract class RenvestDatabase : RoomDatabase() {
                     RenvestDatabase::class.java,
                     "renvest.db",
                 )
+                    .createFromAsset("databases/renvest.db")
                     .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
                     .build()
                     .also { instance = it }

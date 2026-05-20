@@ -8,7 +8,6 @@ import com.business.renvest.R
 import com.business.renvest.screens.onboarding.OnboardingActivity
 import com.business.renvest.screens.login.LoginActivity
 import com.business.renvest.utils.authStore
-import com.business.renvest.utils.renvestDb
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.startActivity
 import com.business.renvest.utils.startActivityClearTask
@@ -27,7 +26,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
         super.onCreate(savedInstanceState)
         setupRenvestContent(R.layout.activity_register, R.id.root)
 
-        presenter = RegisterPresenter(this, RegisterModel(authStore(), renvestDb()))
+        presenter = RegisterPresenter(this, RegisterModel(authStore()))
 
         val finishBack: () -> Unit = { finish() }
         val imagebuttonBack = findViewById<ImageButton>(R.id.buttonBack)
