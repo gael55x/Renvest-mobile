@@ -18,8 +18,13 @@ class CustomersModel(
 
     fun localDataCounts(): LocalDataCounts = db.localDataCounts()
 
-    fun loadCustomers(): List<CustomerRowUi> =
-        db.customerDao().listAll().map { CustomerRowUi(id = it.id, displayName = it.displayName) }
+    fun loadCustomers(searchQuery: String, sortAscending: Boolean): List<CustomerRowUi> {
+        val query = searchQuery.trim().lowercase()
+        return db.customerDao().listAll()
+            .map { CustomerRowUi(id = it.id, displayName = it.displayName) }
+            .filter { query.isEmpty() || it.displayName.lowercase().contains(query) }
+            .let { list -> if (sortAscending) list.sortedBy { it.displayName.lowercase() } else list.sortedByDescending { it.displayName.lowercase() } }
+    }
 
     /** @return false if name is blank after trim */
     fun addCustomer(displayName: String): Boolean {

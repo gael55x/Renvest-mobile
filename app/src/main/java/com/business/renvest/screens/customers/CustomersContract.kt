@@ -2,7 +2,6 @@ package com.business.renvest.screens.customers
 
 import android.content.Context
 import androidx.annotation.IdRes
-import com.business.renvest.R
 
 interface CustomersContract {
     interface View {
@@ -14,8 +13,8 @@ interface CustomersContract {
         fun showToast(message: String)
         fun showAddCustomerDialog(onSubmit: (String) -> Unit)
         fun showDeleteCustomerConfirm(displayName: String, onConfirm: () -> Unit)
+        fun showSortDialog(sortAscending: Boolean, onSelected: (Boolean) -> Unit)
         fun navigateToCustomerDetail(customerId: String)
-        fun showComingSoon()
     }
 
     interface Presenter {
@@ -24,6 +23,8 @@ interface CustomersContract {
         fun onAddCustomerSubmitted(context: Context, rawName: String)
         fun onCustomerClicked(context: Context, row: CustomerRowUi)
         fun onCustomerLongPressed(context: Context, row: CustomerRowUi)
-        fun onStubInteraction()
+        fun onSearchQueryChanged(context: Context, query: String)
+        fun onSortClicked(context: Context)
+        fun onSortSelected(context: Context, sortAscending: Boolean)
     }
 }

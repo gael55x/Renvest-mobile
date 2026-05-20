@@ -17,7 +17,7 @@ import com.business.renvest.utils.setupMainBottomNavigation
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.toast
 import com.business.renvest.utils.startActivity
-import com.business.renvest.utils.toastComingSoon
+import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 
@@ -48,8 +48,12 @@ class CustomersActivity : AppCompatActivity(), CustomersContract.View {
         )
         presenter.onViewReady(this)
 
-        val stub = View.OnClickListener { presenter.onStubInteraction() }
-        setClickListeners(stub, R.id.buttonFilter, R.id.textviewSort)
+        findViewById<View>(R.id.buttonFilter).setOnClickListener { presenter.onSortClicked(this) }
+        findViewById<View>(R.id.textviewSort).setOnClickListener { presenter.onSortClicked(this) }
+        findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edittextSearchCustomersInput)
+            .doAfterTextChanged { text ->
+                presenter.onSearchQueryChanged(this, text?.toString().orEmpty())
+            }
         findViewById<View>(R.id.buttonAddCustomer).setOnClickListener {
             presenter.onAddCustomerClicked(this)
         }
@@ -107,7 +111,19 @@ class CustomersActivity : AppCompatActivity(), CustomersContract.View {
         startActivity(CustomerDetailActivity.intent(this, customerId))
     }
 
-    override fun showComingSoon() {
-        toastComingSoon()
+    override fun showSortDialog(sortAscending: Boolean, onSelected: (Boolean) -> Unit) {
+        val options = arrayOf(
+            getString(R.string.customers_sort_name_asc),
+            getString(R.string.customers_sort_name_desc),
+        )
+        val checked = if (sortAscending) 0 else 1
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.customers_sort_title)
+            .setSingleChoiceItems(options, checked) { dialog, which ->
+                onSelected(which == 0)
+                dialog.dismiss()
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 }

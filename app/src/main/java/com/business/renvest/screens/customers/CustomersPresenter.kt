@@ -13,6 +13,9 @@ class CustomersPresenter(
     private val scope: CoroutineScope,
 ) : CustomersContract.Presenter {
 
+    private var searchQuery: String = ""
+    private var sortAscending: Boolean = true
+
     override fun onViewReady(context: Context) {
         bindScreen(context)
     }
@@ -49,14 +52,24 @@ class CustomersPresenter(
         }
     }
 
-    override fun onStubInteraction() {
-        view.showComingSoon()
+    override fun onSearchQueryChanged(context: Context, query: String) {
+        searchQuery = query
+        bindScreen(context)
+    }
+
+    override fun onSortClicked(context: Context) {
+        view.showSortDialog(sortAscending) { onSortSelected(context, it) }
+    }
+
+    override fun onSortSelected(context: Context, sortAscending: Boolean) {
+        this.sortAscending = sortAscending
+        bindScreen(context)
     }
 
     private fun bindScreen(context: Context) {
         scope.launch {
             val counts = withContext(Dispatchers.IO) { model.localDataCounts() }
-            val rows = withContext(Dispatchers.IO) { model.loadCustomers() }
+            val rows = withContext(Dispatchers.IO) { model.loadCustomers(searchQuery, sortAscending) }
             val notRecorded = context.getString(R.string.metric_not_recorded)
             withContext(Dispatchers.Main) {
                 view.setHeaderBusinessName(model.businessDisplayName(context))
