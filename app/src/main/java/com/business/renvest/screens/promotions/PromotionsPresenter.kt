@@ -1,6 +1,7 @@
 package com.business.renvest.screens.promotions
 
 import android.content.Context
+import android.os.Bundle
 import com.business.renvest.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,16 +25,33 @@ class PromotionsPresenter(
         bindScreen(context)
     }
 
+    fun restoreState(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) return
+        filter = PromoFilter.entries[savedInstanceState.getInt(KEY_FILTER, PromoFilter.ALL.ordinal)]
+        view.selectPromoFilter(filter)
+    }
+
+    fun saveState(outState: Bundle) {
+        outState.putInt(KEY_FILTER, filter.ordinal)
+    }
+
     override fun onNewPromoClicked(context: Context) {
-        view.showNewPromotionDialog { title, reward, expiry ->
-            onNewPromotionSubmitted(context, title, reward, expiry)
+        view.showNewPromotionDialog { title, reward, expiry, enrolled, redeemed ->
+            onNewPromotionSubmitted(context, title, reward, expiry, enrolled, redeemed)
         }
     }
 
-    override fun onNewPromotionSubmitted(context: Context, title: String, reward: String, expiry: String) {
+    override fun onNewPromotionSubmitted(
+        context: Context,
+        title: String,
+        reward: String,
+        expiry: String,
+        enrolledCount: Int,
+        redeemedCount: Int,
+    ) {
         scope.launch {
             val ok = withContext(Dispatchers.IO) {
-                model.addPromotionMinimal(context.applicationContext, title, reward, expiry)
+                model.addPromotion(context.applicationContext, title, reward, expiry, enrolledCount, redeemedCount)
             }
             withContext(Dispatchers.Main) {
                 if (ok) {
@@ -58,8 +76,8 @@ class PromotionsPresenter(
     }
 
     override fun onPromotionEditClicked(context: Context, item: PromotionItem) {
-        view.showEditPromotionDialog(item) { title, reward, expiry ->
-            onPromotionEditSubmitted(context, item, title, reward, expiry)
+        view.showEditPromotionDialog(item) { title, reward, expiry, enrolled, redeemed ->
+            onPromotionEditSubmitted(context, item, title, reward, expiry, enrolled, redeemed)
         }
     }
 
@@ -69,15 +87,33 @@ class PromotionsPresenter(
         title: String,
         reward: String,
         expiry: String,
+        enrolledCount: Int,
+        redeemedCount: Int,
     ) {
         scope.launch {
-            val ok = withContext(Dispatchers.IO) { model.updatePromotion(item, title, reward, expiry) }
+            val ok = withContext(Dispatchers.IO) {
+                model.updatePromotion(context.applicationContext, item, title, reward, expiry, enrolledCount, redeemedCount)
+            }
             withContext(Dispatchers.Main) {
                 if (ok) {
                     bindScreen(context)
                     view.showToast(context.getString(R.string.promotion_updated_confirmation))
                 } else {
                     view.showToast(context.getString(R.string.error_field_required))
+                }
+            }
+        }
+    }
+
+    override fun onPromotionRecordRedemptionClicked(context: Context, item: PromotionItem) {
+        scope.launch {
+            val ok = withContext(Dispatchers.IO) { model.recordRedemption(context.applicationContext, item) }
+            withContext(Dispatchers.Main) {
+                if (ok) {
+                    bindScreen(context)
+                    view.showToast(context.getString(R.string.promotion_redemption_recorded))
+                } else {
+                    view.showToast(context.getString(R.string.promotion_redemption_failed))
                 }
             }
         }
@@ -112,5 +148,9 @@ class PromotionsPresenter(
                 view.setPromotionsEmptyVisible(items.isEmpty())
             }
         }
+    }
+
+    companion object {
+        private const val KEY_FILTER = "promo_filter"
     }
 }

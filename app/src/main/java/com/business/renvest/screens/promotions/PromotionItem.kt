@@ -12,6 +12,8 @@ data class PromotionItem(
     val expiry: String,
     val enrolledSummary: String,
     val usageSummary: String,
+    val enrolledCount: Int = 0,
+    val redeemedCount: Int = 0,
     val progressPercent: Int,
     val status: PromotionStatus,
     val useGiftIcon: Boolean,

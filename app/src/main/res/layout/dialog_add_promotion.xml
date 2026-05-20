@@ -64,5 +64,39 @@
                 android:inputType="text"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textinputPromoEnrolled"
+            style="@style/Widget.Renvest.TextInput.Dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_field"
+            android:hint="@string/dialog_promotion_enrolled_hint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edittextPromoEnrolled"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxLines="1"
+                android:text="0" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textinputPromoRedeemed"
+            style="@style/Widget.Renvest.TextInput.Dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_field"
+            android:hint="@string/dialog_promotion_redeemed_hint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edittextPromoRedeemed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxLines="1"
+                android:text="0" />
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 </ScrollView>

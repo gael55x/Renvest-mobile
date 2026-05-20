@@ -18,6 +18,7 @@ class PromotionsAdapter(
     private val onEditClick: (PromotionItem) -> Unit,
     private val onPauseClick: (PromotionItem) -> Unit,
     private val onDetailsClick: (PromotionItem) -> Unit,
+    private val onLongClick: (PromotionItem) -> Unit,
 ) : RecyclerView.Adapter<PromotionsAdapter.PromotionViewHolder>() {
 
     private var items: List<PromotionItem> = emptyList()
@@ -79,7 +80,16 @@ class PromotionsAdapter(
                 imageviewPromoIcon.imageTintList = AppCompatResources.getColorStateList(ctx, R.color.primary)
             }
 
+            val canRedeem = item.enrolledCount > 0 && item.redeemedCount < item.enrolledCount
+            textviewPromoDetails.setText(
+                if (canRedeem) R.string.action_record_redemption else R.string.action_view_details,
+            )
+
             materialcardPromotionRow.setOnClickListener { onItemClick(item) }
+            materialcardPromotionRow.setOnLongClickListener {
+                onLongClick(item)
+                true
+            }
 
             materialbuttonPromoEdit.setOnClickListener {
                 onEditClick(item)

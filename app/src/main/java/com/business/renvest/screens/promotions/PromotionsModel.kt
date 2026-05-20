@@ -1,13 +1,13 @@
 package com.business.renvest.screens.promotions
 
 import android.content.Context
-import com.business.renvest.R
+import com.business.renvest.data.local.ActivityEventType
 import com.business.renvest.data.local.LocalDataCounts
 import com.business.renvest.data.local.RenvestDatabase
 import com.business.renvest.data.local.entity.PromotionEntity
-import com.business.renvest.data.local.ActivityEventType
-import com.business.renvest.data.local.logActivity
 import com.business.renvest.data.local.localDataCounts
+import com.business.renvest.data.local.logActivity
+import com.business.renvest.data.local.withMetrics
 import com.business.renvest.data.repository.AuthStore
 import java.util.UUID
 
@@ -31,28 +31,35 @@ class PromotionsModel(
                 }
             }
 
-    fun addPromotionMinimal(context: Context, title: String, reward: String, expiry: String): Boolean {
+    fun addPromotion(
+        context: Context,
+        title: String,
+        reward: String,
+        expiry: String,
+        enrolledCount: Int,
+        redeemedCount: Int,
+    ): Boolean {
         val t = title.trim()
         val r = reward.trim()
         val e = expiry.trim()
         if (t.isEmpty() || r.isEmpty() || e.isEmpty()) return false
         val now = System.currentTimeMillis()
-        val placeholder = context.getString(R.string.metric_em_dash)
-        db.promotionDao().insert(
-            PromotionEntity(
-                id = UUID.randomUUID().toString(),
-                title = t,
-                reward = r,
-                expiry = e,
-                enrolledSummary = context.getString(R.string.promo_not_tracked_label),
-                usageSummary = context.getString(R.string.promo_not_tracked_label),
-                progressPercent = 0,
-                status = PromotionStatus.Active.name,
-                useGiftIcon = false,
-                createdAt = now,
-                updatedAt = now,
-            ),
-        )
+        val entity = PromotionEntity(
+            id = UUID.randomUUID().toString(),
+            title = t,
+            reward = r,
+            expiry = e,
+            enrolledSummary = "",
+            usageSummary = "",
+            enrolledCount = 0,
+            redeemedCount = 0,
+            progressPercent = 0,
+            status = PromotionStatus.Active.name,
+            useGiftIcon = false,
+            createdAt = now,
+            updatedAt = now,
+        ).withMetrics(enrolledCount, redeemedCount, context)
+        db.promotionDao().insert(entity)
         db.logActivity(
             title = "Promotion created",
             subtitle = t,
@@ -61,20 +68,41 @@ class PromotionsModel(
         return true
     }
 
-    fun updatePromotion(item: PromotionItem, title: String, reward: String, expiry: String): Boolean {
+    fun updatePromotion(
+        context: Context,
+        item: PromotionItem,
+        title: String,
+        reward: String,
+        expiry: String,
+        enrolledCount: Int,
+        redeemedCount: Int,
+    ): Boolean {
         val t = title.trim()
         val r = reward.trim()
         val e = expiry.trim()
         if (t.isEmpty() || r.isEmpty() || e.isEmpty()) return false
         val existing = db.promotionDao().listAll().find { it.id == item.id } ?: return false
         val now = System.currentTimeMillis()
-        db.promotionDao().update(
-            existing.copy(
-                title = t,
-                reward = r,
-                expiry = e,
-                updatedAt = now,
-            ),
+        val updated = existing.copy(
+            title = t,
+            reward = r,
+            expiry = e,
+            updatedAt = now,
+        ).withMetrics(enrolledCount, redeemedCount, context)
+        db.promotionDao().update(updated)
+        return true
+    }
+
+    fun recordRedemption(context: Context, item: PromotionItem): Boolean {
+        val existing = db.promotionDao().listAll().find { it.id == item.id } ?: return false
+        if (existing.enrolledCount <= 0) return false
+        val nextRedeemed = (existing.redeemedCount + 1).coerceAtMost(existing.enrolledCount)
+        val updated = existing.withMetrics(existing.enrolledCount, nextRedeemed, context)
+        db.promotionDao().update(updated)
+        db.logActivity(
+            title = "Promotion redeemed",
+            subtitle = existing.title,
+            eventType = ActivityEventType.SYSTEM,
         )
         return true
     }
@@ -114,6 +142,8 @@ private fun PromotionEntity.toPromotionItem(): PromotionItem {
         expiry = expiry,
         enrolledSummary = enrolledSummary,
         usageSummary = usageSummary,
+        enrolledCount = enrolledCount,
+        redeemedCount = redeemedCount,
         progressPercent = progressPercent,
         status = parsedStatus,
         useGiftIcon = useGiftIcon,
