@@ -1,15 +1,10 @@
 package com.business.renvest.screens.onboarding
 
 import android.content.Context
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class OnboardingPresenter(
     private val view: OnboardingContract.View,
     private val model: OnboardingModel,
-    private val scope: CoroutineScope,
 ) : OnboardingContract.Presenter {
 
     override fun onViewReady(context: Context) {
@@ -33,11 +28,6 @@ class OnboardingPresenter(
     }
 
     private fun refresh(context: Context) {
-        scope.launch {
-            val counts = withContext(Dispatchers.IO) { model.localDataCounts() }
-            withContext(Dispatchers.Main) {
-                view.bindSteps(model.buildSteps(context, counts))
-            }
-        }
+        view.bindSteps(model.buildSteps(context))
     }
 }

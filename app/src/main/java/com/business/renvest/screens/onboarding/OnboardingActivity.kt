@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.business.renvest.R
@@ -20,7 +19,6 @@ import com.business.renvest.screens.dashboard.DashboardActivity
 import com.business.renvest.screens.loyalty.LoyaltyActivity
 import com.business.renvest.screens.promotions.PromotionsActivity
 import com.business.renvest.utils.authStore
-import com.business.renvest.utils.renvestDb
 import com.business.renvest.utils.setupRenvestContent
 import com.business.renvest.utils.startActivity
 import com.business.renvest.utils.startActivityClearTask
@@ -51,7 +49,7 @@ class OnboardingActivity : AppCompatActivity(), OnboardingContract.View {
             itemAnimator = null
         }
 
-        presenter = OnboardingPresenter(this, OnboardingModel(authStore(), renvestDb()), lifecycleScope)
+        presenter = OnboardingPresenter(this, OnboardingModel(authStore()))
         presenter.onViewReady(this)
 
         findViewById<MaterialButton>(R.id.buttonOnboardingFinish).setOnClickListener {
