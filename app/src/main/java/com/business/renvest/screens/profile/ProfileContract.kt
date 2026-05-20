@@ -8,6 +8,7 @@ interface ProfileContract {
     interface View {
         fun setupBottomNav(@IdRes selectedItemId: Int, activityBadgeCount: Int)
         fun bindProfile(businessName: String, initials: String, emailDisplay: String, ownerLine: String)
+        fun bindBusinessSettings(businessType: String, location: String)
         fun bindProfileLiveStats(members: String, returnOrPlaceholder: String, activePromotions: String)
         fun bindLoyaltySettings(thresholdLabel: String, pointsModeLabel: String)
         fun showLoyaltyThresholdDialog(currentPoints: Int, onSubmit: (String) -> Unit)
@@ -35,6 +36,8 @@ interface ProfileContract {
         fun onLoyaltyThresholdSubmitted(context: Context, rawPoints: String)
         fun onLoyaltyPointsModeClicked(context: Context)
         fun onLoyaltyPointsModeSelected(context: Context, mode: String)
-        fun onSettingsStubClicked()
+        fun onBusinessTypeClicked(context: Context)
+        fun onLocationClicked(context: Context)
+        fun onEmailClicked(context: Context)
     }
 }

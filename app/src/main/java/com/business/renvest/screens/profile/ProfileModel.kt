@@ -23,6 +23,16 @@ class ProfileModel(
 
     fun getBusinessLocation(context: Context): String = authStore.getBusinessLocation(context)
 
+    fun businessTypeDisplay(context: Context): String {
+        val value = getBusinessType(context).trim()
+        return value.ifEmpty { context.getString(R.string.profile_value_not_set) }
+    }
+
+    fun businessLocationDisplay(context: Context): String {
+        val value = getBusinessLocation(context).trim()
+        return value.ifEmpty { context.getString(R.string.profile_value_not_set) }
+    }
+
     fun getLoyaltyRewardThreshold(context: Context): Int = authStore.getLoyaltyRewardThreshold(context)
 
     fun getLoyaltyPointsMode(context: Context): String = authStore.getLoyaltyPointsMode(context)

@@ -26,6 +26,10 @@ class ProfilePresenter(
         val owner = model.getOwnerName(context).trim()
         val ownerLine = if (owner.isNotEmpty()) owner else ""
         view.bindProfile(business, model.initialsFromName(business), emailDisplay, ownerLine)
+        view.bindBusinessSettings(
+            businessType = model.businessTypeDisplay(context),
+            location = model.businessLocationDisplay(context),
+        )
         view.bindLoyaltySettings(
             thresholdLabel = model.loyaltyThresholdDisplay(context),
             pointsModeLabel = model.loyaltyPointsModeDisplay(context),
@@ -145,8 +149,21 @@ class ProfilePresenter(
         }
     }
 
-    override fun onSettingsStubClicked() {
-        view.showComingSoon()
+    override fun onBusinessTypeClicked(context: Context) {
+        onEditBusinessClicked(context)
+    }
+
+    override fun onLocationClicked(context: Context) {
+        onEditBusinessClicked(context)
+    }
+
+    override fun onEmailClicked(context: Context) {
+        val email = model.getEmail(context).trim()
+        if (email.isEmpty()) {
+            view.showToast(context.getString(R.string.profile_email_empty))
+        } else {
+            view.showToast(context.getString(R.string.profile_email_readonly_format, email))
+        }
     }
 
     private fun modeLabel(context: Context, mode: String): String = when (mode) {

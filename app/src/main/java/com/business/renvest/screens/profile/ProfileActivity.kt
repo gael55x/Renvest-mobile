@@ -51,13 +51,15 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View {
             presenter.onLoyaltyPointsModeClicked(this)
         }
 
-        val stub = View.OnClickListener { presenter.onSettingsStubClicked() }
-        setClickListeners(
-            stub,
-            R.id.rowSettingsBusinessType,
-            R.id.rowSettingsEmail,
-            R.id.rowSettingsLocation,
-        )
+        findViewById<View>(R.id.rowSettingsBusinessType).setOnClickListener {
+            presenter.onBusinessTypeClicked(this)
+        }
+        findViewById<View>(R.id.rowSettingsLocation).setOnClickListener {
+            presenter.onLocationClicked(this)
+        }
+        findViewById<View>(R.id.rowSettingsEmail).setOnClickListener {
+            presenter.onEmailClicked(this)
+        }
 
         findViewById<MaterialButton>(R.id.buttonLogout).setOnClickListener {
             presenter.onLogoutClicked(this)
@@ -81,6 +83,11 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View {
         } else {
             subtitle.visibility = View.GONE
         }
+    }
+
+    override fun bindBusinessSettings(businessType: String, location: String) {
+        setTextViewText(R.id.textviewProfileRowBusinessTypeValue, businessType)
+        setTextViewText(R.id.textviewProfileRowLocationValue, location)
     }
 
     override fun bindProfileLiveStats(members: String, returnOrPlaceholder: String, activePromotions: String) {

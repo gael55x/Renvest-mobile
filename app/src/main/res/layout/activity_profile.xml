@@ -383,12 +383,14 @@
                                 android:textAppearance="@style/TextAppearance.Renvest.Caption" />
 
                             <TextView
+                                android:id="@+id/textviewProfileRowBusinessTypeValue"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="@string/profile_settings_business_type_value"
+                                android:text="@string/profile_value_not_set"
                                 android:textAppearance="@style/TextAppearance.Renvest.SectionTitle"
-                                android:textSize="15sp" />
+                                android:textSize="15sp"
+                                tools:text="Cafe" />
                         </LinearLayout>
 
                         <ImageView
@@ -504,12 +506,14 @@
                                 android:textAppearance="@style/TextAppearance.Renvest.Caption" />
 
                             <TextView
+                                android:id="@+id/textviewProfileRowLocationValue"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="@string/profile_settings_location_value"
+                                android:text="@string/profile_value_not_set"
                                 android:textAppearance="@style/TextAppearance.Renvest.SectionTitle"
-                                android:textSize="15sp" />
+                                android:textSize="15sp"
+                                tools:text="Manila" />
                         </LinearLayout>
 
                         <ImageView
