@@ -15,6 +15,7 @@ interface ProfileContract {
         fun showLoyaltyPointsModeDialog(checkedIndex: Int, options: Array<String>, onSelected: (Int) -> Unit)
         fun showLocalDataDisclaimer()
         fun showEditBusinessDialog(
+            field: BusinessEditField,
             businessName: String,
             businessType: String,
             location: String,
@@ -31,6 +32,7 @@ interface ProfileContract {
         fun onLogoutClicked(context: Context)
         fun onExportClicked(context: Context)
         fun onEditBusinessClicked(context: Context)
+        fun onBusinessNameClicked(context: Context)
         fun onEditBusinessSubmitted(context: Context, name: String, type: String, location: String)
         fun onLoyaltyThresholdClicked(context: Context)
         fun onLoyaltyThresholdSubmitted(context: Context, rawPoints: String)

@@ -15,7 +15,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/padding_screen_horizontal"
-        android:paddingTop="@dimen/padding_screen_vertical"
         android:paddingBottom="@dimen/padding_screen_vertical">
 
         <LinearLayout
@@ -23,7 +22,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingVertical="@dimen/spacing_small">
+            android:paddingTop="@dimen/padding_screen_vertical"
+            android:paddingBottom="@dimen/spacing_small">
 
             <ImageButton
                 android:id="@+id/buttonBack"
@@ -44,171 +44,150 @@
                 android:textColor="@color/text_primary" />
         </LinearLayout>
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
-            android:text="@string/register_headline"
-            android:textAppearance="@style/TextAppearance.Renvest.ScreenTitle.Form" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
-            android:text="@string/register_subtitle_long"
-            android:textAppearance="@style/TextAppearance.Renvest.Body" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_section"
-            android:labelFor="@id/edittextBusiness"
-            android:text="@string/label_business_name"
-            android:textAppearance="@style/TextAppearance.Renvest.Label" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textinputBusinessLayout"
-            style="@style/Widget.Renvest.TextInput.Outlined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xs"
-            app:placeholderText="@string/hint_business_name"
-            app:startIconDrawable="@drawable/ic_store_24">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edittextBusiness"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text|textCapWords"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_field"
-            android:labelFor="@id/edittextOwner"
-            android:text="@string/label_owner_name"
-            android:textAppearance="@style/TextAppearance.Renvest.Label" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textinputOwnerLayout"
-            style="@style/Widget.Renvest.TextInput.Outlined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xs"
-            app:placeholderText="@string/hint_owner_name"
-            app:startIconDrawable="@drawable/ic_person_24">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edittextOwner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName|textCapWords"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_field"
-            android:labelFor="@id/edittextEmail"
-            android:text="@string/label_email"
-            android:textAppearance="@style/TextAppearance.Renvest.Label" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textinputEmailLayout"
-            style="@style/Widget.Renvest.TextInput.Outlined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xs"
-            app:placeholderText="@string/hint_email"
-            app:startIconDrawable="@drawable/ic_mail_24">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edittextEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                tools:ignore="TextContrastCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_field"
-            android:labelFor="@id/edittextPassword"
-            android:text="@string/label_password"
-            android:textAppearance="@style/TextAppearance.Renvest.Label" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textinputPasswordLayout"
-            style="@style/Widget.Renvest.TextInput.Outlined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xs"
-            app:endIconMode="password_toggle"
-            app:placeholderText="@string/hint_password"
-            app:startIconDrawable="@drawable/ic_lock_24">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edittextPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_field"
-            android:labelFor="@id/edittextConfirmPassword"
-            android:text="@string/label_confirm_password"
-            android:textAppearance="@style/TextAppearance.Renvest.Label" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textinputConfirmPasswordLayout"
-            style="@style/Widget.Renvest.TextInput.Outlined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xs"
-            app:endIconMode="password_toggle"
-            app:placeholderText="@string/hint_confirm_password"
-            app:startIconDrawable="@drawable/ic_shield_24">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edittextConfirmPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonRegister"
-            style="@style/Widget.Renvest.Button.Primary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_section"
-            android:text="@string/action_create_account" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonGoLogin"
-            style="@style/Widget.Renvest.Button.Text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
-            android:text="@string/link_already_login"
-            app:rippleColor="?attr/colorPrimary" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_section"
             android:gravity="center_horizontal"
-            android:text="@string/terms_footer"
-            android:textAppearance="@style/TextAppearance.Renvest.Caption" />
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/register_headline"
+                android:textAppearance="@style/TextAppearance.Renvest.ScreenTitle.Form" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textinputBusinessLayout"
+                style="@style/Widget.Renvest.TextInput.Login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_section"
+                android:minHeight="@dimen/login_field_min_height"
+                app:startIconDrawable="@drawable/ic_store_24">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edittextBusiness"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:hint="@string/label_business_name"
+                    android:inputType="text|textCapWords"
+                    android:maxLines="1"
+                    android:minHeight="@dimen/login_field_min_height"
+                    android:textColorHint="@color/text_secondary" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textinputOwnerLayout"
+                style="@style/Widget.Renvest.TextInput.Login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_field"
+                android:minHeight="@dimen/login_field_min_height"
+                app:startIconDrawable="@drawable/ic_person_24">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edittextOwner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:hint="@string/label_owner_name"
+                    android:inputType="textPersonName|textCapWords"
+                    android:maxLines="1"
+                    android:minHeight="@dimen/login_field_min_height"
+                    android:textColorHint="@color/text_secondary" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textinputEmailLayout"
+                style="@style/Widget.Renvest.TextInput.Login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_field"
+                android:minHeight="@dimen/login_field_min_height"
+                app:startIconDrawable="@drawable/ic_mail_24">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edittextEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:hint="@string/label_email"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:minHeight="@dimen/login_field_min_height"
+                    android:textColorHint="@color/text_secondary"
+                    tools:ignore="TextContrastCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textinputPasswordLayout"
+                style="@style/Widget.Renvest.TextInput.Login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_field"
+                android:minHeight="@dimen/login_field_min_height"
+                app:endIconMode="password_toggle"
+                app:startIconDrawable="@drawable/ic_lock_24">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edittextPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:hint="@string/login_hint_password"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:minHeight="@dimen/login_field_min_height"
+                    android:textColorHint="@color/text_secondary" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textinputConfirmPasswordLayout"
+                style="@style/Widget.Renvest.TextInput.Login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_field"
+                android:minHeight="@dimen/login_field_min_height"
+                app:endIconMode="password_toggle"
+                app:startIconDrawable="@drawable/ic_shield_24">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edittextConfirmPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:hint="@string/register_hint_confirm_password"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:minHeight="@dimen/login_field_min_height"
+                    android:textColorHint="@color/text_secondary" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonRegister"
+                style="@style/Widget.Renvest.Button.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_section"
+                android:text="@string/action_create_account" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonGoLogin"
+                style="@style/Widget.Renvest.Button.Text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:text="@string/link_already_login"
+                app:rippleColor="?attr/colorPrimary" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_section"
+                android:gravity="center_horizontal"
+                android:text="@string/terms_footer"
+                android:textAppearance="@style/TextAppearance.Renvest.Caption" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

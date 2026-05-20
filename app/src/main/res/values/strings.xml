@@ -5,6 +5,9 @@
 
     <string name="label_email">Email</string>
     <string name="label_password">Passcode</string>
+    <string name="login_hint_username">Username</string>
+    <string name="login_hint_password">Password</string>
+    <string name="register_hint_confirm_password">Confirm password</string>
     <string name="label_business_name">Business name</string>
     <string name="label_owner_name">Owner name</string>
     <string name="label_confirm_password">Confirm passcode</string>
@@ -27,7 +30,6 @@
     <string name="back">Back</string>
 
     <string name="register_headline">Set up your business</string>
-    <string name="register_subtitle_long">Saved on this device only</string>
     <string name="terms_footer">By signing up you agree to our terms.</string>
 
     <string name="metric_not_recorded">—</string>
@@ -38,7 +40,7 @@
     <string name="dashboard_local_insights_title">Summary</string>
     <string name="dashboard_local_insights_empty_body">Add data to see counts.</string>
     <string name="local_insights_section_title">Summary</string>
-    <string name="local_insights_badge">LOCAL</string>
+    <string name="local_insights_badge">RENVEST AI</string>
     <string name="local_insights_screen_title">Summary</string>
     <string name="perf_loyalty_programs_label">Programs</string>
     <string name="perf_activity_label">Activity</string>
@@ -97,8 +99,6 @@
     <string name="feature_loyalty_title">Loyalty programs</string>
     <string name="promo_hero_customers_label">Customers saved</string>
     <string name="promo_hero_activity_label">Activity items</string>
-
-    <string name="customer_row_saved_locally">Local</string>
 
     <string name="empty_state_customers">No customers. Tap Add.</string>
     <string name="empty_state_activity_feed">No activity yet. Tap + to log one.</string>
@@ -256,11 +256,10 @@
     <string name="profile_email_empty">No email on file</string>
 
     <string name="ai_advisor_screen_title">AI Engagement Advisor</string>
-    <string name="ai_advisor_updated_local">Based on local data on this device</string>
+    <string name="ai_advisor_updated_local">Updated just now</string>
     <string name="ai_advisor_local_title_not_enough">No data yet</string>
     <string name="ai_advisor_local_body_not_enough">Add customers, promos, or activity first.</string>
     <string name="ai_advisor_local_title_summary">Counts</string>
-    <string name="ai_advisor_local_disclaimer">From data on this device only.</string>
     <string name="ai_advisor_updated">Updated just now</string>
     <string name="ai_advisor_engagement_label">ENGAGEMENT SCORE</string>
     <string name="ai_advisor_score_value">74</string>
@@ -318,6 +317,9 @@
     <string name="dialog_delete_promotion_message">Remove “%1$s”? This cannot be undone.</string>
 
     <string name="dialog_edit_business_title">Edit business</string>
+    <string name="dialog_edit_business_name_title">Business name</string>
+    <string name="dialog_edit_business_type_title">Business type</string>
+    <string name="dialog_edit_business_location_title">Business location</string>
     <string name="profile_business_updated">Saved</string>
     <string name="export_saved_format">Exported %1$s</string>
 

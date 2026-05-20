@@ -12,88 +12,101 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/padding_screen_horizontal"
-        android:paddingTop="@dimen/grid_4"
-        android:paddingBottom="@dimen/padding_screen_vertical">
+        android:paddingVertical="@dimen/padding_screen_vertical">
 
-        <FrameLayout
-            android:layout_width="@dimen/logo_size"
-            android:layout_height="@dimen/logo_size"
-            android:background="@drawable/bg_logo_rounded">
-
-            <ImageView
-                android:layout_width="@dimen/grid_4"
-                android:layout_height="@dimen/grid_4"
-                android:layout_gravity="center"
-                android:contentDescription="@string/app_name"
-                app:srcCompat="@drawable/ic_renvest_mark"
-                tools:ignore="ImageContrastCheck" />
-        </FrameLayout>
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_section"
             android:gravity="center_horizontal"
-            android:text="@string/app_name"
-            android:textAppearance="@style/TextAppearance.Renvest.Display" />
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/spacing_section">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textinputEmailLayout"
-            style="@style/Widget.Renvest.TextInput.Outlined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_section"
-            android:hint="@string/label_email"
-            app:placeholderText="@string/hint_email"
-            app:startIconDrawable="@drawable/ic_mail_24">
+            <FrameLayout
+                android:layout_width="@dimen/logo_size"
+                android:layout_height="@dimen/logo_size"
+                android:background="@drawable/bg_logo_rounded">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edittextEmail"
+                <ImageView
+                    android:layout_width="@dimen/grid_4"
+                    android:layout_height="@dimen/grid_4"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/app_name"
+                    app:srcCompat="@drawable/ic_renvest_mark"
+                    tools:ignore="ImageContrastCheck" />
+            </FrameLayout>
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                tools:ignore="TextContrastCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="@dimen/spacing_section"
+                android:gravity="center_horizontal"
+                android:text="@string/app_name"
+                android:textAppearance="@style/TextAppearance.Renvest.Display" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textinputPasswordLayout"
-            style="@style/Widget.Renvest.TextInput.Outlined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_field"
-            android:hint="@string/label_password"
-            app:placeholderText="@string/hint_password"
-            app:endIconMode="password_toggle"
-            app:startIconDrawable="@drawable/ic_lock_24">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edittextPassword"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textinputEmailLayout"
+                style="@style/Widget.Renvest.TextInput.Login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="@dimen/spacing_section"
+                android:minHeight="@dimen/login_field_min_height"
+                app:startIconDrawable="@drawable/ic_mail_24">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonLogin"
-            style="@style/Widget.Renvest.Button.Primary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_section"
-            android:text="@string/action_login" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edittextEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:hint="@string/login_hint_username"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:minHeight="@dimen/login_field_min_height"
+                    android:textColorHint="@color/text_secondary"
+                    tools:ignore="TextContrastCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonGoRegister"
-            style="@style/Widget.Renvest.Button.Text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
-            android:text="@string/link_register"
-            app:rippleColor="?attr/colorPrimary" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textinputPasswordLayout"
+                style="@style/Widget.Renvest.TextInput.Login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_field"
+                android:minHeight="@dimen/login_field_min_height"
+                app:endIconMode="password_toggle"
+                app:startIconDrawable="@drawable/ic_lock_24">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edittextPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:hint="@string/login_hint_password"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:minHeight="@dimen/login_field_min_height"
+                    android:textColorHint="@color/text_secondary" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonLogin"
+                style="@style/Widget.Renvest.Button.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_section"
+                android:text="@string/action_login" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonGoRegister"
+                style="@style/Widget.Renvest.Button.Text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:text="@string/link_register"
+                app:rippleColor="?attr/colorPrimary" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

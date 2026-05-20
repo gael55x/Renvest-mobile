@@ -508,7 +508,7 @@
                         android:background="@drawable/bg_ai_chip"
                         android:paddingHorizontal="@dimen/spacing_field"
                         android:paddingVertical="@dimen/spacing_xs"
-                        android:text="@string/local_insights_badge"
+                        android:text="@string/ai_badge"
                         android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                         android:textColor="@color/on_primary" />
 

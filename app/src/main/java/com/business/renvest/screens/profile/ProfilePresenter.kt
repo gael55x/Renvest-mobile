@@ -71,13 +71,11 @@ class ProfilePresenter(
     }
 
     override fun onEditBusinessClicked(context: Context) {
-        view.showEditBusinessDialog(
-            businessName = model.businessDisplayName(context),
-            businessType = model.getBusinessType(context),
-            location = model.getBusinessLocation(context),
-        ) { name, type, location ->
-            onEditBusinessSubmitted(context, name, type, location)
-        }
+        openBusinessEditDialog(context, BusinessEditField.ALL)
+    }
+
+    override fun onBusinessNameClicked(context: Context) {
+        openBusinessEditDialog(context, BusinessEditField.NAME)
     }
 
     override fun onEditBusinessSubmitted(context: Context, name: String, type: String, location: String) {
@@ -150,11 +148,22 @@ class ProfilePresenter(
     }
 
     override fun onBusinessTypeClicked(context: Context) {
-        onEditBusinessClicked(context)
+        openBusinessEditDialog(context, BusinessEditField.TYPE)
     }
 
     override fun onLocationClicked(context: Context) {
-        onEditBusinessClicked(context)
+        openBusinessEditDialog(context, BusinessEditField.LOCATION)
+    }
+
+    private fun openBusinessEditDialog(context: Context, field: BusinessEditField) {
+        view.showEditBusinessDialog(
+            field = field,
+            businessName = model.businessDisplayName(context),
+            businessType = model.getBusinessType(context),
+            location = model.getBusinessLocation(context),
+        ) { name, type, location ->
+            onEditBusinessSubmitted(context, name, type, location)
+        }
     }
 
     override fun onEmailClicked(context: Context) {

@@ -18,6 +18,7 @@
     <dimen name="metric_row_padding">16dp</dimen>
 
     <dimen name="logo_size">56dp</dimen>
+    <dimen name="login_field_min_height">56dp</dimen>
     <dimen name="avatar_size">40dp</dimen>
     <dimen name="header_icon_size">40dp</dimen>
 

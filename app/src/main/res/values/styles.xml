@@ -64,6 +64,11 @@
     <!-- Alias for dialog layouts (same as Outlined; hints enabled) -->
     <style name="Widget.Renvest.TextInput.Dialog" parent="Widget.Renvest.TextInput.Outlined" />
 
+    <!-- Login: in-field hints on EditText (no floating label) -->
+    <style name="Widget.Renvest.TextInput.Login" parent="Widget.Renvest.TextInput.Outlined">
+        <item name="hintEnabled">false</item>
+    </style>
+
     <style name="Widget.Renvest.DashboardMetricCard" parent="Widget.Material3.CardView.Outlined">
         <item name="cardBackgroundColor">?attr/colorSurface</item>
         <item name="cardCornerRadius">@dimen/card_corner</item>

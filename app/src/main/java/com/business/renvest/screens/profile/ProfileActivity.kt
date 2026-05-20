@@ -41,7 +41,7 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View {
             presenter.onEditBusinessClicked(this)
         }
         findViewById<View>(R.id.rowSettingsBusinessName).setOnClickListener {
-            presenter.onEditBusinessClicked(this)
+            presenter.onBusinessNameClicked(this)
         }
 
         findViewById<View>(R.id.rowLoyaltyThreshold).setOnClickListener {
@@ -135,17 +135,44 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View {
     override fun showLocalDataDisclaimer() = Unit
 
     override fun showEditBusinessDialog(
+        field: BusinessEditField,
         businessName: String,
         businessType: String,
         location: String,
         onSubmit: (String, String, String) -> Unit,
     ) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_edit_business, null, false)
+        val nameLayout = dialogView.findViewById<View>(R.id.textinputBusinessName)
+        val typeLayout = dialogView.findViewById<View>(R.id.textinputBusinessType)
+        val locationLayout = dialogView.findViewById<View>(R.id.textinputBusinessLocation)
         dialogView.findViewById<TextInputEditText>(R.id.edittextBusinessName).setText(businessName)
         dialogView.findViewById<TextInputEditText>(R.id.edittextBusinessType).setText(businessType)
         dialogView.findViewById<TextInputEditText>(R.id.edittextBusinessLocation).setText(location)
+
+        val titleRes = when (field) {
+            BusinessEditField.NAME -> R.string.dialog_edit_business_name_title
+            BusinessEditField.TYPE -> R.string.dialog_edit_business_type_title
+            BusinessEditField.LOCATION -> R.string.dialog_edit_business_location_title
+            BusinessEditField.ALL -> R.string.dialog_edit_business_title
+        }
+        when (field) {
+            BusinessEditField.NAME -> {
+                typeLayout.visibility = View.GONE
+                locationLayout.visibility = View.GONE
+            }
+            BusinessEditField.TYPE -> {
+                nameLayout.visibility = View.GONE
+                locationLayout.visibility = View.GONE
+            }
+            BusinessEditField.LOCATION -> {
+                nameLayout.visibility = View.GONE
+                typeLayout.visibility = View.GONE
+            }
+            BusinessEditField.ALL -> Unit
+        }
+
         MaterialAlertDialogBuilder(this)
-            .setTitle(R.string.dialog_edit_business_title)
+            .setTitle(titleRes)
             .setView(dialogView)
             .setNegativeButton(android.R.string.cancel, null)
             .setPositiveButton(R.string.action_save) { _, _ ->
