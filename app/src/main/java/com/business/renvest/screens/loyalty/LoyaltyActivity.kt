@@ -12,10 +12,10 @@ import com.business.renvest.utils.authStore
 import com.business.renvest.utils.renvestDb
 import com.business.renvest.utils.setupMainBottomNavigation
 import com.business.renvest.utils.setupRenvestContent
+import com.business.renvest.utils.showValidatedFormDialog
 import com.business.renvest.utils.toast
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 
 class LoyaltyActivity : AppCompatActivity(), LoyaltyContract.View {
 
@@ -90,34 +90,34 @@ class LoyaltyActivity : AppCompatActivity(), LoyaltyContract.View {
 
     override fun showAddProgramDialog(onSubmit: (String, Int, String) -> Unit) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_add_loyalty_program, null, false)
-        val nameField = dialogView.findViewById<TextInputEditText>(R.id.edittextProgramName)
-        val visitsField = dialogView.findViewById<TextInputEditText>(R.id.edittextProgramVisits)
-        val rewardField = dialogView.findViewById<TextInputEditText>(R.id.edittextProgramReward)
-        MaterialAlertDialogBuilder(this)
-            .setTitle(R.string.dialog_add_loyalty_program_title)
-            .setView(dialogView)
-            .setNegativeButton(android.R.string.cancel, null)
-            .setPositiveButton(R.string.action_save) { _, _ ->
-                val visits = visitsField.text?.toString()?.toIntOrNull() ?: 0
-                onSubmit(
-                    nameField.text?.toString().orEmpty(),
-                    visits,
-                    rewardField.text?.toString().orEmpty(),
-                )
-            }
-            .show()
+        val nameLayout = dialogView.findViewById<TextInputLayout>(R.id.textinputProgramName)
+        val visitsLayout = dialogView.findViewById<TextInputLayout>(R.id.textinputProgramVisits)
+        val rewardLayout = dialogView.findViewById<TextInputLayout>(R.id.textinputProgramReward)
+        showValidatedFormDialog(
+            titleRes = R.string.dialog_add_loyalty_program_title,
+            dialogView = dialogView,
+            nameLayout,
+            visitsLayout,
+            rewardLayout,
+        ) {
+            val visits = visitsLayout.editText?.text?.toString()?.toIntOrNull() ?: 0
+            onSubmit(
+                nameLayout.editText?.text?.toString().orEmpty(),
+                visits,
+                rewardLayout.editText?.text?.toString().orEmpty(),
+            )
+        }
     }
 
     override fun showAddReminderDialog(onSubmit: (String) -> Unit) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_add_loyalty_reminder, null, false)
-        val titleField = dialogView.findViewById<TextInputEditText>(R.id.edittextReminderTitle)
-        MaterialAlertDialogBuilder(this)
-            .setTitle(R.string.dialog_add_loyalty_reminder_title)
-            .setView(dialogView)
-            .setNegativeButton(android.R.string.cancel, null)
-            .setPositiveButton(R.string.action_save) { _, _ ->
-                onSubmit(titleField.text?.toString().orEmpty())
-            }
-            .show()
+        val titleLayout = dialogView.findViewById<TextInputLayout>(R.id.textinputReminderTitle)
+        showValidatedFormDialog(
+            titleRes = R.string.dialog_add_loyalty_reminder_title,
+            dialogView = dialogView,
+            titleLayout,
+        ) {
+            onSubmit(titleLayout.editText?.text?.toString().orEmpty())
+        }
     }
 }
